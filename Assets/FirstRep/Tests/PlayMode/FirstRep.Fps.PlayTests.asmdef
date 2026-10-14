@@ -3,7 +3,8 @@
   "references": [
     "FirstRep.Fps",
     "EjoyFramework.Core",
-    "EjoyFramework.Core.Unity"
+    "EjoyFramework.Core.Unity",
+    "UnityEngine.UI"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

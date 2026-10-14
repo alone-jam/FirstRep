@@ -4,6 +4,8 @@ using System.IO;
 using EjoyFramework.Core.Unity.Editor.Resource;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using EjoyFramework.Core.Unity;
 using Object=UnityEngine.Object;
 namespace FirstRep.Fps.Editor
 {
@@ -50,7 +52,39 @@ namespace FirstRep.Fps.Editor
         static void SaveUI<T>(string path) where T:Component
         {
             var form=new GameObject(typeof(T).Name,typeof(RectTransform));
-            try{form.AddComponent<T>();PrefabUtility.SaveAsPrefabAsset(form,path);}finally{Object.DestroyImmediate(form);}
+            try
+            {
+                form.AddComponent<T>();
+                if(typeof(T)==typeof(FpsHudForm))
+                {
+                    TextField(form.transform,"Header","Header",new Vector2(0,1),new Vector2(20,-20),new Vector2(1000,36),TextAnchor.UpperLeft);
+                    TextField(form.transform,"Instructions","Instructions",new Vector2(0,0),new Vector2(20,40),new Vector2(1200,36),TextAnchor.LowerLeft);
+                    TextField(form.transform,"Crosshair","Crosshair",new Vector2(.5f,.5f),Vector2.zero,new Vector2(32,32),TextAnchor.MiddleCenter);
+                }
+                else if(typeof(T)==typeof(FpsPauseForm))
+                {
+                    MenuButton(form.transform,"Resume",new Vector2(0,25));
+                    MenuButton(form.transform,"Exit",new Vector2(0,-35));
+                }
+                PrefabUtility.SaveAsPrefabAsset(form,path);
+            }
+            finally{Object.DestroyImmediate(form);}
+        }
+        static Text TextField(Transform parent,string name,string property,Vector2 anchor,Vector2 position,Vector2 size,TextAnchor alignment)
+        {
+            var go=new GameObject(name,typeof(RectTransform));go.transform.SetParent(parent,false);
+            var rt=(RectTransform)go.transform;rt.anchorMin=rt.anchorMax=anchor;rt.pivot=anchor;rt.anchoredPosition=position;rt.sizeDelta=size;
+            var text=go.AddComponent<Text>();text.font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");text.fontSize=18;text.alignment=alignment;text.color=Color.white;text.raycastTarget=false;
+            if(!string.IsNullOrEmpty(property))go.AddComponent<TextBinder>().PropertyPath=property;
+            return text;
+        }
+        static void MenuButton(Transform parent,string command,Vector2 position)
+        {
+            var go=new GameObject(command,typeof(RectTransform));go.transform.SetParent(parent,false);
+            var rt=(RectTransform)go.transform;rt.anchorMin=rt.anchorMax=rt.pivot=new Vector2(.5f,.5f);rt.anchoredPosition=position;rt.sizeDelta=new Vector2(180,40);
+            var image=go.AddComponent<Image>();image.color=new Color(.15f,.15f,.15f,.95f);
+            var button=go.AddComponent<Button>();button.targetGraphic=image;go.AddComponent<ButtonBinder>().PropertyPath=command;
+            var label=TextField(go.transform,"Label",null,new Vector2(.5f,.5f),Vector2.zero,new Vector2(180,40),TextAnchor.MiddleCenter);label.text=command;
         }
         [MenuItem("FirstRep/Framework/Build framework AssetBundles for Linux")]
         public static void BuildResources()

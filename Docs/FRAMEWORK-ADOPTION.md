@@ -15,12 +15,12 @@
 | 范围 | 旧文件及实现 | 当前接入的真实 Framework 能力 | 验证边界 |
 |---|---|---|---|
 | 输入 | `SliceBootstrap.Awake` 选 LegacyInputHelper；`FpsPlayer.Start` 已使用 IInputManager，原本并非手写输入管理器 | 默认 InputComponent/NewInputSystemHelper；绑定、Gameplay/Menu context 仍由 IInputManager 处理 | Mouse0/1 的实际 Input System 设备 held/down/up EditMode 回归通过；OS 录屏输入待后续验证 |
-| 场景 | `SliceBootstrap` 已通过 ISceneManager/DefaultSceneHelper 加载，手写 started/failed 聚合推进 | ISceneManager 保留；协调迁入 `LevelProcedures.LoadOriginalLevel` | 原版三个内容场景在实际 Editor Play Mode 加载 |
+| 场景 | `SliceBootstrap` 已通过 ISceneManager/DefaultSceneHelper 加载，手写 started/failed 聚合推进 | SceneLease 持有真实 additive 场景；持久 SliceSessionHost 等待终态后才释放 AssetBatch/Framework | 原版三个场景真实加载；生产退出两轮后回到基线场景数，加载中销毁 Bootstrap 的晚到加载也正确卸载 |
 | 流程/暂停 | `SliceBootstrap` 的布尔推进；`FpsPlayer.Pause/Resume` 自管 paused 与 Time.timeScale | IProcedureManager/ProcedureBase：Load/Play/Pause/Failed；BaseComponent.PauseGame/ResumeGame | 单靶子流程切换、时间缩放及 UI 状态断言通过；实例别名明确 fail-fast |
 | 玩家/靶子 | `SliceBootstrap.OnLoaded` 直接 new GameObject、Instantiate；TargetPractice 自管 Renderer/Collider 显隐 | EntityComponent/IEntityManager + FpsPlayer/TargetPractice : EntityLogic，OnInit/OnShow/OnUpdate/OnHide/OnRecycle | 单靶子隐藏/池复用复活通过；三个相同预制体的物理实例隔离失败，#17 |
 | 命中特效 | `FpsPlayer.Fire` 直接 Instantiate，延时 Destroy | ImpactEffect : EntityLogic，ShowEntity/HideEntity；ITimerManager 管 expiry | 单次射击及效果路径在单靶子测试中执行；并发同预制体特效同样受 #17 影响 |
 | 资源 | SliceContent 的直接 prefab/audio 引用被业务 Instantiate/PlayOneShot 消费 | ResourceComponent/IResourceManager + AssetBatch 预载并 Pin；Entity/UI/Sound 从路径加载 | 单靶子测试确认 CachedAssetCount 至少 6；序列化原引用保留为作者工具/迁移审查输入，非实例化后备路径 |
-| UI | `FpsPlayer.OnGUI` 同时承担 HUD、菜单和暂停状态 | FpsHudForm/FpsPauseForm : UIFormBehaviour，经 IUIManager、DefaultUIFormHelper、UIGroupCanvasHelper 管理打开/关闭/复用 | HUD/Pause 的真实 IUIManager 表项及流程断言通过；OnGUI 仅绘制 FPS 文案/按钮，不充当 UI 管理器 |
+| UI | `FpsPlayer.OnGUI` 同时承担 HUD、菜单和暂停状态 | FpsHudForm/FpsPauseForm : MvvmView<TViewModel>；BindableObject、TextBinder、ButtonBinder、RelayCommand 与已有 Bind/Unbind 管理文本/命令 | 真正绑定的 uGUI 文本与按钮通过；关闭后的旧模型不再写入 View，复用生成新模型，RELOADING 显示/清除通过 |
 | 音频 | `FpsPlayer.Start/Fire` 直接新建 AudioSource/PlayOneShot | SoundComponent/ISoundManager 与 Weapons 组加载播放 | 单次射击调用路径通过；环境无实际音频输出设备，听感未验 |
 | 移动 | `FpsPlayer.Update` 手写速度、重力、跳跃及 CharacterController.Move | ThreeC.ThirdPersonMotor 复用加减速/重力/跳跃；CharacterControllerStepper 处理 Unity 移动/位置恢复 | 单靶子实际原场景的移动与跳跃断言通过；FPS 仅决定输入缩放和相机朝向 |
 | 计时/事件/属性 | 原本已使用 ITimerManager、EventChannel<TargetHit>、AttributeSet | 保留并在 EntityLogic 生命周期解绑/回收 | 单靶子真实射击伤害、计时换弹和复活通过 |
@@ -34,10 +34,18 @@
 - [#16](https://github.com/one2world/EjoyFramework/issues/16)：Resources 枚举宣称 Resources.LoadAsync，但组件静默选 AssetBundleLoader。消费者选择现有 EditorSimulation/AssetBundle 正式路径，不自写 Resources loader。
 - [#17](https://github.com/one2world/EjoyFramework/issues/17)：EntityManager 用 MultiSpawn 实例池，多个同时在用的同 prefab 实体共享 GameObject。实测实体总数 4，靶子 ID 100/101/102，独立靶子句柄及活动 TargetPractice 均只有 1。建议上游改为独占实例池并验证同时实例、隐藏独立性、池复用和关闭顺序。消费者明确拒绝实例别名，没有附加手写池来掩盖问题。
 
-真实 Unity 6000.6.5f1 编译与固定 Git 依赖核验通过。EditMode 3/3 通过；PlayMode 2 项中 1 项单靶子集成通过，1 项三靶子隔离回归失败。PlayMode 使用 `-nographics`：验证真实加载、Unity 物理、Framework 模块行为，但不验证新画面、听感或独立 Player。
+真实 Unity 6000.6.5f1 编译与固定 Git 依赖核验通过。EditMode 3/3 通过；PlayMode 4 项中 3 项通过（单靶子 MVVM/玩法、真实退出/两轮重进、加载中销毁 Bootstrap），1 项三靶子隔离回归仍因 #17 失败。PlayMode 使用 `-nographics`：验证真实加载、Unity 物理、Framework 模块行为，但不验证新画面、听感或独立 Player。
 
 未构建新生产 AssetBundles/Linux Player，未发布新的运行 GIF。原因是生产三靶子生命周期被 #17 阻塞；原版资源、既有 Linux 检查点与录屏待办保留。待上游修复可消费后，更新固定 revision、重跑隔离/玩法回归，再构建真实 Player、录制 GIF 与更新 README。不能用旧构建录制证明本次源码已验证。
 
+## UI 与场景退出契约的后续修正
+
+此前 `057a5a4` 的 UIFormBehaviour 直接继承和测试清场不足以满足上游契约。本轮改为薄的 FpsHudViewModel/FpsPauseViewModel 与 MvvmView，使用既有 PropertyAccessor 注册表、TextBinder/ButtonBinder、RelayCommand，由框架执行绑定与反向解绑；没有另建 MVVM 或手写订阅框架。HUD 恢复换弹时的 RELOADING 提示。暂停菜单的 Resume/Exit 通过真实 ButtonBinder 命令调用生产入口。
+
+生产加载为每个关卡创建 SceneLease。Bootstrap 销毁或主动 Exit 都进入退出流程；独立、持久的 BaseComponent 宿主持续驱动框架，直到所有租约 Released/Failed 才释放批次并 Shutdown。ReleaseFailed 保留宿主与所有权并允许重试，不假称退出完成。原生宿主销毁/组件注销完成后才允许 Enter 重进。
+
+PlayMode TearDown 已移除 Framework.Shutdown、Unity UnloadSceneAsync 和 Time.timeScale 赋值。它仅请求生产退出并等待实际完成，随后检查真实 Unity 场景。新测试在未额外清场的条件下验证两个完整退出/进入周期的场景数与每个场景路径只出现一次，并覆盖原生场景加载中销毁 Bootstrap。卸载失败注入、独立 Player/画面/OS 输入与实际音频输出本轮未运行。三靶子和并发同 prefab 特效的 #17 阻塞继续保留，没有使用不同分组或实例名称绕过。
+
 ## 本地证据
 
-`Reports/framework-dependency-resolution.json`、`framework-refactor-editmode-final.xml`、`framework-refactor-playmode-final.xml`、`framework-entity-isolation.json` 及对应 Unity 日志。Reports 保持本地，不包含在发布的源码中。旧独立 .NET 检查脚本已将嵌入路径改为可指定的 Git 缓存路径，但本轮证据来自真实 Unity，未重跑那些旧检查脚本。
+`Reports/framework-dependency-resolution.json`、`framework-mvvm-lease-editmode.xml`、`framework-mvvm-lease-playmode-final.xml`、`framework-entity-isolation.json` 及对应 Unity 日志。Reports 保持本地，不包含在发布的源码中。旧独立 .NET 检查脚本已将嵌入路径改为可指定的 Git 缓存路径，但本轮证据来自真实 Unity，未重跑那些旧检查脚本。

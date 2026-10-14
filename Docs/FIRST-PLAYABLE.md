@@ -1,4 +1,4 @@
-> Framework 整改状态：当前源码使用固定 Git UPM 包并接入实体、资源、Procedure、UI、Sound 与 motor；EditMode 3/3 和单靶子玩法通过，三靶子隔离被上游 #17 阻塞，启动会明确停止。下文保留的 Linux Player 为旧架构检查点，不能用于证明本次源码或新画面已验收。详见 [架构审查](FRAMEWORK-ADOPTION.md)。运行录制 GIF 待新依赖验证及 Player 重建后继续。
+> Framework 整改状态：当前源码使用固定 Git UPM 包并接入实体、资源、Procedure、UI、Sound 与 motor；EditMode 3/3、单靶子 MVVM/玩法、真实退出/重进和加载中销毁的卸载通过，三靶子隔离被上游 #17 阻塞，启动会明确停止。下文保留的 Linux Player 为旧架构检查点，不能用于证明本次源码或新画面已验收。详见 [架构审查](FRAMEWORK-ADOPTION.md)。运行录制 GIF 待新依赖验证及 Player 重建后继续。
 
 > 当前提交状态：下文构建与测试结果描述此前保留在本机的检查点，构建二进制和 Reports 不在 Git 中。当前源码额外修复 Ejoy 测试 GUID 并恢复原版曝光/后处理/SSS 配置，已通过无图形编译审计，但尚未重建或完成画面验收；最近图形诊断达到 16 GiB 内存限制后停止。色彩/材质异常仍未解决。
 

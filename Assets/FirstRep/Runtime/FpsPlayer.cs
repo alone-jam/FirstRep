@@ -29,7 +29,7 @@ namespace FirstRep.Fps
         private float pitch, nextShot, hitUntil;
         private int reloadTimer, kills;
         public bool IsPaused => bootstrap && bootstrap.IsPaused;
-        public string HudText => $"FIRSTREP • LEVEL 01    {magazine.Rounds:00} / {magazine.Reserve}    TARGETS {kills}";
+        public string HudText => $"FIRSTREP • LEVEL 01    {magazine.Rounds:00} / {magazine.Reserve}    TARGETS {kills}{(magazine.Reloading ? "    RELOADING" : "")}";
         public bool HitMarker => Time.unscaledTime < hitUntil;
         protected override void OnInit(object userData)
         {

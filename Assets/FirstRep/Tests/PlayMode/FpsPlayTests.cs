@@ -12,6 +12,9 @@ using EjoyFramework.Core.Entity;
 using EjoyFramework.Core.Procedure;
 using EjoyFramework.Core.Resource;
 using EjoyFramework.Core.UI;
+using EjoyFramework.Core.Unity;
+using UnityEngine.UI;
+using EjoyFramework.Core.Scene;
 namespace FirstRep.Fps.Tests {
 [PrebuildSetup(typeof(FpsPlayTests.SceneListSetup))]
 public class FpsPlayTests {
@@ -27,7 +30,6 @@ public float GetAxisRaw(string name)=>name=="Horizontal"?move:0;
 [System.Serializable] sealed class EntityIsolationEvidence {public int entityCount,activeTargets,uniqueTargetHandles;public bool aliased;public int[] targetIds;}
 static T Field<T>(object obj,string name)=>(T)obj.GetType().GetField(name,BindingFlags.Instance|BindingFlags.NonPublic).GetValue(obj);
 [UnityTest] public IEnumerator ConcurrentSamePrefabEntitiesHaveIndependentHandles(){
-Framework.Shutdown();
 var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");
 var content=Object.Instantiate(original);content.artReviewComplete=true;
 LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("FirstRep framework integration failed:.*issue #17"));
@@ -37,18 +39,63 @@ while(Framework.GetModule<IEntityManager>().EntityCount<1+content.targetPosition
 for(int frame=0;frame<20;frame++)yield return null;
 var managed=Framework.GetModule<IEntityManager>().GetAllLoadedEntities().Where(e=>e.EntityGroup.Name=="Targets").ToArray();
 var evidence=new EntityIsolationEvidence{entityCount=Framework.GetModule<IEntityManager>().EntityCount,activeTargets=Object.FindObjectsByType<TargetPractice>(FindObjectsSortMode.None).Length,uniqueTargetHandles=managed.Select(e=>e.Handle).Distinct().Count(),targetIds=managed.Select(e=>e.Id).ToArray()};
-evidence.aliased=evidence.uniqueTargetHandles!=managed.Length;System.IO.File.WriteAllText("Reports/framework-entity-isolation.json",JsonUtility.ToJson(evidence,true));
+evidence.aliased=evidence.uniqueTargetHandles!=managed.Length;System.IO.File.WriteAllText("Reports/framework-single-target-isolation.json",JsonUtility.ToJson(evidence,true));
 Assert.That(evidence.uniqueTargetHandles,Is.EqualTo(content.targetPositions.Length),"Upstream #17: simultaneous entity handles must be independent; no consumer pool workaround");
 Object.Destroy(content);
 }
 [UnityTearDown] public IEnumerator ReleaseFrameworkSession(){
-foreach(var bootstrap in Object.FindObjectsByType<SliceBootstrap>(FindObjectsSortMode.None))Object.Destroy(bootstrap.gameObject);
-yield return null;Framework.Shutdown();Time.timeScale=1;
+foreach(var bootstrap in Object.FindObjectsByType<SliceBootstrap>(FindObjectsSortMode.None)){bootstrap.Exit();Object.Destroy(bootstrap.gameObject);}
+var sessions=Object.FindObjectsByType<SliceSessionHost>(FindObjectsSortMode.None);
+foreach(var session in sessions)session.BeginExit();
+var statuses=sessions.Select(session=>session.ExitStatus).ToArray();
+float deadline=Time.realtimeSinceStartup+120;
+while(statuses.Any(status=>!status.Completed) && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.IsTrue(statuses.All(status=>status.Completed),"Production scene exit failed; tests must not unload or shut down on its behalf");
 var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");
-foreach(var path in original.levelScenes){var scene=UnityEngine.SceneManagement.SceneManager.GetSceneByPath(path);if(scene.IsValid() && scene.isLoaded)yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(scene);}
+foreach(var path in original.levelScenes)Assert.IsFalse(UnityEngine.SceneManagement.SceneManager.GetSceneByPath(path).isLoaded,"Production left a real additive scene loaded");
+}
+static SliceBootstrap Fixture(out SliceContent content){
+var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");content=Object.Instantiate(original);content.targetPositions=new[]{original.targetPositions[0]};content.artReviewComplete=true;
+var go=new GameObject("Production lifecycle fixture");go.SetActive(false);var boot=go.AddComponent<SliceBootstrap>();boot.content=content;go.SetActive(true);return boot;
+}
+static IEnumerator Ready(SliceBootstrap bootstrap){
+float deadline=Time.realtimeSinceStartup+120;
+while(!(Framework.GetModule<IProcedureManager>().CurrentProcedure is PlayOriginalLevel) && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<PlayOriginalLevel>());
+}
+static IEnumerator Closed(SliceExitStatus status){
+float deadline=Time.realtimeSinceStartup+120;
+while(!status.Completed && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.IsTrue(status.Completed,status.Error??"Scene leases did not finish");Assert.IsTrue(status.ScenesReleased);
+}
+[UnityTest] public IEnumerator ProductionExitAndReentryUnloadActualAdditiveScenes(){
+int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;var boot=Fixture(out var content);
+for(int cycle=0;cycle<2;cycle++){
+if(cycle!=0)boot.Enter();yield return Ready(boot);
+Assert.AreEqual(baseline+content.levelScenes.Length,UnityEngine.SceneManagement.SceneManager.sceneCount,"Reentry duplicated real scene objects");
+foreach(var path in content.levelScenes)Assert.AreEqual(1,Enumerable.Range(0,UnityEngine.SceneManagement.SceneManager.sceneCount).Count(i=>UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).path==path));
+boot.Pause();yield return null;
+var menu=(FpsPauseForm)boot.UI.GetUIForm(SliceContent.PausePath);
+menu.transform.Find("Exit").GetComponent<Button>().onClick.Invoke();
+var status=boot.ExitStatus;Assert.IsTrue(status.Requested);yield return Closed(status);
+Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);
+foreach(var path in content.levelScenes)Assert.IsFalse(UnityEngine.SceneManagement.SceneManager.GetSceneByPath(path).isLoaded);
+Assert.AreEqual(0,Object.FindObjectsByType<FpsPlayer>(FindObjectsSortMode.None).Length);
+}
+Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
+}
+[UnityTest] public IEnumerator DestroyingBootstrapDuringNativeLoadsStillReleasesSceneLeases(){
+int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;var boot=Fixture(out var content);float deadline=Time.realtimeSinceStartup+120;
+while(boot.Lifetime.Scenes.Count==0 && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.IsTrue(boot.Lifetime.Scenes.Any(lease=>lease.State==SceneLeaseState.Loading),"Fixture did not reach an in-flight native load");
+var status=boot.ExitStatus;Object.Destroy(boot.gameObject);yield return null;
+Assert.IsTrue(status.Requested);yield return Closed(status);
+Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);
+foreach(var path in content.levelScenes)Assert.IsFalse(UnityEngine.SceneManagement.SceneManager.GetSceneByPath(path).isLoaded);
+Object.Destroy(content);yield return null;
 }
 [UnityTest] public IEnumerator SingleTargetIntegrationExercisesFrameworkModulesAndGameplay(){
-Framework.Shutdown(); // Isolate this fixture from package tests that keep module state.
+
 var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");Assert.NotNull(original);
 var content=Object.Instantiate(original);content.targetPositions=new[]{original.targetPositions[0]};content.artReviewComplete=true; // Test-only fixture; never marks the saved art review approved.
 
@@ -57,7 +104,6 @@ FpsPlayer player=null;float deadline=Time.realtimeSinceStartup+120;
 while(!player && Time.realtimeSinceStartup<deadline){player=Object.FindFirstObjectByType<FpsPlayer>();yield return null;}
 Assert.NotNull(player,"Ejoy scene loading failed to create player");yield return null;
 if(player.IsPaused)player.GetType().GetMethod("Resume",BindingFlags.NonPublic|BindingFlags.Instance).Invoke(player,null);
-Time.timeScale=1;
 ShaderUtil.allowAsyncCompilation=false;
 var input=new ControlledInput();Framework.GetModule<IInputManager>().SetHelper(input);
 for(int i=0;i<20;i++)yield return null;
@@ -68,16 +114,24 @@ Assert.That(Framework.GetModule<IEntityManager>().EntityCount,Is.EqualTo(1+conte
 var managedTargets=Framework.GetModule<IEntityManager>().GetAllLoadedEntities().Where(e=>e.EntityGroup.Name=="Targets").ToArray();
 var evidence=new EntityIsolationEvidence{entityCount=Framework.GetModule<IEntityManager>().EntityCount,activeTargets=Object.FindObjectsByType<TargetPractice>(FindObjectsSortMode.None).Length,uniqueTargetHandles=managedTargets.Select(e=>e.Handle).Distinct().Count(),targetIds=managedTargets.Select(e=>e.Id).ToArray()};
 evidence.aliased=evidence.uniqueTargetHandles!=managedTargets.Length;
-System.IO.File.WriteAllText("Reports/framework-entity-isolation.json",JsonUtility.ToJson(evidence,true));
+System.IO.File.WriteAllText("Reports/framework-single-target-isolation.json",JsonUtility.ToJson(evidence,true));
 Assert.That(evidence.uniqueTargetHandles,Is.EqualTo(content.targetPositions.Length),"Upstream framework concurrently aliases target entity handles; do not mask this with a consumer pool");
 Assert.That(Framework.GetModule<IResourceManager>().CachedAssetCount,Is.GreaterThanOrEqualTo(6),"Content was not pinned by framework AssetBatch");
 Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<PlayOriginalLevel>());
 Assert.IsTrue(Framework.GetModule<IUIManager>().HasUIForm(SliceContent.HudPath),"HUD bypassed IUIManager");
+var originalHud=(FpsHudForm)bootstrap.UI.GetUIForm(SliceContent.HudPath);var oldModel=originalHud.ViewModel;var oldLabel=originalHud.transform.Find("Header").GetComponent<Text>();string oldText=oldLabel.text;
+Assert.AreEqual(oldModel.Header,oldLabel.text,"Framework TextBinder did not apply initial view model");
 bootstrap.Pause();yield return null;
 Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<PauseOriginalLevel>());
 Assert.AreEqual(0,Time.timeScale);
 Assert.IsTrue(Framework.GetModule<IUIManager>().HasUIForm(SliceContent.PausePath));
-bootstrap.Resume();yield return null;
+oldModel.Header="CLOSED_MODEL_MUTATION";Assert.AreEqual(oldText,oldLabel.text,"Closed HUD stayed subscribed to its old model");
+var pause=(FpsPauseForm)bootstrap.UI.GetUIForm(SliceContent.PausePath);var oldPauseModel=pause.ViewModel;
+pause.transform.Find("Resume").GetComponent<Button>().onClick.Invoke();yield return null;
+Assert.IsFalse(oldPauseModel.Resume.CanExecute(null),"Closed pause model retained a live bootstrap command");
+var reopenedHud=(FpsHudForm)bootstrap.UI.GetUIForm(SliceContent.HudPath);
+Assert.AreNotSame(oldModel,reopenedHud.ViewModel,"Framework OnReuseInit did not rebuild the model");
+Assert.AreEqual(reopenedHud.ViewModel.Header,reopenedHud.transform.Find("Header").GetComponent<Text>().text);
 Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<PlayOriginalLevel>());
 Assert.AreEqual(1,Time.timeScale);
 Assert.IsTrue(Physics.Raycast(player.transform.position+Vector3.up,Vector3.down,out var floor,10,~((1<<10)|(1<<11)),QueryTriggerInteraction.Ignore),"Original scene has no ground under spawn");
@@ -96,13 +150,16 @@ target.transform.position += player.view.transform.position+player.view.transfor
 input.held="Mouse0";yield return null;input.held=null;yield return null;
 var magazine=Field<WeaponMagazine>(player,"magazine");Assert.AreEqual(29,magazine.Rounds,"Fire binding did not consume one round");
 var health=Field<object>(target,"health");Assert.Less((float)health.GetType().GetProperty("CurrentValue").GetValue(health),100,"Real hitscan did not damage target");
-input.down="R";yield return null;input.down=null;yield return new WaitForSeconds(2.1f);Assert.AreEqual(30,magazine.Rounds,"Ejoy reload timer did not finish");
+input.down="R";yield return null;input.down=null;yield return null;yield return null;
+Assert.IsTrue(reopenedHud.transform.Find("Header").GetComponent<Text>().text.Contains("RELOADING"),"MVVM reload status was lost");
+yield return new WaitForSeconds(2.1f);Assert.AreEqual(30,magazine.Rounds,"Ejoy reload timer did not finish");
+Assert.IsFalse(reopenedHud.transform.Find("Header").GetComponent<Text>().text.Contains("RELOADING"));
 target.Hit(100);
 int targetId=target.Entity.Id;
 Assert.IsFalse(Framework.GetModule<IEntityManager>().HasEntity(targetId),"Lethal hit did not return target to the framework pool");
 Assert.IsFalse(target.gameObject.activeInHierarchy);
 yield return new WaitForSeconds(4.2f);Assert.IsTrue(Framework.GetModule<IEntityManager>().HasEntity(targetId));Assert.IsTrue(System.Array.Exists(target.GetComponentsInChildren<Renderer>(),r=>r.enabled),"Ejoy timer did not respawn original target");
-Object.Destroy(boot);Object.Destroy(content);Time.timeScale=1;yield return null;
+bootstrap.Exit();yield return Closed(bootstrap.ExitStatus);Object.Destroy(boot);Object.Destroy(content);yield return null;
 }
 }
 }
