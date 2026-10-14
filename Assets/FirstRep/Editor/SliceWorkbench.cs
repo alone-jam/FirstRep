@@ -155,6 +155,7 @@ namespace FirstRep.Fps.Editor
                 }
             }
             Validate();
+            FrameworkAssetSetup.BuildResources();
             if (!File.Exists(BootstrapPath)) throw new InvalidOperationException("Generate the bootstrap first.");
             var content = AssetDatabase.LoadAssetAtPath<SliceContent>(ContentPath);
             PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneLinux64, false);

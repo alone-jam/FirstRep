@@ -6,7 +6,8 @@
     "EjoyFramework.Core.Unity",
     "EjoyFramework.GamePlay.Core",
     "Unity.RenderPipelines.HighDefinition.Runtime",
-    "Unity.RenderPipelines.Core.Runtime"
+    "Unity.RenderPipelines.Core.Runtime",
+    "EjoyFramework.GamePlay.Unity"
   ],
   "autoReferenced": true
 }

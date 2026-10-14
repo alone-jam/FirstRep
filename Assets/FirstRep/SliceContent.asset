@@ -27,3 +27,5 @@ MonoBehaviour:
   targetPrefab: {fileID: 1430231348561279528, guid: f95d7017769f0bc7391b476d5fd62054, type: 3}
   impactPrefab: {fileID: 8997579761511460432, guid: 0c6570465737531f897b4839860f2b8f, type: 3}
   shotAudio: {fileID: 8300000, guid: c51d7ed470b9a0946bca31e4dff1d0bf, type: 3}
+  TargetAssetPath: Assets/FirstRep/Framework/Target.prefab
+  ShotAudioPath: Assets/Audio/Clips/Weapons/GirlWeaponFireAlt01.wav

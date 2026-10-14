@@ -1,55 +1,45 @@
 using EjoyFramework.Core;
+using EjoyFramework.Core.Entity;
 using EjoyFramework.Core.Event;
 using EjoyFramework.Core.Timer;
+using EjoyFramework.Core.Unity;
 using EjoyFramework.GamePlay.Attributes;
 using UnityEngine;
-
 namespace FirstRep.Fps
 {
     public readonly struct TargetHit
     {
         public readonly bool Destroyed;
-        public TargetHit(bool destroyed) => Destroyed = destroyed;
+        public TargetHit(bool destroyed)=>Destroyed=destroyed;
     }
-    public sealed class TargetPractice : MonoBehaviour
+    public sealed class TargetPractice : EntityLogic
     {
-        private GameplayAttribute health;
-        private EventChannel<TargetHit> hits;
-        private ITimerManager timers;
-        private int respawnTimer;
-        private Renderer[] renderers;
-        private Collider[] colliders;
-        private bool[] rendererStates;
-        private bool[] colliderStates;
-        private void Awake()
+        GameplayAttribute health;EventChannel<TargetHit> hits;ITimerManager timers;ActorSpawn spawn;int respawnTimer;
+        protected override void OnInit(object data)
         {
-            health = new AttributeSet().Add("Health", 100);
-            timers = Framework.GetModule<ITimerManager>();
-            hits = Framework.GetModule<IEventManager>().GetChannel<TargetHit>();
-            renderers = GetComponentsInChildren<Renderer>();
-            colliders = GetComponentsInChildren<Collider>();
-            rendererStates = new bool[renderers.Length];
-            colliderStates = new bool[colliders.Length];
-            for (int i = 0; i < renderers.Length; ++i) rendererStates[i] = renderers[i].enabled;
-            for (int i = 0; i < colliders.Length; ++i) colliderStates[i] = colliders[i].enabled;
+            base.OnInit(data);health=new AttributeSet().Add("Health",100);
+            timers=Framework.GetModule<ITimerManager>();hits=Framework.GetModule<IEventManager>().GetChannel<TargetHit>();
+        }
+        protected override void OnShow(object data)
+        {
+            base.OnShow(data);spawn=ActorSpawn.From(data);health.BaseValue=100;
+            transform.SetPositionAndRotation(spawn.Position,spawn.Rotation);
         }
         public void Hit(float damage)
         {
-            if (health.CurrentValue <= 0 || damage <= 0) return;
-            health.BaseValue = Mathf.Max(0, health.CurrentValue - damage);
-            bool dead = health.CurrentValue <= 0;
+            if(!Available || health.CurrentValue<=0 || damage<=0)return;
+            health.BaseValue=Mathf.Max(0,health.CurrentValue-damage);bool dead=health.CurrentValue<=0;
             hits.FireNow(new TargetHit(dead));
-            if (!dead) return;
-            SetVisible(false);
-            respawnTimer = timers.AddTimer(4, () => { respawnTimer = 0; health.BaseValue = 100; SetVisible(true); });
+            if(dead)Framework.GetModule<IEntityManager>().HideEntity(Entity.Id,true);
         }
-        private void SetVisible(bool visible)
+        protected override void OnHide(bool shutdown,object data)
         {
-            for (int i = 0; i < renderers.Length; ++i)
-                if (renderers[i]) renderers[i].enabled = visible && rendererStates[i];
-            for (int i = 0; i < colliders.Length; ++i)
-                if (colliders[i]) colliders[i].enabled = visible && colliderStates[i];
+            base.OnHide(shutdown,data);
+            if(!shutdown && data is bool killed && killed)
+            {
+                int id=Entity.Id;respawnTimer=timers.AddTimer(4,()=>{respawnTimer=0;spawn.Bootstrap.Entities.ShowEntity(id,spawn.Bootstrap.content.TargetAssetPath,"Targets",0,spawn);});
+            }
         }
-        private void OnDestroy() { if (respawnTimer != 0) timers?.RemoveTimer(respawnTimer); }
+        protected override void OnRecycle(){if(respawnTimer!=0){timers.RemoveTimer(respawnTimer);respawnTimer=0;}base.OnRecycle();}
     }
 }

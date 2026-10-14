@@ -1,8 +1,10 @@
+> Framework 整改状态：当前源码使用固定 Git UPM 包并接入实体、资源、Procedure、UI、Sound 与 motor；EditMode 3/3 和单靶子玩法通过，三靶子隔离被上游 #17 阻塞，启动会明确停止。下文保留的 Linux Player 为旧架构检查点，不能用于证明本次源码或新画面已验收。详见 [架构审查](FRAMEWORK-ADOPTION.md)。运行录制 GIF 待新依赖验证及 Player 重建后继续。
+
 > 当前提交状态：下文构建与测试结果描述此前保留在本机的检查点，构建二进制和 Reports 不在 Git 中。当前源码额外修复 Ejoy 测试 GUID 并恢复原版曝光/后处理/SSS 配置，已通过无图形编译审计，但尚未重建或完成画面验收；最近图形诊断达到 16 GiB 内存限制后停止。色彩/材质异常仍未解决。
 
 # FirstRep：首版运行说明（构建已交付，画面仍有差异）
 
-项目目录：`/workspace/FirstRep`。Unity 6000.6.5f1，HDRP 17.6，嵌入 EjoyFramework v2.1.0。此版本保留原版 Level_01，提供单人移动、瞄准、射击、换弹与机器人靶子复活；不是原版网络游戏的完整移植。
+项目目录：`/workspace/FirstRep`。Unity 6000.6.5f1，HDRP 17.6，使用 Git UPM EjoyFramework v2.1.0（当前源码固定 revision 641b43dc75f6fdae9acecc37d1c1e632d7f0aff4）。此版本保留原版 Level_01，提供单人移动、瞄准、射击、换弹与机器人靶子复活；不是原版网络游戏的完整移植。
 
 ## 运行
 

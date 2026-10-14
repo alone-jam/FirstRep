@@ -1,6 +1,16 @@
 {
   "name": "FirstRep.Fps.Tests",
-  "references": ["FirstRep.Fps", "EjoyFramework.Core", "EjoyFramework.Core.Unity"],
-  "includePlatforms": ["Editor"],
-  "optionalUnityReferences": ["TestAssemblies"]
+  "references": [
+    "FirstRep.Fps",
+    "EjoyFramework.Core",
+    "EjoyFramework.Core.Unity",
+    "Unity.InputSystem",
+    "Unity.InputSystem.TestFramework"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

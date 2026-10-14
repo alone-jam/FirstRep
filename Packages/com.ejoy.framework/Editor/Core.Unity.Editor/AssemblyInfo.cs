@@ -1,8 +1,0 @@
-//------------------------------------------------------------
-// EjoyGame Framework
-// Copyright (c) 2024-2026 EjoyGame. All rights reserved.
-//------------------------------------------------------------
-
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("EjoyFramework.Tests")]

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><EjoyPackageRoot Condition="'$(EjoyPackageRoot)' == ''">$(MSBuildThisFileDirectory)../../Library/PackageCache/com.ejoy.framework@641b43dc75f6</EjoyPackageRoot></PropertyGroup>
   <PropertyGroup>
     <DefineConstants>UNITY_EDITOR</DefineConstants>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,8 +7,8 @@
     <EnableNETAnalyzers>false</EnableNETAnalyzers>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core/**/*.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/GamePlay/**/*.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core/**/*.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/GamePlay/**/*.cs" />
     <Compile Include="../../Assets/FirstRep/Runtime/*.cs" />
     <Reference Include="UnityEditor.SketchUpModule">
       <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SketchUpModule.dll</HintPath>
@@ -550,17 +550,17 @@
     <Reference Include="UnityEngine.GraphicsStateCollectionSerializerModule">
       <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.GraphicsStateCollectionSerializerModule.dll</HintPath>
     </Reference>
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/BaseComponent.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/GameFrameworkComponent.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/ComponentRegistry.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Log.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/GeneratedHelperFactory.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/ObjectPool/ObjectPoolComponent.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Coroutines/UnityCoroutineHelper.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/UI/UIResolutionAdapter.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Input/InputComponent.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Input/LegacyInputHelper.cs" />
-    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Scene/DefaultSceneHelper.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/BaseComponent.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/GameFrameworkComponent.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/ComponentRegistry.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/Log.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/GeneratedHelperFactory.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/ObjectPool/ObjectPoolComponent.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/Coroutines/UnityCoroutineHelper.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/UI/UIResolutionAdapter.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/Input/InputComponent.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/Input/LegacyInputHelper.cs" />
+    <Compile Include="$(EjoyPackageRoot)/Runtime/Core.Unity/Scene/DefaultSceneHelper.cs" />
     <Compile Include="../../Assets/FirstRep/Editor/*.cs" />
     <Reference Include="UnityEditor.Graphs">
       <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>

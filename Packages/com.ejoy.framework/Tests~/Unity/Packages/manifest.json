@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "com.ejoy.framework": "file:../../.."
-  },
-  "testables": ["com.ejoy.framework"]
-}

@@ -37,3 +37,7 @@
 *.key
 .env
 .env.*
+
+# Framework-generated runtime bundles; regenerate via its builder before Player build.
+/Assets/StreamingAssets/AssetBundles/
+/Assets/StreamingAssets/AssetBundles.meta

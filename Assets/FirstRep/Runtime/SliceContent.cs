@@ -17,6 +17,12 @@ namespace FirstRep.Fps
         public GameObject targetPrefab;
         public ParticleSystem impactPrefab;
         public AudioClip shotAudio;
+        public const string PlayerEntityPath="Assets/FirstRep/Framework/Player.prefab";
+        public const string ImpactEntityPath="Assets/FirstRep/Framework/Impact.prefab";
+        public const string HudPath="Assets/FirstRep/Framework/Hud.prefab";
+        public const string PausePath="Assets/FirstRep/Framework/Pause.prefab";
+        public string TargetAssetPath;
+        public string ShotAudioPath;
         public bool IsReady => artReviewComplete && firstPersonPrefab && targetPrefab && impactPrefab &&
             shotAudio && levelScenes != null && levelScenes.Length > 0 &&
             levelScenes.All(path => !string.IsNullOrWhiteSpace(path)) &&

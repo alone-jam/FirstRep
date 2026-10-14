@@ -5,7 +5,10 @@
     "Unity.RenderPipelines.HighDefinition.Runtime",
     "Unity.RenderPipelines.HighDefinition.Editor",
     "Unity.RenderPipelines.Core.Runtime",
-    "Unity.RenderPipelines.Core.Runtime.Shared"
+    "Unity.RenderPipelines.Core.Runtime.Shared",
+    "EjoyFramework.Core",
+    "EjoyFramework.Core.Unity",
+    "EjoyFramework.Core.Unity.Editor"
   ],
   "includePlatforms": [
     "Editor"

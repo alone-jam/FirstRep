@@ -1,8 +1,9 @@
 {
   "EjoyFramework": {
-    "commit": "5e515b4b0d36e444f1f1291dee83bde87ed52b00",
+    "commit": "641b43dc75f6fdae9acecc37d1c1e632d7f0aff4",
     "license": "MIT",
-    "integration": "embedded unmodified package"
+    "integration": "pinned upstream Git UPM dependency; no embedded framework or local package patch",
+    "url": "https://github.com/one2world/EjoyFramework.git#641b43dc75f6fdae9acecc37d1c1e632d7f0aff4"
   },
   "FPSSample": {
     "commit": "c8375e7cf29cd0bcc3764b0650028a99aecb7475",

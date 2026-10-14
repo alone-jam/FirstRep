@@ -20,8 +20,9 @@ public int callbackOrder=>10000;
 static string[] dependencies;
 static bool deferredOnly;
 static readonly Dictionary<Shader,List<Material>> Materials=new Dictionary<Shader,List<Material>>();
-public void OnPreprocessBuild(BuildReport report){Materials.Clear();
-var roots=EditorBuildSettings.scenes.Where(x=>x.enabled).Select(x=>x.path).ToList();roots.Add(SliceWorkbench.ContentPath);roots.Add(AssetDatabase.GetAssetPath(GraphicsSettings.defaultRenderPipeline));roots.Add("Assets/HDRPDefaultResources/HDRenderPipelineGlobalSettings.asset");
+public void OnPreprocessBuild(BuildReport report){PrepareDependencies();}
+public static void PrepareDependencies(){Materials.Clear();
+var roots=EditorBuildSettings.scenes.Where(x=>x.enabled).Select(x=>x.path).ToList();roots.Add(SliceWorkbench.ContentPath);roots.AddRange(AssetDatabase.GetAllAssetPaths().Where(p=>p.StartsWith("Assets/FirstRep/Framework/") && p.EndsWith(".prefab")));roots.Add(AssetDatabase.GetAssetPath(GraphicsSettings.defaultRenderPipeline));roots.Add("Assets/HDRPDefaultResources/HDRenderPipelineGlobalSettings.asset");
 for(int i=0;i<QualitySettings.names.Length;i++){var rp=QualitySettings.GetRenderPipelineAssetAt(i);if(rp)roots.Add(AssetDatabase.GetAssetPath(rp));}
 roots.AddRange(AssetDatabase.GetAllAssetPaths().Where(p=>p.StartsWith("Assets/") && p.Contains("/Resources/") && !AssetDatabase.IsValidFolder(p)));
 dependencies=AssetDatabase.GetDependencies(roots.ToArray(),true);
@@ -35,6 +36,7 @@ static List<Material> GetMaterials(Shader shader){
  Materials[shader]=found;return found;
 }
 public void OnProcessShader(Shader shader,ShaderSnippetData snippet,IList<ShaderCompilerData> data){
+ if(dependencies==null)return; // Non-FirstRep bundle builds keep every variant.
  if(data.Count==0 || (shader.name!="HDRP/Lit" && shader.name!="HDRP/LayeredLit" && shader.name!="HDRP/LitTessellation" && shader.name!="HDRP/LayeredLitTessellation"))return;
  var mats=GetMaterials(shader).Where(m=>m.GetShaderPassEnabled(snippet.passName)).ToList();
  // HDRP LitShaderPreprocessor also removes opaque Forward variants in
