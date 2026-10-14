@@ -1,0 +1,12 @@
+{
+  "name": "FirstRep.Fps",
+  "rootNamespace": "FirstRep.Fps",
+  "references": [
+    "EjoyFramework.Core",
+    "EjoyFramework.Core.Unity",
+    "EjoyFramework.GamePlay.Core",
+    "Unity.RenderPipelines.HighDefinition.Runtime",
+    "Unity.RenderPipelines.Core.Runtime"
+  ],
+  "autoReferenced": true
+}

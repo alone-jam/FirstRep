@@ -1,0 +1,569 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DefineConstants>UNITY_EDITOR</DefineConstants>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core/**/*.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/GamePlay/**/*.cs" />
+    <Compile Include="../../Assets/FirstRep/Runtime/*.cs" />
+    <Reference Include="UnityEditor.SketchUpModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SketchUpModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VectorGraphicsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.VectorGraphicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TextCoreTextEngineModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.TextCoreTextEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.BuildProfileModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.BuildProfileModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IdentifiersModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.IdentifiersModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsCore2DModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsCore2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Net.Common">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Grpc.Net.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.HierarchyModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.HierarchyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="StandardSocketsHttpHandler">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/StandardSocketsHttpHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.CecilTools">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.CecilTools.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputForUIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputForUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.MediaModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.MediaModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.BurstModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.BurstModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.GIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GraphToolkitModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.GraphToolkitModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.U2DModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.U2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.CompilationPipeline.Common">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.CompilationPipeline.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.DeviceSimulatorModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpriteMaskModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.AccessibilityModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubsystemsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.SubsystemsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.BuildAnalysisModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.BuildAnalysisModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Bee.BeeDriver2">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Bee.BeeDriver2.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GridModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Physics2DModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Scripting">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SyntaxTreeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SyntaxTreeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GraphicsStateCollectionSerializerModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.GraphicsStateCollectionSerializerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Bee.TinyProfiler2">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Bee.TinyProfiler2.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.QuickInstallModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.QuickInstallModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AdaptivePerformanceModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AdaptivePerformanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.NVIDIAModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.NVIDIAModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InsightsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.InsightsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Cecil">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.U2DRuntimeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.U2DRuntimeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ContentLoadModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ContentLoadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="AsmDefToCSProjLib">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/AsmDefToCSProjLib.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UIAutomationModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UIAutomationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TilemapModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Bee.BinLog">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Bee.BinLog.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.ProjectAuditorModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.ProjectAuditorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HierarchyModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.HierarchyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PropertiesModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.PropertiesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DSPGraphModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.DSPGraphModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.ContentLoadModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.ContentLoadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TreeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.TreeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConsentModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConsentModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.QuickSearchModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.QuickSearchModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TimelineFoundationModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.TimelineFoundationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreFontEngineModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.BuildService">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.BuildService.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TextCoreFontEngineModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.TextCoreFontEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="BeeBuildProgramCommon.Data">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/BeeBuildProgramCommon.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.EmbreeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.EmbreeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Net.Client">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Grpc.Net.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.MathematicsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.MathematicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="PlayerBuildProgramLibrary.Data">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/PlayerBuildProgramLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.ShaderFoundryModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.ShaderFoundryModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UIElementsSamplesModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UIElementsSamplesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VideoModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreTextEngineModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.EditorToolbarModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.EditorToolbarModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SceneViewModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SceneViewModule.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCompilationBuildProgram.Data">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/ScriptCompilationBuildProgram.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.CodeDom">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UnityConnectModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.AssetComplianceModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.AssetComplianceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GraphViewModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.GraphViewModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsBackendPhysXModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsBackendPhysXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VectorGraphicsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.VectorGraphicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UIBuilderModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UIBuilderModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TetgenModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TetgenModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Cecil.Pdb">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.AnimationWindowModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.AnimationWindowModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.AIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AndroidJNIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AndroidJNIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.MultiplayerModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.MultiplayerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.ShaderPreprocessorModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.ShaderPreprocessorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.CoreModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.DiagnosticsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.DiagnosticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScriptingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScriptingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SubstanceModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VFXModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.PresetsUIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.PresetsUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.AdaptivePerformanceModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.AdaptivePerformanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TerrainModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.MathematicsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.MathematicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.ClothModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.ShaderBuildSettingsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.ShaderBuildSettingsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AMDModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AMDModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UIElementsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.RenderAs2DModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.RenderAs2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TimelineFoundationModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TimelineFoundationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TextRenderingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Cecil.Rocks">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Cecil.Mdb">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UmbraModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.PlayModeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.PlayModeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.PropertiesModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.PropertiesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpriteShapeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.CoreBusinessMetricsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreBusinessMetricsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VirtualTexturingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.VirtualTexturingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="ExCSS.Unity">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/ExCSS.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.XRModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UIToolkitAuthoringModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.UIToolkitAuthoringModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.LightingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.LightingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.BurstModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.BurstModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ManagedKernelModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ManagedKernelModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.PhysicsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SceneTemplateModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SceneTemplateModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.ShaderCompilationModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.ShaderCompilationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.SerializationLogic">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.SerializationLogic.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.MultiplayerModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.MultiplayerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ShaderVariantAnalyticsModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ShaderVariantAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.MarshallingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.MarshallingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityCurlModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityCurlModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GridAndSnapModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.GridAndSnapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core.Api">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Grpc.Core.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GenericRemoteModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.GenericRemoteModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HierarchyCoreModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.HierarchyCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.PhysicsCore2DModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.PhysicsCore2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SafeModeModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.SafeModeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.GIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.FileUtilities">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/Unity.FileUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GraphicsStateCollectionSerializerModule">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.GraphicsStateCollectionSerializerModule.dll</HintPath>
+    </Reference>
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/BaseComponent.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/GameFrameworkComponent.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/ComponentRegistry.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Log.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/GeneratedHelperFactory.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/ObjectPool/ObjectPoolComponent.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Coroutines/UnityCoroutineHelper.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/UI/UIResolutionAdapter.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Input/InputComponent.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Input/LegacyInputHelper.cs" />
+    <Compile Include="../../Packages/com.ejoy.framework/Runtime/Core.Unity/Scene/DefaultSceneHelper.cs" />
+    <Compile Include="../../Assets/FirstRep/Editor/*.cs" />
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

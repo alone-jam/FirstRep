@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c38db63f29588aad80f6aad3f2a040, type: 3}
+  m_Name: SliceContent
+  m_EditorClassIdentifier: FirstRep.Fps::FirstRep.Fps.SliceContent
+  artReviewComplete: 1
+  levelScenes:
+  - Assets/FirstRep/Scenes/Level_01_Background_Recovered.unity
+  - Assets/FirstRep/Scenes/Level_01_Gameplay_Recovered.unity
+  - Assets/FirstRep/Scenes/Level_01_Main_Recovered.unity
+  spawnPosition: {x: 51.32, y: 340.7669, z: 81.26999}
+  spawnYaw: 180
+  targetPositions:
+  - {x: 51.32, y: 339.7669, z: 73.26999}
+  - {x: 55.32, y: 339.7669, z: 68.26999}
+  - {x: 47.32, y: 339.7669, z: 63.26999}
+  firstPersonPrefab: {fileID: 598407074351647946, guid: 7102e3275969e9fd2a1b690be7726d14, type: 3}
+  targetPrefab: {fileID: 1430231348561279528, guid: f95d7017769f0bc7391b476d5fd62054, type: 3}
+  impactPrefab: {fileID: 8997579761511460432, guid: 0c6570465737531f897b4839860f2b8f, type: 3}
+  shotAudio: {fileID: 8300000, guid: c51d7ed470b9a0946bca31e4dff1d0bf, type: 3}

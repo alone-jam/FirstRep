@@ -1,0 +1,17 @@
+{
+  "EjoyFramework": {
+    "commit": "5e515b4b0d36e444f1f1291dee83bde87ed52b00",
+    "license": "MIT",
+    "integration": "embedded unmodified package"
+  },
+  "FPSSample": {
+    "commit": "c8375e7cf29cd0bcc3764b0650028a99aecb7475",
+    "unity": "2018.3.8f1",
+    "HDRP": "4.6.0-preview",
+    "license": "Unity Companion License"
+  },
+  "target": {
+    "unity": "6000.6.5f1",
+    "HDRP": "17.6.0"
+  }
+}

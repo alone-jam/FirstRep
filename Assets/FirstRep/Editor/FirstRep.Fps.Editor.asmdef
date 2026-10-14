@@ -1,0 +1,13 @@
+{
+  "name": "FirstRep.Fps.Editor",
+  "references": [
+    "FirstRep.Fps",
+    "Unity.RenderPipelines.HighDefinition.Runtime",
+    "Unity.RenderPipelines.HighDefinition.Editor",
+    "Unity.RenderPipelines.Core.Runtime",
+    "Unity.RenderPipelines.Core.Runtime.Shared"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

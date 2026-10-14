@@ -1,0 +1,29 @@
+--- a/Runtime/Core.Unity/Entity/DefaultEntityHelper.cs
++++ b/Runtime/Core.Unity/Entity/DefaultEntityHelper.cs
+@@ -35,6 +35,17 @@
+             var go = entityInstance as GameObject;
+             if (go == null) throw new FrameworkException("Entity instance is not a GameObject.");
+ 
++            EntityData data = userData as EntityData;
++#if UNITY_6000_6_OR_NEWER
++            // Local compatibility patch for upstream issue #3. Unity EntityId is
++            // opaque; do not truncate/hash it into the framework's integer ID.
++            if (data == null)
++                throw new FrameworkException("Unity 6000.6+ requires explicit EntityData.EntityId when using DefaultEntityHelper.");
++            int entityId = data.EntityId;
++#else
++            int entityId = data != null ? data.EntityId : go.GetInstanceID();
++#endif
++
+             EntityLogic logic = go.GetComponent<EntityLogic>();
+             if (logic == null)
+             {
+@@ -43,8 +54,6 @@
+             }
+ 
+             // 解析 EntityData
+-            EntityData data = userData as EntityData;
+-            int entityId = data != null ? data.EntityId : go.GetInstanceID();
+             string assetName = data != null ? data.AssetName : go.name;
+ 
+             var entity = new DefaultEntity(entityId, assetName, entityGroup, go, logic);

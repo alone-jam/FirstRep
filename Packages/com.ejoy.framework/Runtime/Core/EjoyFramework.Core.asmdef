@@ -1,0 +1,16 @@
+{
+    "name": "EjoyFramework.Core",
+    "rootNamespace": "EjoyFramework.Core",
+    "references": [
+        "EjoyFramework.Core.Ecs"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

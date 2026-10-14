@@ -1,0 +1,11 @@
+{
+  "name": "FirstRep.Fps.PlayTests",
+  "references": [
+    "FirstRep.Fps",
+    "EjoyFramework.Core",
+    "EjoyFramework.Core.Unity"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
