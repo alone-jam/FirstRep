@@ -32,15 +32,22 @@ static T Field<T>(object obj,string name)=>(T)obj.GetType().GetField(name,Bindin
 [UnityTest] public IEnumerator ConcurrentSamePrefabEntitiesHaveIndependentHandles(){
 var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");
 var content=Object.Instantiate(original);content.artReviewComplete=true;
-LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("FirstRep framework integration failed:.*issue #17"));
 var boot=new GameObject("Entity isolation fixture");boot.SetActive(false);boot.AddComponent<SliceBootstrap>().content=content;boot.SetActive(true);
 float deadline=Time.realtimeSinceStartup+120;
 while(Framework.GetModule<IEntityManager>().EntityCount<1+content.targetPositions.Length && Time.realtimeSinceStartup<deadline)yield return null;
 for(int frame=0;frame<20;frame++)yield return null;
 var managed=Framework.GetModule<IEntityManager>().GetAllLoadedEntities().Where(e=>e.EntityGroup.Name=="Targets").ToArray();
 var evidence=new EntityIsolationEvidence{entityCount=Framework.GetModule<IEntityManager>().EntityCount,activeTargets=Object.FindObjectsByType<TargetPractice>(FindObjectsSortMode.None).Length,uniqueTargetHandles=managed.Select(e=>e.Handle).Distinct().Count(),targetIds=managed.Select(e=>e.Id).ToArray()};
-evidence.aliased=evidence.uniqueTargetHandles!=managed.Length;System.IO.File.WriteAllText("Reports/framework-single-target-isolation.json",JsonUtility.ToJson(evidence,true));
-Assert.That(evidence.uniqueTargetHandles,Is.EqualTo(content.targetPositions.Length),"Upstream #17: simultaneous entity handles must be independent; no consumer pool workaround");
+evidence.aliased=evidence.uniqueTargetHandles!=managed.Length;System.IO.File.WriteAllText("Reports/framework-three-target-isolation.json",JsonUtility.ToJson(evidence,true));
+Assert.That(evidence.uniqueTargetHandles,Is.EqualTo(content.targetPositions.Length),"Simultaneous entity handles must be independent");
+var first=managed[0];var second=managed[1];var third=managed[2];
+var firstObject=(GameObject)first.Handle;var secondObject=(GameObject)second.Handle;var thirdObject=(GameObject)third.Handle;
+Framework.GetModule<IEntityManager>().HideEntity(second.Id);
+Assert.IsTrue(firstObject.activeInHierarchy && thirdObject.activeInHierarchy);Assert.IsFalse(secondObject.activeInHierarchy);
+boot.GetComponent<SliceBootstrap>().Entities.ShowEntity(second.Id,content.TargetAssetPath,"Targets",0,new ActorSpawn(boot.GetComponent<SliceBootstrap>(),content.targetPositions[1],Quaternion.identity));
+for(int frame=0;frame<10;frame++)yield return null;
+Assert.AreSame(secondObject,Framework.GetModule<IEntityManager>().GetEntity(second.Id).Handle,"Hidden instance should be reused without borrowing other active instances");
+Assert.IsTrue(firstObject.activeInHierarchy && secondObject.activeInHierarchy && thirdObject.activeInHierarchy);
 Object.Destroy(content);
 }
 [UnityTearDown] public IEnumerator ReleaseFrameworkSession(){
@@ -67,6 +74,18 @@ static IEnumerator Closed(SliceExitStatus status){
 float deadline=Time.realtimeSinceStartup+120;
 while(!status.Completed && Time.realtimeSinceStartup<deadline)yield return null;
 Assert.IsTrue(status.Completed,status.Error??"Scene leases did not finish");Assert.IsTrue(status.ScenesReleased);
+}
+[UnityTest] public IEnumerator ConcurrentImpactEffectsKeepIndependentTransformsAndLifetimes(){
+var boot=Fixture(out var content);yield return Ready(boot);
+var a=content.spawnPosition+Vector3.up*2;var b=a+Vector3.right*2;
+boot.ShowImpact(a,Quaternion.identity);boot.ShowImpact(b,Quaternion.identity);
+float deadline=Time.realtimeSinceStartup+30;
+while(Framework.GetModule<IEntityManager>().GetAllLoadedEntities().Count(e=>e.EntityGroup.Name=="Effects")<2 && Time.realtimeSinceStartup<deadline)yield return null;
+var effects=Framework.GetModule<IEntityManager>().GetAllLoadedEntities().Where(e=>e.EntityGroup.Name=="Effects").ToArray();Assert.AreEqual(2,effects.Length);Assert.AreNotSame(effects[0].Handle,effects[1].Handle);
+var first=(GameObject)effects[0].Handle;var second=(GameObject)effects[1].Handle;Assert.Greater(Vector3.Distance(first.transform.position,second.transform.position),1);
+Framework.GetModule<IEntityManager>().HideEntity(effects[0].Id);Assert.IsFalse(first.activeInHierarchy);Assert.IsTrue(second.activeInHierarchy);
+yield return new WaitForSeconds(5.3f);Assert.IsFalse(Framework.GetModule<IEntityManager>().HasEntity(effects[1].Id));
+boot.Exit();yield return Closed(boot.ExitStatus);Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
 }
 [UnityTest] public IEnumerator ProductionExitAndReentryUnloadActualAdditiveScenes(){
 int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;var boot=Fixture(out var content);

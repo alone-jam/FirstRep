@@ -6,7 +6,7 @@ namespace FirstRep.Fps.Editor
 {
     public static class FrameworkDependencyCheck
     {
-        public const string Revision = "641b43dc75f6fdae9acecc37d1c1e632d7f0aff4";
+        public const string Revision = "a5e1ec6f3472f741815108509ba303ce39b933c3";
         [Serializable] sealed class Result { public string name, source, packageId, resolvedPath; public bool passed; }
         public static void Run()
         {

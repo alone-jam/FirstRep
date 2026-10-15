@@ -1,0 +1,159 @@
+{
+  "unity": "6000.6.5f1",
+  "framework_git_sha": "a5e1ec6f3472f741815108509ba303ce39b933c3",
+  "source": "git",
+  "validation": "Actual Unity Editor; FirstRep tests use -nographics and do not establish visual acceptance. Upstream test failure retained, not suppressed.",
+  "results": {
+    "FirstRep EditMode": {
+      "total": "3",
+      "passed": "3",
+      "failed": "0",
+      "duration_seconds": "0.0896651",
+      "report_sha256": "ee36bd137c2b7cdafea245a15e37d14d1c9262e78f5ad89dde80f4be0954d6f5",
+      "cases": [
+        {
+          "name": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.ExplicitFrameworkIdSurvivesUnityEntityIdMigration",
+          "result": "Passed"
+        },
+        {
+          "name": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.MissingExplicitIdFailsBeforeAttachingLogic",
+          "result": "Passed"
+        },
+        {
+          "name": "FirstRep.Fps.Tests.UpstreamPointerInputTests.GitPackageMouseBindingsReachActualInputSystemDevice",
+          "result": "Passed"
+        }
+      ]
+    },
+    "FirstRep PlayMode": {
+      "total": "5",
+      "passed": "5",
+      "failed": "0",
+      "duration_seconds": "39.9202148",
+      "report_sha256": "c29575c3c995f68eb1d932f87864037f648a66b5cf2d6e601f09ec08dc78d452",
+      "cases": [
+        {
+          "name": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentImpactEffectsKeepIndependentTransformsAndLifetimes",
+          "result": "Passed"
+        },
+        {
+          "name": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentSamePrefabEntitiesHaveIndependentHandles",
+          "result": "Passed"
+        },
+        {
+          "name": "FirstRep.Fps.Tests.FpsPlayTests.DestroyingBootstrapDuringNativeLoadsStillReleasesSceneLeases",
+          "result": "Passed"
+        },
+        {
+          "name": "FirstRep.Fps.Tests.FpsPlayTests.ProductionExitAndReentryUnloadActualAdditiveScenes",
+          "result": "Passed"
+        },
+        {
+          "name": "FirstRep.Fps.Tests.FpsPlayTests.SingleTargetIntegrationExercisesFrameworkModulesAndGameplay",
+          "result": "Passed"
+        }
+      ]
+    },
+    "Upstream affected tests": {
+      "total": "23",
+      "passed": "22",
+      "failed": "1",
+      "duration_seconds": "0.4984657",
+      "report_sha256": "95b292a17d48dc76e14e596d8b6975e6dd0f76551dd376794739f871e75a556b",
+      "cases": [
+        {
+          "name": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.ColliderKeysPreserveDistinctRegistrationIdsForSameNamedObjects",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.ExplicitUnbakedStaticMeshOccludesHistoricalActorAndPreservesHistoryAdmission",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.InitialOverlapIsVisibleAndMovedStaticGeometryIsRejected",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.SweptProjectileHitsStaticMeshWithoutTunnelingAndReportsFallback",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.UnregisteredColliderInStaticLayerIsRejected",
+          "result": "Failed"
+        },
+        {
+          "name": "EjoyFramework.Tests.DefaultEntityHelperTests.ExplicitFrameworkId_IsPreservedWithoutUnityIdConversion(0)",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.DefaultEntityHelperTests.ExplicitFrameworkId_IsPreservedWithoutUnityIdConversion(17)",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.DefaultEntityHelperTests.ExplicitFrameworkId_IsPreservedWithoutUnityIdConversion(-17)",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.DefaultEntityHelperTests.ExplicitFrameworkId_IsPreservedWithoutUnityIdConversion(int.MaxValue)",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.DefaultEntityHelperTests.MissingExplicitId_UsesVersionAppropriatePolicy",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.HideAllLoadedEntities_ClearsAll",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.HideEntity_FiresHideCompleteEvent",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.HideEntity_LoadingInFlight_CancelsRequest",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.SamePrefab_ConcurrentEntitiesHaveExclusiveLifetimesAndReuseOnlyHiddenInstances(False)",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.SamePrefab_ConcurrentEntitiesHaveExclusiveLifetimesAndReuseOnlyHiddenInstances(True)",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.ShowEntity_DuplicateId_Throws",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.ShowEntity_LoadFailure_FiresFailureEvent",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.ShowEntity_NoGroup_Throws",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.ShowEntity_ReuseFromInstancePool_NoSecondLoad",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.EntityManagerTests.ShowEntity_SyncSuccess_FiresEventWithFilledArgs",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.ResourceComponentModeTests.ResourcesMode_InitializeAsyncReportsFailureWithoutStartingInitialization",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.ResourceComponentModeTests.ResourcesMode_RejectsBeforeInstallingOrSelectingAnyLoader(\"Awake\")",
+          "result": "Passed"
+        },
+        {
+          "name": "EjoyFramework.Tests.ResourceComponentModeTests.ResourcesMode_RejectsBeforeInstallingOrSelectingAnyLoader(\"CreateLoader\")",
+          "result": "Passed"
+        }
+      ]
+    }
+  }
+}

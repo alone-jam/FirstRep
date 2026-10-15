@@ -1,6 +1,6 @@
-> Framework 整改状态：当前源码使用固定 Git UPM 包并接入实体、资源、Procedure、UI、Sound 与 motor；EditMode 3/3、单靶子 MVVM/玩法、真实退出/重进和加载中销毁的卸载通过，三靶子隔离被上游 #17 阻塞，启动会明确停止。下文保留的 Linux Player 为旧架构检查点，不能用于证明本次源码或新画面已验收。详见 [架构审查](FRAMEWORK-ADOPTION.md)。运行录制 GIF 待新依赖验证及 Player 重建后继续。
+> 当前源码已消费官方 Git SHA `a5e1ec6f3472f741815108509ba303ce39b933c3`；实际 Unity EditMode 3/3、PlayMode 5/5 通过，三靶子与并发特效隔离已解除阻塞。上游相关测试 22/23，保留一项历史 MeshCollider 查询断言失败。新生产 AssetBundles 已生成，Linux Player 构建及画面检查正在进行。以下旧 Player 的构建数字、旧渲染配置与旧补丁仅是历史检查点，不能当作当前源码结果。详见 [当前接入审查](FRAMEWORK-ADOPTION.md)。
 
-> 当前提交状态：下文构建与测试结果描述此前保留在本机的检查点，构建二进制和 Reports 不在 Git 中。当前源码额外修复 Ejoy 测试 GUID 并恢复原版曝光/后处理/SSS 配置，已通过无图形编译审计，但尚未重建或完成画面验收；最近图形诊断达到 16 GiB 内存限制后停止。色彩/材质异常仍未解决。
+## 历史检查点记录
 
 # FirstRep：首版运行说明（构建已交付，画面仍有差异）
 
@@ -37,7 +37,7 @@ Unity 内打开 `Assets/FirstRep/Scenes/Bootstrap.unity` 并进入 Play Mode。B
 
 已报告 Ejoy 上游问题：[#1](https://github.com/one2world/EjoyFramework/issues/1) 鼠标输入、[#2](https://github.com/one2world/EjoyFramework/issues/2) 无效 GUID、[#3](https://github.com/one2world/EjoyFramework/issues/3) Unity 6000.6 EntityId 兼容。使用现有 LegacyInputHelper，并保留一处要求显式 EntityData.EntityId 的最小兼容补丁，见 `Docs/Ejoy-Unity6000.6.patch`。
 
-未推送或公开发布。
+历史记录中的“未推送”状态已过期；当前源码在 FirstRep work 分支发布。
 
 
 ## 构建设置
