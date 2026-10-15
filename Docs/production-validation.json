@@ -1,0 +1,207 @@
+{
+  "framework_git_sha": "a5e1ec6f3472f741815108509ba303ce39b933c3",
+  "unity": "6000.6.5f1",
+  "assetbundles": {
+    "status": "built",
+    "upstream_builder": "AssetBundleBuilder.BuildAll",
+    "assets": 9,
+    "bundles": 2,
+    "manifest": {
+      "Version": 1,
+      "AppVersion": "1.0.0",
+      "Platform": "StandaloneLinux64",
+      "Bundles": [
+        {
+          "Name": "audio_clips_weapons",
+          "RelativePath": "audio_clips_weapons",
+          "Size": 237065,
+          "Crc": 118555484,
+          "Hash": "af645f63ad8dfb20c142574d61a3ecd0",
+          "Md5": "2b1ad7dd5c6032a8795befa3d13c7beb",
+          "Dependencies": [],
+          "AssetNames": [
+            "Assets/Audio/Clips/Weapons/GirlWeaponFireAlt01.wav",
+            "Assets/Audio/Clips/Weapons/GirlWeaponGrenadeImpact01.wav",
+            "Assets/Audio/Clips/Weapons/GirlWeaponReloadPart1.wav",
+            "Assets/Audio/Clips/Weapons/GirlWeaponReloadPart2.wav"
+          ]
+        },
+        {
+          "Name": "firstrep_framework",
+          "RelativePath": "firstrep_framework",
+          "Size": 65554401,
+          "Crc": 2579270304,
+          "Hash": "5325b09c2a17ae6e864ac2d068ec1f34",
+          "Md5": "d19a77226b7c132426ff076c13fc3ca1",
+          "Dependencies": [
+            "audio_clips_weapons"
+          ],
+          "AssetNames": [
+            "Assets/FirstRep/Framework/Hud.prefab",
+            "Assets/FirstRep/Framework/Impact.prefab",
+            "Assets/FirstRep/Framework/Pause.prefab",
+            "Assets/FirstRep/Framework/Player.prefab",
+            "Assets/FirstRep/Framework/Target.prefab"
+          ]
+        }
+      ],
+      "Assets": [
+        {
+          "Name": "Assets/FirstRep/Framework/Hud.prefab",
+          "BundleName": "firstrep_framework",
+          "IsScene": false,
+          "TypeName": "UnityEngine.GameObject",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/FirstRep/Framework/Impact.prefab",
+          "BundleName": "firstrep_framework",
+          "IsScene": false,
+          "TypeName": "UnityEngine.GameObject",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/FirstRep/Framework/Pause.prefab",
+          "BundleName": "firstrep_framework",
+          "IsScene": false,
+          "TypeName": "UnityEngine.GameObject",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/FirstRep/Framework/Player.prefab",
+          "BundleName": "firstrep_framework",
+          "IsScene": false,
+          "TypeName": "UnityEngine.GameObject",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/FirstRep/Framework/Target.prefab",
+          "BundleName": "firstrep_framework",
+          "IsScene": false,
+          "TypeName": "UnityEngine.GameObject",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/Audio/Clips/Weapons/GirlWeaponFireAlt01.wav",
+          "BundleName": "audio_clips_weapons",
+          "IsScene": false,
+          "TypeName": "UnityEngine.AudioClip",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/Audio/Clips/Weapons/GirlWeaponGrenadeImpact01.wav",
+          "BundleName": "audio_clips_weapons",
+          "IsScene": false,
+          "TypeName": "UnityEngine.AudioClip",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/Audio/Clips/Weapons/GirlWeaponReloadPart1.wav",
+          "BundleName": "audio_clips_weapons",
+          "IsScene": false,
+          "TypeName": "UnityEngine.AudioClip",
+          "Variant": ""
+        },
+        {
+          "Name": "Assets/Audio/Clips/Weapons/GirlWeaponReloadPart2.wav",
+          "BundleName": "audio_clips_weapons",
+          "IsScene": false,
+          "TypeName": "UnityEngine.AudioClip",
+          "Variant": ""
+        }
+      ]
+    },
+    "files": [
+      {
+        "name": "StandaloneLinux64",
+        "bytes": 1652,
+        "sha256": "2e0661f8f7d07990920be34047d2cf55d336eaf0bf50279a022344d884b9fca8"
+      },
+      {
+        "name": "StandaloneLinux64.manifest",
+        "bytes": 293,
+        "sha256": "222e5b3b702ed14f7c5795b3f38dbcf953531664e3d336b1687b1fa6fa11eed8"
+      },
+      {
+        "name": "audio_clips_weapons",
+        "bytes": 237065,
+        "sha256": "118203e05d7b581020faa1294bf7d8979f64cd146e67f31199663e93b98a6008"
+      },
+      {
+        "name": "audio_clips_weapons.manifest",
+        "bytes": 684,
+        "sha256": "822e6606b1810c6d6d27101e1fbdb9a36c5ea6d2b5b303a299da119389878c66"
+      },
+      {
+        "name": "firstrep_framework",
+        "bytes": 65554401,
+        "sha256": "af22541c70486e81d9c53031debfff8e9eafc003358a0793ec7f3cd363d727bd"
+      },
+      {
+        "name": "firstrep_framework.manifest",
+        "bytes": 3806,
+        "sha256": "e7f0df37132cd5dc961f2c7f9ce2424132ae2d3ec69918a45e2ee884916819f7"
+      },
+      {
+        "name": "manifest.json",
+        "bytes": 3668,
+        "sha256": "1921cb3d87c24fc8977032afa93f80460233625aa75ff943064e055aee27b82f"
+      }
+    ]
+  },
+  "linux_player": {
+    "status": "blocked_memory_limit",
+    "fresh_executable_produced": false,
+    "cgroup_memory_max_bytes": 17179869184,
+    "cgroup_oom_kill_before": 1,
+    "cgroup_oom_kill_after": 2,
+    "last_stage": "HDRP shader variant processing, Forward pass",
+    "workspace_free_bytes_approx": 1500000000,
+    "tmp_free_bytes_approx": 3300000000,
+    "disk_reserve_bytes": 1073741824,
+    "evidence": "Reports/official-a5e1ec6-build-linux.log ends abruptly; Editor process exited; cgroup oom_kill incremented. No new Player, visual acceptance, or GIF claimed."
+  },
+  "upstream_overlap_probe": {
+    "results": [
+      {
+        "convex": false,
+        "origin_z": 0,
+        "overlap_count": 0,
+        "sweep": "InvalidOperationException"
+      },
+      {
+        "convex": false,
+        "origin_z": 4.45,
+        "overlap_count": 1,
+        "sweep": "InvalidOperationException"
+      },
+      {
+        "convex": false,
+        "origin_z": 5,
+        "overlap_count": 0,
+        "sweep": "Miss"
+      },
+      {
+        "convex": true,
+        "origin_z": 0,
+        "overlap_count": 0,
+        "sweep": "InvalidOperationException"
+      },
+      {
+        "convex": true,
+        "origin_z": 4.45,
+        "overlap_count": 1,
+        "sweep": "InvalidOperationException"
+      },
+      {
+        "convex": true,
+        "origin_z": 5,
+        "overlap_count": 1,
+        "sweep": "InvalidOperationException"
+      }
+    ],
+    "conclusion": "Unmodified upstream suite remains 22/23. The failing fully-inside non-convex mesh assertion sees no Unity overlap. Surface intersection or convex shape correctly rejects unknown identity.",
+    "issue_comment": "https://github.com/one2world/EjoyFramework/issues/3#issuecomment-6195904536",
+    "consumer_boundary": "FirstRep uses live Physics.Raycast for shooting, not StaticPhysicsHistoricalQuery."
+  }
+}

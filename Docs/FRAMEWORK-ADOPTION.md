@@ -32,8 +32,14 @@
 
 消费者 PlayMode 5 项均通过：单靶子模块/玩法与 MVVM；三个同预制体实体并发、独立隐藏和空闲池复用；并发命中特效独立 Transform/生命周期；实际生产退出和两轮重进；原生加载中销毁 Bootstrap 后卸载。EditMode 的显式实体 ID、缺失 ID 拒绝及实际 Input System 鼠标设备 3 项通过。测试使用真实原场景、Unity 物理及 Framework；`-nographics` 不验证画面或听感。
 
-独立项目运行同一官方 Git 包的 EntityManager、DefaultEntityHelper、ResourceComponentMode、StaticPhysicsHistoricalQuery 相关测试：22/23 通过。`UnregisteredColliderInStaticLayerIsRejected` 第 66 行射线拒绝断言通过，第 67 行从非凸 MeshCollider 中心出发的小球查询未抛出异常。未修改上游缓存或跳过该测试；需区分几何查询语义与身份注册回归。FirstRep 当前射击使用 Unity 实时物理射线，不调用 StaticPhysicsHistoricalQuery；其消费者测试已独立通过。
+独立项目运行同一官方 Git 包的 EntityManager、DefaultEntityHelper、ResourceComponentMode、StaticPhysicsHistoricalQuery 相关测试：22/23 通过。`UnregisteredColliderInStaticLayerIsRejected` 第 66 行射线拒绝断言通过，第 67 行从非凸 MeshCollider 中心出发的小球查询未抛出异常。未修改上游缓存或跳过该测试；额外实际 Unity 探针确认：非凸网格中心的 OverlapSphere=0/Sweep=Miss；表面相交或改为凸碰撞体时均正确抛出 InvalidOperationException，指向该断言的几何假设，而非身份键修复回归。已补充 [现有 #3](https://github.com/one2world/EjoyFramework/issues/3#issuecomment-6195904536)。FirstRep 当前射击使用 Unity 实时物理射线，不调用 StaticPhysicsHistoricalQuery；其消费者测试已独立通过。
 
 ## 可复验的消费者验证
 
 结构化结果及每个 XML 的 SHA-256 见 [official-framework-validation.json](official-framework-validation.json)。完整原始 XML/日志保存在本地 Reports：`official-a5e1ec6-editmode.xml`、`official-a5e1ec6-playmode-preserved.xml`、`official-a5e1ec6-upstream-unity.xml`。无凭据、许可证、缓存或构建二进制进入源码。
+
+## 生产构建与剩余阻碍
+
+同一官方 SHA 的上游 AssetBundleBuilder 已生成 2 个 bundle、9 项资源及 manifest，完整 SHA-256/大小/资源清单见 [production-validation.json](production-validation.json)。Linux Player 构建在 HDRP 着色器 Forward 变体处理阶段被 16 GiB cgroup 内存限制终止；oom_kill 计数从 1 增至 2。工作区约剩 1.5 GiB、临时区约剩 3.3 GiB，同时保留 1 GiB 磁盘阈值。未产出新可执行文件，未进行新 Player 的画面验收或 GIF 录制，README 未插入旧构建冒充的 GIF。
+
+已完成的空间恢复是逐文件哈希验证后的无损迁移/保留；原资源、旧持久 Player、历史中间数据均保留。继续重建需要释放额外构建内存/存储余量；若依靠删除缓存或历史数据，需先取得用户授权，不能将对已校验重复旧构建的单次删除许可扩大到其他目录。

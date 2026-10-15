@@ -51,3 +51,9 @@
 
 # Unity Temp may be a symlink during checked builds.
 /Temp
+
+# Unity performance-test package generated run configuration.
+/Assets/Resources/PerformanceTestRunInfo.json
+/Assets/Resources/PerformanceTestRunInfo.json.meta
+/Assets/Resources/PerformanceTestRunSettings.json
+/Assets/Resources/PerformanceTestRunSettings.json.meta
