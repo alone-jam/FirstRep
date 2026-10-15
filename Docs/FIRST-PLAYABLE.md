@@ -1,4 +1,4 @@
-> 当前源码已消费官方 Git SHA `a5e1ec6f3472f741815108509ba303ce39b933c3`；实际 Unity EditMode 3/3、PlayMode 5/5 通过，三靶子与并发特效隔离已解除阻塞。上游相关测试 22/23，保留一项历史 MeshCollider 查询断言失败。新生产 AssetBundles/manifest 已生成；Linux Player 在着色器处理时达到 16 GiB 内存限制，新 Player、画面验收和 GIF 尚未完成。构建证据见 [production-validation.json](production-validation.json)。以下旧 Player 的构建数字、旧渲染配置与旧补丁仅是历史检查点，不能当作当前源码结果。详见 [当前接入审查](FRAMEWORK-ADOPTION.md)。
+> 当前源码已消费官方 Git SHA `a5e1ec6f3472f741815108509ba303ce39b933c3`；实际 Unity EditMode 3/3、PlayMode 5/5 通过，三靶子与并发特效隔离已解除阻塞。上游相关测试 22/23，保留一项历史 MeshCollider 查询断言失败。新生产 AssetBundles/manifest 已生成；首次 Player 构建遇内存限制；低并发重试已通过着色器且无新增 OOM，随后被 8.8 GiB 临时盘容量阻塞。新 Player、画面验收和 GIF 尚未完成，详见 [最新诊断](low-memory-build-validation.json)。构建证据见 [production-validation.json](production-validation.json)。以下旧 Player 的构建数字、旧渲染配置与旧补丁仅是历史检查点，不能当作当前源码结果。详见 [当前接入审查](FRAMEWORK-ADOPTION.md)。
 
 ## 历史检查点记录
 

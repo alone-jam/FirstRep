@@ -150,7 +150,7 @@
     ]
   },
   "linux_player": {
-    "status": "blocked_memory_limit",
+    "status": "blocked_disk_reserve_after_shader_stage",
     "fresh_executable_produced": false,
     "cgroup_memory_max_bytes": 17179869184,
     "cgroup_oom_kill_before": 1,
@@ -159,7 +159,8 @@
     "workspace_free_bytes_approx": 1500000000,
     "tmp_free_bytes_approx": 3300000000,
     "disk_reserve_bytes": 1073741824,
-    "evidence": "Reports/official-a5e1ec6-build-linux.log ends abruptly; Editor process exited; cgroup oom_kill incremented. No new Player, visual acceptance, or GIF claimed."
+    "evidence": "Reports/official-a5e1ec6-build-linux.log ends abruptly; Editor process exited; cgroup oom_kill incremented. No new Player, visual acceptance, or GIF claimed.",
+    "latest_attempt": "low-memory-build-validation.json"
   },
   "upstream_overlap_probe": {
     "results": [

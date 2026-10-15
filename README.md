@@ -2,7 +2,7 @@
 
 Unity 6000.6.5f1 / HDRP 17.6 / EjoyFramework v2.1.0. This is a work-in-progress single-player adaptation of Unity FPSSample, not a finished port or a visual-fidelity acceptance build.
 
-> Official EjoyFramework fix `a5e1ec6` is pinned through Git UPM. Actual Unity tests pass: FirstRep EditMode **3/3**, PlayMode **5/5**, including concurrent entities/effects and real scene exit/re-entry. Upstream affected tests pass **22/23**; the remaining historical mesh-overlap assertion is recorded separately. Production AssetBundles and manifest were generated (9 assets). The new Linux Player build hit the environment's 16 GiB memory limit during shader processing; no new Player or GIF is published.
+> Official EjoyFramework fix `a5e1ec6` is pinned through Git UPM. Actual Unity tests pass: FirstRep EditMode **3/3**, PlayMode **5/5**, including concurrent entities/effects and real scene exit/re-entry. Upstream affected tests pass **22/23**; the remaining historical mesh-overlap assertion is recorded separately. Production AssetBundles and manifest were generated (9 assets). A lower-concurrency retry passed shader processing without OOM, then stopped when the 8.8 GiB scratch filesystem filled during final packing. No new Player or GIF is published.
 
 See the [file/API adoption audit and actual test boundaries](Docs/FRAMEWORK-ADOPTION.md).
 

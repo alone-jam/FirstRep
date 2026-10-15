@@ -1,0 +1,94 @@
+{
+  "unity": "6000.6.5f1",
+  "framework_git_sha": "a5e1ec6f3472f741815108509ba303ce39b933c3",
+  "result": "blocked_disk_reserve_after_shader_stage",
+  "launcher_exit": 75,
+  "editor_exit": -15,
+  "oom_kill_before": 2,
+  "oom_kill_after": 2,
+  "orphan_compilers_stopped": 57,
+  "orphan_compilers_summed_rss_bytes": 2068164608,
+  "orphan_scope": "Unity SDK VBCSCompiler.dll, -shutdown, PPid=1; no active Editor compiler was stopped",
+  "orphan_upm_stopped": 47897,
+  "job_worker_count": 1,
+  "shader_compiler_count_observed_max": 1,
+  "import_worker_count_observed": 1,
+  "flags": [
+    "-job-worker-count 1",
+    "-diag-debug-shader-compiler",
+    "-refreshImportMode InProcess",
+    "-desiredWorkerCount 1",
+    "-standbyWorkerCount 0"
+  ],
+  "reused_resources": "9 assets; manifest platform, file sizes and MD5 validated; fixed official Git dependency verified",
+  "previous_failure_stage_passed": "HDRP/LayeredLit serialized and compressed (75.07 MB to 19.78 MB); LayeredLitTessellation also serialized",
+  "peak_rss_bytes_by_name": {
+    "Unity Main Thre": 5942820864,
+    "dotnet": 781299712,
+    "UnityAutoQuitte": 946176,
+    "Unity.Licensing": 120979456,
+    "Unity.DataStore": 442507264,
+    "Unity.ILPP.Runn": 120311808,
+    "UnityShaderComp": 29257728
+  },
+  "peak_cgroup_memory_bytes": 17179844608,
+  "peak_sampled_anon_plus_shmem_bytes": 13304512512,
+  "memory_caveat": "cgroup current includes reclaimable file cache; RSS values overlap shared pages. Neither is a minimum RAM requirement. Latest attempt had no OOM.",
+  "minimum_sampled_free_bytes": {
+    "/workspace": 1576218624,
+    "/tmp": 3571712
+  },
+  "guard_note": "0.5-second reserve polling observed an allocation burst: actual /tmp free space reached about 3.5 MiB before Editor termination, so 1 GiB reserve was not continuously maintained.",
+  "large_interrupted_files": [
+    {
+      "path": "/tmp/firstrep-intermediates/PlayerDataCache/Linux642/Data/data.unity3d",
+      "bytes": 1420139040
+    },
+    {
+      "path": "/tmp/firstrep-intermediates/PlayerDataCache/Linux642/Data/data.unity3d.tmp",
+      "bytes": 1814912311
+    },
+    {
+      "path": "/tmp/firstrep-intermediates/PlayerDataCache/Linux642/Data/sharedassets1.assets.resS",
+      "bytes": 1946677296
+    },
+    {
+      "path": "/tmp/firstrep-intermediates/PlayerDataCache/Linux642/Data/sharedassets1.assets",
+      "bytes": 212403960
+    },
+    {
+      "path": "/tmp/firstrep-intermediates/PlayerDataCache/Linux642/Data/globalgamemanagers.assets",
+      "bytes": 143991008
+    },
+    {
+      "path": "/tmp/firstrep-intermediates/PlayerDataCache/Linux642/Data/level1.resS",
+      "bytes": 110839152
+    }
+  ],
+  "files_deleted_by_agent": false,
+  "deletion_candidates_requiring_approval": [
+    {
+      "path": "/tmp/firstrep-intermediates/intermediates-preserved-long.tar.zst",
+      "bytes": 1310231832,
+      "purpose": "Preserved earlier failed build intermediates; 59 generated files, not source art.",
+      "risk": "Unique historical intermediate snapshot and exact diagnostic bytes lost; regenerating from source need not reproduce identical intermediate bytes."
+    },
+    {
+      "path": "/tmp/ejoy-fix-validation",
+      "bytes": 234391999,
+      "purpose": "Separate official Framework validation project, imports and Editor probe.",
+      "risk": "Isolated project/import cache would be removed and must be recreated to rerun. Probe source/asmdef/manifest copied to FirstRep Reports/OverlapProbePreserved; original XML/logs/results retained."
+    }
+  ],
+  "capacity_note": "The latest attempt was disk-bound, not OOM. More than 8.8 GiB scratch is necessary with retained files. Approximate lower bound 10.2 GiB to finish this packing phase while reserving 1 GiB; budget about 12.5 GiB for later output copying. These estimates are not a verified complete-build minimum. No environment change or cache deletion authorized/performed.",
+  "raw_evidence": {
+    "official-a5e1ec6-build-low-memory.log": "e602d71dbd48bf29b9b49c01f7ec4a92fe079f7eb8135be9636ea648afbef60f",
+    "low-memory-build-samples.jsonl": "e637fc5aa7308c6d2544972508c4f5feeab56597f8e2ce05d4d3810daacd24c5",
+    "low-memory-build-detail.jsonl": "648de1c57c666f7429d51384bad38b39af6e7fb62020cd052f4d821cd9dadf9b"
+  },
+  "failed_current_cache_note": {
+    "path": "/tmp/firstrep-intermediates/PlayerDataCache",
+    "approx_bytes": 5905580032,
+    "warning": "Removing this interrupted generated cache alone only restores pre-attempt space; the same final packing peak can recur. No deletion performed."
+  }
+}

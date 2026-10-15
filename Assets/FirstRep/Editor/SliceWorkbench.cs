@@ -143,7 +143,12 @@ namespace FirstRep.Fps.Editor
         }
 
         [MenuItem("FirstRep/4. Build Linux vertical slice")]
-        public static void BuildLinux()
+        public static void BuildLinux() => BuildLinux(true);
+
+        // Explicit staged build: callers must prepare bundles from the current assets first.
+        public static void BuildLinuxFromPreparedResources() => BuildLinux(false);
+
+        static void BuildLinux(bool prepareResources)
         {
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FIRSTREP_BUILD_TEMP")))
             {
@@ -155,7 +160,8 @@ namespace FirstRep.Fps.Editor
                 }
             }
             Validate();
-            FrameworkAssetSetup.BuildResources();
+            if (prepareResources) FrameworkAssetSetup.BuildResources();
+            else FrameworkAssetSetup.ValidateBuiltResources();
             if (!File.Exists(BootstrapPath)) throw new InvalidOperationException("Generate the bootstrap first.");
             var content = AssetDatabase.LoadAssetAtPath<SliceContent>(ContentPath);
             PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneLinux64, false);

@@ -43,3 +43,11 @@
 同一官方 SHA 的上游 AssetBundleBuilder 已生成 2 个 bundle、9 项资源及 manifest，完整 SHA-256/大小/资源清单见 [production-validation.json](production-validation.json)。Linux Player 构建在 HDRP 着色器 Forward 变体处理阶段被 16 GiB cgroup 内存限制终止；oom_kill 计数从 1 增至 2。工作区约剩 1.5 GiB、临时区约剩 3.3 GiB，同时保留 1 GiB 磁盘阈值。未产出新可执行文件，未进行新 Player 的画面验收或 GIF 录制，README 未插入旧构建冒充的 GIF。
 
 已完成的空间恢复是逐文件哈希验证后的无损迁移/保留；原资源、旧持久 Player、历史中间数据均保留。继续重建需要释放额外构建内存/存储余量；若依靠删除缓存或历史数据，需先取得用户授权，不能将对已校验重复旧构建的单次删除许可扩大到其他目录。
+
+## 低内存重试：内存阶段通过，磁盘仍受阻
+
+已停止 57 个旧 Unity 孤立关闭中 C# 编译器进程（RSS 合计约 1.93 GiB，含共享页），及无活动 Editor 使用的旧 UPM 进程；未删除文件。采用官方单 ShaderCompiler 参数、单 Job worker、顺序导入配置，明确复用并校验已有 9 项 bundle。实际仅一个 ShaderCompiler、一个导入 worker；Editor RSS 峰值约 5.5 GiB。重试已通过上一轮 LayeredLit/Forward 失败点，完成 shader 序列化；OOM kill 计数保持 2。
+
+但最终 LZ4HC 打包时临时区被原始数据、压缩流和未完成容器共同占满，磁盘保护终止 Editor：退出码 75，原生 -15；未产出新 Player/GIF。半秒采样遇到快速分配，最低余量约 3.5 MiB，不能声称始终保持 1 GiB。具体进程峰值、文件大小、待批准清理目录和容量边界见 [low-memory-build-validation.json](low-memory-build-validation.json)。不能将删除磁盘缓存等同于解决内存上限；本轮明确是磁盘阻塞。
+
+复用当前资源的分阶段入口为 `FirstRep.Fps.Editor.SliceWorkbench.BuildLinuxFromPreparedResources`，仅用于调用者已从当前素材生成 bundles 的场合；它验证平台、非空清单、大小与 MD5，并核验官方 Git pin。完整构建入口仍重新生成 bundles。当前空间不足时不要直接重试。低并发采样脚本为 `Tools/run_low_memory_build.py`。参数依据 [Unity 官方命令行文档](https://docs.unity3d.com/6000.0/Documentation/Manual/EditorCommandLineArguments.html)，未关闭视觉功能或改变原资源。

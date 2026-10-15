@@ -104,5 +104,26 @@ namespace FirstRep.Fps.Editor
             finally{Object.DestroyImmediate(config);}
         }
         public static void VerifyAndPrepare(){FrameworkDependencyCheck.Run();PrepareAssets();}
+        public static void ValidateBuiltResources()
+        {
+            const string root="Assets/StreamingAssets/AssetBundles/StandaloneLinux64";
+            var manifest=JsonUtility.FromJson<EjoyFramework.Core.Resource.AssetManifest>(File.ReadAllText(Path.Combine(root,"manifest.json")));
+            if(manifest.Platform!="StandaloneLinux64" || manifest.Assets.Count==0 || manifest.Bundles.Count==0)
+                throw new InvalidOperationException("Prepared Linux resource manifest is empty or incompatible");
+            foreach(var bundle in manifest.Bundles)
+            {
+                var path=Path.GetFullPath(Path.Combine(root,bundle.RelativePath));
+                if(!path.StartsWith(Path.GetFullPath(root)+Path.DirectorySeparatorChar,StringComparison.Ordinal))
+                    throw new InvalidOperationException("Bundle path leaves prepared resource directory");
+                using(var stream=File.OpenRead(path))
+                using(var md5=System.Security.Cryptography.MD5.Create())
+                {
+                    if(stream.Length!=bundle.Size || BitConverter.ToString(md5.ComputeHash(stream)).Replace("-","").ToLowerInvariant()!=bundle.Md5)
+                        throw new InvalidOperationException("Prepared bundle integrity failed: "+bundle.Name);
+                }
+            }
+            FrameworkDependencyCheck.Run();
+            Debug.Log("FIRSTREP PREPARED ASSETBUNDLES VERIFIED "+manifest.Assets.Count);
+        }
     }
 }
