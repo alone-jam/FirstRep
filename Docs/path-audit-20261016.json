@@ -1,0 +1,29 @@
+{
+  "project_cwd": "/workspace/FirstRep",
+  "git_root": "/workspace/FirstRep",
+  "remote": "https://github.com/alone-jam/FirstRep.git",
+  "head": "59ef925d156d9f63c5bdc9e2f51c5c26a95f309c",
+  "cleanup_candidates": [
+    {
+      "path": "/tmp/firstrep-intermediates/intermediates-preserved-long.tar.zst",
+      "lexists": false,
+      "exists": false,
+      "is_symlink": false,
+      "resolved": "/tmp/firstrep-intermediates/intermediates-preserved-long.tar.zst",
+      "deleted": false,
+      "bytes_released": 0
+    },
+    {
+      "path": "/tmp/ejoy-fix-validation",
+      "lexists": false,
+      "exists": false,
+      "is_symlink": false,
+      "resolved": "/tmp/ejoy-fix-validation",
+      "deleted": false,
+      "bytes_released": 0
+    }
+  ],
+  "cleanup_actual_released_bytes": 0,
+  "temporary_free_bytes_before_regeneration": 9441312768,
+  "finding": "Selected execution service now available. Project and retained Player/reports exist. Both authorized cleanup candidates absent before regeneration; no deletion performed. Several project links point to absent /tmp targets; their cause is not established by this audit."
+}

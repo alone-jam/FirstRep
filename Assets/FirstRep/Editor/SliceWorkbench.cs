@@ -148,7 +148,14 @@ namespace FirstRep.Fps.Editor
         // Explicit staged build: callers must prepare bundles from the current assets first.
         public static void BuildLinuxFromPreparedResources() => BuildLinux(false);
 
-        static void BuildLinux(bool prepareResources)
+        public static void BuildFrameworkResources()
+        {
+            PrepareBuildTemp();
+            Validate();
+            FrameworkAssetSetup.BuildResources();
+        }
+
+        static void PrepareBuildTemp()
         {
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FIRSTREP_BUILD_TEMP")))
             {
@@ -159,6 +166,11 @@ namespace FirstRep.Fps.Editor
                     if (process.ExitCode != 0) throw new InvalidOperationException("Build Temp redirection failed; no build started.");
                 }
             }
+        }
+
+        static void BuildLinux(bool prepareResources)
+        {
+            PrepareBuildTemp();
             Validate();
             if (prepareResources) FrameworkAssetSetup.BuildResources();
             else FrameworkAssetSetup.ValidateBuiltResources();

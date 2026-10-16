@@ -4,12 +4,19 @@
 Linux/cgroup environment diagnostic; logs process names/RSS and disk space, never credentials.
 Generate bundles from the current assets before using this explicit staged entry point.
 """
-import subprocess,time,json,pathlib,os,sys
-root=pathlib.Path(__file__).resolve().parents[1];report=root/'Reports/low-memory-build-samples.jsonl'
+import subprocess,time,json,pathlib,os,sys,argparse
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--stage",choices=["bundles","player"],default="player")
+parser.add_argument("--log-prefix",default="official-a5e1ec6-build-low-memory")
+options=parser.parse_args()
+if pathlib.Path(options.log_prefix).name!=options.log_prefix:
+ parser.error("log prefix must be a filename, without directories")
+method="FirstRep.Fps.Editor.SliceWorkbench."+("BuildFrameworkResources" if options.stage=="bundles" else "BuildLinuxFromPreparedResources")
+root=pathlib.Path(__file__).resolve().parents[1];report=root/('Reports/'+options.log_prefix+'-samples.jsonl')
 report.parent.mkdir(parents=True,exist_ok=True)
-args=['python3','Tools/run_unity_checked.py','-batchmode','-nographics','-quit','-job-worker-count','1','-diag-debug-shader-compiler','-refreshImportMode','InProcess','-desiredWorkerCount','1','-standbyWorkerCount','0','-projectPath',str(root),'-executeMethod','FirstRep.Fps.Editor.SliceWorkbench.BuildLinuxFromPreparedResources','-logFile',str(root/'Reports/official-a5e1ec6-build-low-memory.log')]
+args=['python3','Tools/run_unity_checked.py','-batchmode','-nographics','-quit','-job-worker-count','1','-diag-debug-shader-compiler','-refreshImportMode','InProcess','-desiredWorkerCount','1','-standbyWorkerCount','0','-projectPath',str(root),'-executeMethod',method,'-logFile',str(root/('Reports/'+options.log_prefix+'.log'))]
 env=os.environ.copy();env.update(FIRSTREP_BUILD_TEMP='/tmp/firstrep-intermediates/Temp-active',UPM_CACHE_ROOT='/workspace/tools/state/upm',XDG_CONFIG_HOME='/workspace/tools/state/config',XDG_CACHE_HOME='/workspace/tools/state/cache',XDG_DATA_HOME='/workspace/tools/state/data')
-with (root/'Reports/low-memory-build-launcher.log').open('w') as log,report.open('w') as f:
+with (root/('Reports/'+options.log_prefix+'-launcher.log')).open('w') as log,report.open('w') as f:
  p=subprocess.Popen(args,cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT)
  peak=0
  while p.poll() is None:
