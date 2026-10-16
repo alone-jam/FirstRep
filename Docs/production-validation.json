@@ -29,10 +29,10 @@
         {
           "Name": "firstrep_framework",
           "RelativePath": "firstrep_framework",
-          "Size": 65554401,
-          "Crc": 2579270304,
-          "Hash": "5325b09c2a17ae6e864ac2d068ec1f34",
-          "Md5": "d19a77226b7c132426ff076c13fc3ca1",
+          "Size": 65554531,
+          "Crc": 677417125,
+          "Hash": "f8d318c40b827aa0b78b06208ad03ea2",
+          "Md5": "dc0672fce95093a8fc732f0348c2ebe0",
           "Dependencies": [
             "audio_clips_weapons"
           ],
@@ -115,12 +115,22 @@
       {
         "name": "StandaloneLinux64",
         "bytes": 1652,
-        "sha256": "2e0661f8f7d07990920be34047d2cf55d336eaf0bf50279a022344d884b9fca8"
+        "sha256": "c1533f3c3af5cd9ad1851585312b9e385b2fc920aa12ca1e8ea3589e3f9d1e42"
       },
       {
         "name": "StandaloneLinux64.manifest",
         "bytes": 293,
-        "sha256": "222e5b3b702ed14f7c5795b3f38dbcf953531664e3d336b1687b1fa6fa11eed8"
+        "sha256": "5667d5cfe4ef393fa62ab6ffd843336acd4ca6e713388d42f92474c2010d22d7"
+      },
+      {
+        "name": "StandaloneLinux64.manifest.meta",
+        "bytes": 155,
+        "sha256": "38660d6428f453758a38deefb94ddacc4396a06b2fb0258582938e37d19e69b1"
+      },
+      {
+        "name": "StandaloneLinux64.meta",
+        "bytes": 155,
+        "sha256": "d1d74fe4ee165f161f4a4236922ebda0e7014f28d86e11c237f4174ff3811656"
       },
       {
         "name": "audio_clips_weapons",
@@ -133,34 +143,56 @@
         "sha256": "822e6606b1810c6d6d27101e1fbdb9a36c5ea6d2b5b303a299da119389878c66"
       },
       {
+        "name": "audio_clips_weapons.manifest.meta",
+        "bytes": 155,
+        "sha256": "9a7b74c3662cbd626ec9b4ca6f1058d5d790c43f845ddbbc891d38586a4b4890"
+      },
+      {
+        "name": "audio_clips_weapons.meta",
+        "bytes": 155,
+        "sha256": "1f581390282abda74aefaed3de7ef029ad9a947f6dcf24c7802d56bcce3d4810"
+      },
+      {
         "name": "firstrep_framework",
-        "bytes": 65554401,
-        "sha256": "af22541c70486e81d9c53031debfff8e9eafc003358a0793ec7f3cd363d727bd"
+        "bytes": 65554531,
+        "sha256": "c6f2cdad8ff2009fc88f40ed29f1488933627b85461c13af378d2ecb73623c9a"
       },
       {
         "name": "firstrep_framework.manifest",
-        "bytes": 3806,
-        "sha256": "e7f0df37132cd5dc961f2c7f9ce2424132ae2d3ec69918a45e2ee884916819f7"
+        "bytes": 3805,
+        "sha256": "3673facc25486515f716fa41c31b83b60b43816576c6f5367c22ed8d5733e16a"
+      },
+      {
+        "name": "firstrep_framework.manifest.meta",
+        "bytes": 155,
+        "sha256": "132b311a7289606bd8c73e45e686e948de521e9295741d0944124400c8d327c7"
+      },
+      {
+        "name": "firstrep_framework.meta",
+        "bytes": 155,
+        "sha256": "3f1aa2c78672c8b48925509789dd26b689126b70ce8b0f1e344a31c8c6d156c4"
       },
       {
         "name": "manifest.json",
-        "bytes": 3668,
-        "sha256": "1921cb3d87c24fc8977032afa93f80460233625aa75ff943064e055aee27b82f"
+        "bytes": 3667,
+        "sha256": "eb5ee622ea8ab9bc20b49d5b26e453950e83e300ab2666dd7bdf22e4e910d787"
+      },
+      {
+        "name": "manifest.json.meta",
+        "bytes": 155,
+        "sha256": "d8d4f1db53d5f8ab50e3340a8ed5b3c268389c5fd0debf019c395ef746bd5893"
       }
-    ]
+    ],
+    "latest_build_log": "Reports/official-a5e1ec6-20261016-bundles.log"
   },
   "linux_player": {
-    "status": "blocked_disk_reserve_after_shader_stage",
-    "fresh_executable_produced": false,
-    "cgroup_memory_max_bytes": 17179869184,
-    "cgroup_oom_kill_before": 1,
-    "cgroup_oom_kill_after": 2,
-    "last_stage": "HDRP shader variant processing, Forward pass",
-    "workspace_free_bytes_approx": 1500000000,
-    "tmp_free_bytes_approx": 3300000000,
-    "disk_reserve_bytes": 1073741824,
-    "evidence": "Reports/official-a5e1ec6-build-linux.log ends abruptly; Editor process exited; cgroup oom_kill incremented. No new Player, visual acceptance, or GIF claimed.",
-    "latest_attempt": "low-memory-build-validation.json"
+    "status": "built_runtime_gif_recorded_visual_fidelity_unaccepted",
+    "fresh_executable_produced": true,
+    "latest_evidence": "current-player-validation.json",
+    "errors": 0,
+    "warnings": 86,
+    "duration": "01:23:35.0681140",
+    "runtime_capture_evidence": "runtime-capture-validation.json"
   },
   "upstream_overlap_probe": {
     "results": [
@@ -204,5 +236,18 @@
     "conclusion": "Unmodified upstream suite remains 22/23. The failing fully-inside non-convex mesh assertion sees no Unity overlap. Surface intersection or convex shape correctly rejects unknown identity.",
     "issue_comment": "https://github.com/one2world/EjoyFramework/issues/3#issuecomment-6195904536",
     "consumer_boundary": "FirstRep uses live Physics.Raycast for shooting, not StaticPhysicsHistoricalQuery."
+  },
+  "historical_linux_player_attempt": {
+    "status": "blocked_disk_reserve_after_shader_stage",
+    "fresh_executable_produced": false,
+    "cgroup_memory_max_bytes": 17179869184,
+    "cgroup_oom_kill_before": 1,
+    "cgroup_oom_kill_after": 2,
+    "last_stage": "HDRP shader variant processing, Forward pass",
+    "workspace_free_bytes_approx": 1500000000,
+    "tmp_free_bytes_approx": 3300000000,
+    "disk_reserve_bytes": 1073741824,
+    "evidence": "Reports/official-a5e1ec6-build-linux.log ends abruptly; Editor process exited; cgroup oom_kill incremented. No new Player, visual acceptance, or GIF claimed.",
+    "latest_attempt": "low-memory-build-validation.json"
   }
 }

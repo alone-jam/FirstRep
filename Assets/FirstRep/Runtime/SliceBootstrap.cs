@@ -27,6 +27,7 @@ namespace FirstRep.Fps
         public bool IsPaused => Base && Base.IsGamePaused;
         public string Failure { get; private set; }
         private int nextEffectId = 10000;
+        private bool applicationQuitting;
         void Awake() => Enter();
         public void Enter()
         {
@@ -80,7 +81,10 @@ namespace FirstRep.Fps
             var current=Framework.GetModule<IProcedureManager>().CurrentProcedure as OriginalLevelProcedure;
             if(current!=null)current.Exit();else Lifetime.BeginExit();
         }
-        void OnDestroy(){Exit();}
+        // Unity closes native scenes itself on application quit. BaseComponent may
+        // already have shut the framework down before this component is destroyed.
+        void OnApplicationQuit(){applicationQuitting=true;}
+        void OnDestroy(){if(!applicationQuitting)Exit();}
 
     }
     public sealed class ActorSpawn

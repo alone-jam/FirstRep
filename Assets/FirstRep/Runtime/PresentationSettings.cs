@@ -12,6 +12,10 @@ namespace FirstRep.Fps
             if (!hd) hd = camera.gameObject.AddComponent<HDAdditionalCameraData>();
             hd.volumeLayerMask = ~0;
             hd.customRenderingSettings = true;
+            // A single invalid legacy shading pixel otherwise spreads through Bloom.
+            // HDRP requires both the camera switch and its frame setting for this pass.
+            hd.stopNaNs = true;
+            Set(hd, FrameSettingsField.StopNaN, true);
             // Restore the original presentation features. Disable switches are
             // opt-in diagnostic controls, never the normal game configuration.
             var args = Environment.GetCommandLineArgs();
@@ -20,6 +24,12 @@ namespace FirstRep.Fps
             Set(hd, FrameSettingsField.ExposureControl, true);
             Set(hd, FrameSettingsField.Tonemapping, true);
             Set(hd, FrameSettingsField.ColorGrading, true);
+            if(Array.IndexOf(args,"-firstrep-diag-allow-invalid-colors")>=0)hd.stopNaNs=false;
+            if(Array.IndexOf(args,"-firstrep-diag-disable-tonemap")>=0)Set(hd,FrameSettingsField.Tonemapping,false);
+            if(Array.IndexOf(args,"-firstrep-diag-disable-grade")>=0)Set(hd,FrameSettingsField.ColorGrading,false);
+            if(Array.IndexOf(args,"-firstrep-diag-disable-stop-nan")>=0)Set(hd,FrameSettingsField.StopNaN,false);
+            foreach(var field in new[]{FrameSettingsField.MotionBlur,FrameSettingsField.Bloom,FrameSettingsField.DepthOfField,FrameSettingsField.Antialiasing})
+                if(Array.IndexOf(args,"-firstrep-diag-disable-"+field.ToString().ToLowerInvariant())>=0)Set(hd,field,false);
             var profile = ScriptableObject.CreateInstance<VolumeProfile>();
             var exposure = profile.Add<Exposure>(true);
             // Original PPv2 SceneCam_Profile_Default: histogram 67.541336..99,

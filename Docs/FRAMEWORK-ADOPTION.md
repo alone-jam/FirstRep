@@ -38,16 +38,20 @@
 
 结构化结果及每个 XML 的 SHA-256 见 [official-framework-validation.json](official-framework-validation.json)。完整原始 XML/日志保存在本地 Reports：`official-a5e1ec6-editmode.xml`、`official-a5e1ec6-playmode-preserved.xml`、`official-a5e1ec6-upstream-unity.xml`。无凭据、许可证、缓存或构建二进制进入源码。
 
-## 生产构建与剩余阻碍
+## 当前生产构建与画面验证（2026-10-16）
 
-同一官方 SHA 的上游 AssetBundleBuilder 已生成 2 个 bundle、9 项资源及 manifest，完整 SHA-256/大小/资源清单见 [production-validation.json](production-validation.json)。Linux Player 构建在 HDRP 着色器 Forward 变体处理阶段被 16 GiB cgroup 内存限制终止；oom_kill 计数从 1 增至 2。工作区约剩 1.5 GiB、临时区约剩 3.3 GiB，同时保留 1 GiB 磁盘阈值。未产出新可执行文件，未进行新 Player 的画面验收或 GIF 录制，README 未插入旧构建冒充的 GIF。
+在原环境 `/workspace/FirstRep` 只读核对路径后重新生成了 2 个 bundle、9 项资源和 manifest。同一官方 pin 的完整 Linux Player 已成功构建：Errors=0、Warnings=86、Time=01:23:35.0681140，Editor 正常退出 0。此前失败没有被当作成功，新结果见 [current-player-validation.json](current-player-validation.json)，当前 bundle 大小和哈希见 [production-validation.json](production-validation.json)。完整构建之后仅用 Unity 支持的 BuildScriptsOnly 更新脚本；`data.unity3d`、UnityPlayer、Ejoy 程序集和 bundle manifest 的哈希保持一致。
 
-已完成的空间恢复是逐文件哈希验证后的无损迁移/保留；原资源、旧持久 Player、历史中间数据均保留。继续重建需要释放额外构建内存/存储余量；若依靠删除缓存或历史数据，需先取得用户授权，不能将对已校验重复旧构建的单次删除许可扩大到其他目录。
+新可执行文件发现应用退出时 Framework 已关闭而 Bootstrap 再请求模块的异常；已增加应用退出标志，常规生产退出与场景重进路径保留。实际 PlayMode 回归 5/5，新 Player 无图形 smoke 退出 0、无该异常，并确认 4 场景、3 靶子与地面；Null Device 报告不证明画面。
 
-## 低内存重试：内存阶段通过，磁盘仍受阻
+新 Player 最初在实际 X11 中显示黑色三维场景加可见 HUD。逐项诊断确认仅关闭 Bloom 即能显示场景；最终修复采用 HDRP 自带清理通道：同时启用相机 `stopNaNs` 和 `FrameSettingsField.StopNaN`，清理 NaN/Infinity 后再执行后处理。仅有帧设置开关并不会启用该通道。最终正常配置不带效果禁用参数，已实际显示场景和武器，Bloom、自动曝光、ACES、调色、运动模糊、次表面散射均保留。
 
-已停止 57 个旧 Unity 孤立关闭中 C# 编译器进程（RSS 合计约 1.93 GiB，含共享页），及无活动 Editor 使用的旧 UPM 进程；未删除文件。采用官方单 ShaderCompiler 参数、单 Job worker、顺序导入配置，明确复用并校验已有 9 项 bundle。实际仅一个 ShaderCompiler、一个导入 worker；Editor RSS 峰值约 5.5 GiB。重试已通过上一轮 LayeredLit/Forward 失败点，完成 shader 序列化；OOM kill 计数保持 2。
+该修复消除的是整屏黑传播，未定位全部无效颜色的原始着色原因；已有粉绿材质和武器条纹仍在，不能声称还原画质验收通过。更高精度、调色、曝光等试验均未被当作最终修复；临时精度/纹理读回实验代码已移除。真实窗口 GIF 已嵌入 README：96 秒录制、640×360、8 倍速播放；实际 OS 输入触发 30→28 发、RELOADING、30/177 与移动，所有正常效果保留。原始状态轨迹和 GIF 哈希见 [runtime-capture-validation.json](runtime-capture-validation.json)。软件渲染原生约 0.2 fps，不能当作性能验收。音频听感仍因无输出设备而未验。
 
-但最终 LZ4HC 打包时临时区被原始数据、压缩流和未完成容器共同占满，磁盘保护终止 Editor：退出码 75，原生 -15；未产出新 Player/GIF。半秒采样遇到快速分配，最低余量约 3.5 MiB，不能声称始终保持 1 GiB。具体进程峰值、文件大小、待批准清理目录和容量边界见 [low-memory-build-validation.json](low-memory-build-validation.json)。不能将删除磁盘缓存等同于解决内存上限；本轮明确是磁盘阻塞。
+当前 `Builds` 指向 `/tmp/firstrep-build-output`，新 Player 尚不是跨环境生命周期的持久交付；旧 `Deliverables` 副本不代表当前源码。路径核对记录见 [path-audit-20261016.json](path-audit-20261016.json)。获准删除的两个精确临时路径在恢复时均已不存在，本轮未删除它们，也未据此声称释放空间。原资源与旧持久 Player 保留。
 
-复用当前资源的分阶段入口为 `FirstRep.Fps.Editor.SliceWorkbench.BuildLinuxFromPreparedResources`，仅用于调用者已从当前素材生成 bundles 的场合；它验证平台、非空清单、大小与 MD5，并核验官方 Git pin。完整构建入口仍重新生成 bundles。当前空间不足时不要直接重试。低并发采样脚本为 `Tools/run_low_memory_build.py`。参数依据 [Unity 官方命令行文档](https://docs.unity3d.com/6000.0/Documentation/Manual/EditorCommandLineArguments.html)，未关闭视觉功能或改变原资源。
+## 历史失败与复验入口
+
+早期完整构建在 HDRP Forward 阶段遇到 OOM，之后低并发重试通过该阶段却在 LZ4HC 打包时耗尽临时盘；这些是历史尝试，详见 [low-memory-build-validation.json](low-memory-build-validation.json)。不能将删除磁盘缓存等同于解决内存上限。新完整构建实际观察到最多两个 ShaderCompiler 进程；cgroup current 含可回收文件缓存，不能据峰值声称最低所需内存。
+
+`Tools/run_low_memory_build.py --stage bundles` 生成资源；`--stage player` 验证当前 bundle 平台、大小、MD5 和官方 pin 后完整构建；`--stage scripts` 仅用于已有完整 Player 且没有资源变更的脚本更新。完整构建仍执行项目 Validate，脚本入口不会冒称重新验证/打包全部美术资源。参数依据 [Unity 官方命令行文档](https://docs.unity3d.com/6000.0/Documentation/Manual/EditorCommandLineArguments.html)；脚本更新机制见 [BuildScriptsOnly](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/BuildOptions.BuildScriptsOnly.html)。

@@ -1,0 +1,196 @@
+{
+  "date": "2026-10-16",
+  "unity": "6000.6.5f1",
+  "framework_git_sha": "a5e1ec6f3472f741815108509ba303ce39b933c3",
+  "full_player_build": {
+    "status": "Succeeded",
+    "errors": 0,
+    "warnings": 86,
+    "reported_size_bytes": 2073930641,
+    "duration": "01:23:35.0681140",
+    "log": "Reports/official-a5e1ec6-20261016-player.log",
+    "process_exit": 0,
+    "build_summary": "Result=Succeeded\nSize=2073930641\nErrors=0\nWarnings=86\nTime=01:23:35.0681140\n"
+  },
+  "original_full_build_files": {
+    "FirstRep.x86_64": {
+      "bytes": 4808,
+      "sha256": "de3009bc2c3a8a7c25f347c0c0a098a1c49dbbb6ee6ec100562e61fb50cae261"
+    },
+    "UnityPlayer.so": {
+      "bytes": 99005320,
+      "sha256": "c828b2b20f29f92187528ce98201a3774b5d83f04206639b1162ccb33d3ba053"
+    },
+    "FirstRep_Data/data.unity3d": {
+      "bytes": 1814984535,
+      "sha256": "0350a30ffde8dcf488bc2370955561ed80760a86d44a4eaf4ffe49750c0ddd4e"
+    },
+    "FirstRep_Data/Managed/FirstRep.Fps.dll": {
+      "bytes": 35840,
+      "sha256": "707e24f864a539a0d9f2a38010d885ee53822fd679a5cb2c21a432934a6f49a3"
+    },
+    "FirstRep_Data/Managed/EjoyFramework.Core.dll": {
+      "bytes": 596480,
+      "sha256": "17d68155f6492b88d10e2e00ad7eb6b20d5b19745cf3a8526b3df7bf9f4b296d"
+    },
+    "FirstRep_Data/StreamingAssets/AssetBundles/StandaloneLinux64/manifest.json": {
+      "bytes": 3667,
+      "sha256": "eb5ee622ea8ab9bc20b49d5b26e453950e83e300ab2666dd7bdf22e4e910d787"
+    }
+  },
+  "current_files": {
+    "FirstRep.x86_64": {
+      "bytes": 4808,
+      "sha256": "de3009bc2c3a8a7c25f347c0c0a098a1c49dbbb6ee6ec100562e61fb50cae261",
+      "unchanged_from_full_build": true
+    },
+    "UnityPlayer.so": {
+      "bytes": 99005320,
+      "sha256": "c828b2b20f29f92187528ce98201a3774b5d83f04206639b1162ccb33d3ba053",
+      "unchanged_from_full_build": true
+    },
+    "FirstRep_Data/data.unity3d": {
+      "bytes": 1814984535,
+      "sha256": "0350a30ffde8dcf488bc2370955561ed80760a86d44a4eaf4ffe49750c0ddd4e",
+      "unchanged_from_full_build": true
+    },
+    "FirstRep_Data/Managed/FirstRep.Fps.dll": {
+      "bytes": 40448,
+      "sha256": "978475422c09581e469d164cf6c31ed899065f29d4ada22f411c9134cfecaca9",
+      "unchanged_from_full_build": false
+    },
+    "FirstRep_Data/Managed/EjoyFramework.Core.dll": {
+      "bytes": 596480,
+      "sha256": "17d68155f6492b88d10e2e00ad7eb6b20d5b19745cf3a8526b3df7bf9f4b296d",
+      "unchanged_from_full_build": true
+    },
+    "FirstRep_Data/StreamingAssets/AssetBundles/StandaloneLinux64/manifest.json": {
+      "bytes": 3667,
+      "sha256": "eb5ee622ea8ab9bc20b49d5b26e453950e83e300ab2666dd7bdf22e4e910d787",
+      "unchanged_from_full_build": true
+    }
+  },
+  "headless_smoke": {
+    "passed": true,
+    "unity": "6000.6.5f1",
+    "device": "Null Device",
+    "api": "Null",
+    "error": "",
+    "scenes": 4,
+    "targets": 3,
+    "nonBlackPixels": 0,
+    "totalPixels": 0,
+    "ground": true
+  },
+  "quit_guard_playmode": {
+    "result": "Passed",
+    "total": "5",
+    "passed": "5",
+    "failed": "0",
+    "duration": "39.9859924",
+    "bytes": 464875,
+    "sha256": "97bd6df5bf77f07c5c6be15ac86dd1f87349b154e04fb77a3e17b6e28dc6e44d",
+    "report": "Reports/official-a5e1ec6-quitguard-playmode.xml"
+  },
+  "visual_status": "Normal Player displays the world with HDRP camera NaN/Infinity cleanup enabled. Bloom, auto exposure, ACES, grading, motion blur and subsurface scattering remain enabled; legacy pink/green material and weapon stripe artifacts remain. Full-frame black is resolved on this llvmpipe setup, visual fidelity is not accepted.",
+  "gif_status": "published with README embed; actual normal-config fresh Player capture, material defects disclosed",
+  "persistence": "Builds is a symlink to /tmp/firstrep-build-output. Fresh Player is temporary; the preserved old Deliverables Player is historical and does not prove the current source.",
+  "final_scripts_build": {
+    "status": "Succeeded",
+    "errors": 0,
+    "warnings": 21,
+    "reported_size_bytes": 2073935781,
+    "duration": "00:00:30.4844900",
+    "log": "Reports/official-a5e1ec6-20261016-scripts-final.log",
+    "process_exit": 0
+  },
+  "black_frame_diagnosis": {
+    "controlled_observations": [
+      "Default camera stopNaNs=false: black world, HUD visible.",
+      "Disable only Bloom: world visible with other normal features retained.",
+      "Enable camera stopNaNs=true with StopNaN frame setting: world visible with Bloom and other normal effects enabled."
+    ],
+    "source_boundary": "HDRenderPipeline.StopNaNsPass requires hdCamera.stopNaNs && frame setting. The built-in NaNKiller.compute replaces NaN/Infinity pixels before Bloom. The originating legacy shading defects have not been repaired.",
+    "unsuccessful_experiments": "Disabling tone/grade/motion blur separately, float post buffer, explicit Bloom threshold/high quality, and 960x540 did not fix black. Both rendering/post float buffers requested stripped ENABLE_ALPHA variants, so that experiment was invalid; not adopted.",
+    "temporary_code_removed": [
+      "runtime pipeline clone/precision experiment",
+      "explicit Bloom parameter experiment",
+      "pooled render-texture readback experiment"
+    ]
+  },
+  "runtime_device": "llvmpipe (LLVM 19.1.7), Mesa 25.0.7-2+deb13u1, Vulkan",
+  "final_runtime_args": [
+    "-force-vulkan",
+    "-force-device-index",
+    "0",
+    "-screen-fullscreen",
+    "0",
+    "-screen-width",
+    "640",
+    "-screen-height",
+    "360",
+    "-firstrep-window-report",
+    "Reports/GifCapture/final-window-state.json",
+    "-logFile",
+    "Reports/GifCapture/final-window.log"
+  ],
+  "observer_boundary": "Opt-in development window report observes gameplay/settings/exposure and writes JSON/JSONL; it does not set camera targetTexture, change transforms, inject gameplay calls, or disable features. Inputs are real X11/XTest mouse and keyboard events.",
+  "headless_smoke_evidence": {
+    "report": "Reports/FinalPlayerSmoke20261016/player-smoke.json",
+    "log": "Reports/FinalPlayerSmoke20261016/player.log",
+    "exit_code": 0,
+    "framework_exception_present": false,
+    "boundary": "Exact final DLL; Null Device only validates loading/physics/clean shutdown, not graphics."
+  },
+  "runtime_capture_evidence": "runtime-capture-validation.json",
+  "final_graphical_state": {
+    "frame": 482,
+    "scenes": 4,
+    "targets": 3,
+    "realtime": 381.02728271484375,
+    "timeScale": 1.0,
+    "exposureCompensation": 2.2630345821380615,
+    "minEv": 4.236965179443359,
+    "maxEv": 7.736965179443359,
+    "saturation": 20.0,
+    "contrast": -5.0,
+    "focused": true,
+    "paused": false,
+    "post": true,
+    "sss": true,
+    "exposure": true,
+    "opaque": true,
+    "cameraStopNan": true,
+    "motionBlur": true,
+    "bloom": true,
+    "stopNan": true,
+    "colorGrading": true,
+    "tone": true,
+    "aa": true,
+    "bloomIntensity": 0.20000000298023224,
+    "motionIntensity": 0.5,
+    "position": {
+      "x": 54.148101806640625,
+      "y": 337.78839111328125,
+      "z": 77.1550521850586
+    },
+    "mouse": {
+      "x": 320.0,
+      "y": 179.0
+    },
+    "hud": "FIRSTREP \u2022 LEVEL 01    30 / 177    TARGETS 0",
+    "exposureMode": "AutomaticHistogram",
+    "tonemapping": "ACES",
+    "colorFilter": "RGBA(1.000, 1.000, 1.000, 1.000)",
+    "channelRed": "(100.00, 0.00, 0.00)",
+    "channelGreen": "(0.00, 100.00, 0.00)",
+    "channelBlue": "(0.00, 0.00, 100.00)",
+    "lift": "(1.00, 1.00, 1.00, 0.00)",
+    "gamma": "(1.00, 1.00, 1.00, 0.00)",
+    "gain": "(1.00, 1.00, 1.00, 0.00)",
+    "exposureTexture": "Player Camera Exposure Texture 1_1x1_R32G32_SFloat_Tex2D",
+    "exposureGpu": "0.0187504478"
+  },
+  "graphical_exit_code": 0,
+  "graphical_framework_exception_present": false
+}

@@ -1,4 +1,4 @@
-> 当前源码已消费官方 Git SHA `a5e1ec6f3472f741815108509ba303ce39b933c3`；实际 Unity EditMode 3/3、PlayMode 5/5 通过，三靶子与并发特效隔离已解除阻塞。上游相关测试 22/23，保留一项历史 MeshCollider 查询断言失败。新生产 AssetBundles/manifest 已生成；首次 Player 构建遇内存限制；低并发重试已通过着色器且无新增 OOM，随后被 8.8 GiB 临时盘容量阻塞。新 Player、画面验收和 GIF 尚未完成，详见 [最新诊断](low-memory-build-validation.json)。构建证据见 [production-validation.json](production-validation.json)。以下旧 Player 的构建数字、旧渲染配置与旧补丁仅是历史检查点，不能当作当前源码结果。详见 [当前接入审查](FRAMEWORK-ADOPTION.md)。
+> 当前源码固定官方 EjoyFramework `a5e1ec6f3472f741815108509ba303ce39b933c3`，EditMode 3/3、退出修复后的 PlayMode 5/5 通过。2026-10-16 新生产 AssetBundles（2 个、9 项）和完整 Linux Player 已成功构建：0 错误、86 警告、1:23:35。新 Player 在 `Builds/Linux`（指向临时盘），运行脚本优先选择它；旧 `Deliverables` 仍只是历史检查点。正常配置已通过开启 HDRP 相机的 NaN/Infinity 清理消除 Bloom 整屏黑传播，Bloom/后处理/次表面散射保留；已有材质色彩和条纹异常仍在，真实窗口 GIF 已嵌入 README（96 秒录制、8 倍速播放，原始状态轨迹另存）；无图形设备的 smoke 只证明 4 场景、3 靶子及地面加载正常。见 [当前证据](current-player-validation.json)、[框架审查](FRAMEWORK-ADOPTION.md)。以下全部是历史记录，旧图形配置、补丁及构建数字不能当作当前源码结果。
 
 ## 历史检查点记录
 
@@ -48,7 +48,7 @@ Unity 内打开 `Assets/FirstRep/Scenes/Bootstrap.unity` 并进入 Play Mode。B
 
 ## 持久交付与存储恢复
 
-可执行文件位于 `Deliverables/FirstRep-Linux-6000.6.5f1/FirstRep.x86_64`，`Tools/run-firstrep.sh` 优先使用此副本。314 个构建文件共 2,008,081,592 字节，逐文件与临时输出 SHA-256 一致；包内 `SHA256SUMS` 可复验，`Licenses` 保留原许可。
+可执行文件位于 `Deliverables/FirstRep-Linux-6000.6.5f1/FirstRep.x86_64`，该旧检查点可直接运行；当前 `Tools/run-firstrep.sh` 优先使用新 `Builds/Linux`，仅在其不存在时提示并回退到旧副本。314 个构建文件共 2,008,081,592 字节，逐文件与临时输出 SHA-256 一致；包内 `SHA256SUMS` 可复验，`Licenses` 保留原许可。
 
 `Reports/PlayerWindow/player-smoke.json` 和同目录截图记录实际独立程序验证。正常窗口通过 4 场景、3 靶子、地面和非黑画面检查；这不等于材质忠实度验证通过。
 

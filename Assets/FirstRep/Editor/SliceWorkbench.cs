@@ -147,6 +147,7 @@ namespace FirstRep.Fps.Editor
 
         // Explicit staged build: callers must prepare bundles from the current assets first.
         public static void BuildLinuxFromPreparedResources() => BuildLinux(false);
+        public static void BuildLinuxScriptsOnly() => BuildLinux(false, true);
 
         public static void BuildFrameworkResources()
         {
@@ -168,12 +169,16 @@ namespace FirstRep.Fps.Editor
             }
         }
 
-        static void BuildLinux(bool prepareResources)
+        static void BuildLinux(bool prepareResources, bool scriptsOnly=false)
         {
             PrepareBuildTemp();
-            Validate();
+            // The explicit scripts-only entry requires a completed current build
+            // and no asset edits; Unity reuses its player data unchanged.
+            if(!scriptsOnly)Validate();
             if (prepareResources) FrameworkAssetSetup.BuildResources();
             else FrameworkAssetSetup.ValidateBuiltResources();
+            if (scriptsOnly && (!File.Exists("Builds/Linux/FirstRep.x86_64") || !File.Exists("Builds/Linux/FirstRep_Data/data.unity3d")))
+                throw new InvalidOperationException("A complete current Player build is required before a scripts-only build.");
             if (!File.Exists(BootstrapPath)) throw new InvalidOperationException("Generate the bootstrap first.");
             var content = AssetDatabase.LoadAssetAtPath<SliceContent>(ContentPath);
             PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.StandaloneLinux64, false);
@@ -181,8 +186,8 @@ namespace FirstRep.Fps.Editor
             var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                 scenes = new[] { BootstrapPath }.Concat(content.levelScenes).ToArray(),
                 locationPathName = "Builds/Linux/FirstRep.x86_64", target = BuildTarget.StandaloneLinux64,
-                options = BuildOptions.Development | BuildOptions.CompressWithLz4HC });
-            File.WriteAllText("Reports/build-summary.txt", $"Result={result.summary.result}\nSize={result.summary.totalSize}\nErrors={result.summary.totalErrors}\nWarnings={result.summary.totalWarnings}\nTime={result.summary.totalTime}\n");
+                options = BuildOptions.Development | BuildOptions.CompressWithLz4HC | (scriptsOnly ? BuildOptions.BuildScriptsOnly : BuildOptions.None) });
+            File.WriteAllText(scriptsOnly ? "Reports/build-scripts-summary.txt" : "Reports/build-summary.txt", $"Result={result.summary.result}\nSize={result.summary.totalSize}\nErrors={result.summary.totalErrors}\nWarnings={result.summary.totalWarnings}\nTime={result.summary.totalTime}\n");
             if (result.summary.result != BuildResult.Succeeded) throw new InvalidOperationException("Build failed: " + result.summary.result);
         }
     }
