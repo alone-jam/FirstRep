@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 project_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-player="$project_dir/Builds/Linux/FirstRep.x86_64"
+player="$project_dir/Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad/FirstRep.x86_64"
 if [[ ! -x "$player" ]]; then
-  player="$project_dir/Deliverables/FirstRep-Linux-6000.6.5f1/FirstRep.x86_64"
+  player="$project_dir/Builds/Linux/FirstRep.x86_64"
   if [[ -x "$player" ]]; then
-    echo "Using the retained historical Player; the current build is unavailable." >&2
+    echo "Using the temporary current build; the persistent Player is unavailable." >&2
   fi
 fi
 if [[ ! -x "$player" ]]; then

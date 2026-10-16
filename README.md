@@ -14,7 +14,7 @@ Install Git LFS before cloning, then run `git lfs pull`. Original binary art is 
 
 The official dependency and actual consumer test evidence are published in [the adoption audit](Docs/FRAMEWORK-ADOPTION.md) and [structured results](Docs/official-framework-validation.json). The dependency has no local framework patches. Production builds use the upstream AssetBundle builder. See [bundle hashes and build history](Docs/production-validation.json).
 
-Visual acceptance is separate from headless gameplay tests. Known migration color/material artifacts remain under investigation. The retained old executable does not establish the result of the current source. Actual audio-device playback remains unverified in this environment. No credentials, licenses, local caches, binaries or diagnostic authentication data are included.
+Visual acceptance is separate from headless gameplay tests. Known migration color/material artifacts remain under investigation. The verified Player is saved locally at `Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad`; `Tools/run-firstrep.sh` prefers this persistent copy. The old executable was removed with approval. [Persistence and file hashes](Docs/persistent-player-validation.json). Actual audio-device playback remains unverified in this environment. No credentials, licenses, local caches, binaries or diagnostic authentication data are included.
 
 ## Runtime capture
 

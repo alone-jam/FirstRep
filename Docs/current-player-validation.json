@@ -94,7 +94,15 @@
   },
   "visual_status": "Normal Player displays the world with HDRP camera NaN/Infinity cleanup enabled. Bloom, auto exposure, ACES, grading, motion blur and subsurface scattering remain enabled; legacy pink/green material and weapon stripe artifacts remain. Full-frame black is resolved on this llvmpipe setup, visual fidelity is not accepted.",
   "gif_status": "published with README embed; actual normal-config fresh Player capture, material defects disclosed",
-  "persistence": "Builds is a symlink to /tmp/firstrep-build-output. Fresh Player is temporary; the preserved old Deliverables Player is historical and does not prove the current source.",
+  "persistence": {
+    "status": "persisted_and_verified",
+    "path": "/workspace/FirstRep/Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad",
+    "build_files": 321,
+    "all_build_file_hashes_match": true,
+    "launcher_prefers_persistent_copy": true,
+    "temporary_source_retained": true,
+    "details": "persistent-player-validation.json"
+  },
   "final_scripts_build": {
     "status": "Succeeded",
     "errors": 0,

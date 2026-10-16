@@ -48,7 +48,9 @@
 
 该修复消除的是整屏黑传播，未定位全部无效颜色的原始着色原因；已有粉绿材质和武器条纹仍在，不能声称还原画质验收通过。更高精度、调色、曝光等试验均未被当作最终修复；临时精度/纹理读回实验代码已移除。真实窗口 GIF 已嵌入 README：96 秒录制、640×360、8 倍速播放；实际 OS 输入触发 30→28 发、RELOADING、30/177 与移动，所有正常效果保留。原始状态轨迹和 GIF 哈希见 [runtime-capture-validation.json](runtime-capture-validation.json)。软件渲染原生约 0.2 fps，不能当作性能验收。音频听感仍因无输出设备而未验。
 
-当前 `Builds` 指向 `/tmp/firstrep-build-output`，新 Player 尚不是跨环境生命周期的持久交付；旧 `Deliverables` 副本不代表当前源码。路径核对记录见 [path-audit-20261016.json](path-audit-20261016.json)。获准删除的两个精确临时路径在恢复时均已不存在，本轮未删除它们，也未据此声称释放空间。原资源与旧持久 Player 保留。
+`Builds` 仍指向 `/tmp/firstrep-build-output`，临时源保留；新版已另存到真正的工作区目录 `Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad`，321 个构建文件共 2,073,935,781 字节，逐文件 SHA-256 与临时源一致。启动脚本优先使用新版持久路径；完整哈希与检查结果见 [persistent-player-validation.json](persistent-player-validation.json)。
+
+用户分别授权删除旧 Player 目录及 `CachePreservation~/PlayerDataCache-before-a5e1ec6/Linux642/Data/data.unity3d`，两者原本共用主数据 inode，只有两处都删除才释放该数据占用。实际仅删除这两个精确路径；原始资源、代码、其他缓存和新版临时源保留。更早获准清理的两个 `/tmp` 路径在环境恢复时已不存在，与本次实际删除不是同一次操作。
 
 ## 历史失败与复验入口
 
