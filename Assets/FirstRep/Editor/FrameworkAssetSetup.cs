@@ -64,7 +64,8 @@ namespace FirstRep.Fps.Editor
                 else if(typeof(T)==typeof(FpsPauseForm))
                 {
                     TextField(form.transform,"Status","Status",new Vector2(.5f,.5f),new Vector2(0,110),new Vector2(950,130),TextAnchor.MiddleCenter);
-                    MenuButton(form.transform,"Resume",new Vector2(0,25));
+                    MenuButton(form.transform,"Resume",new Vector2(0,25)).AddComponent<VisibilityBinder>().PropertyPath=nameof(FpsPauseViewModel.ShowResume);
+                    MenuButton(form.transform,"Retry",new Vector2(0,25)).AddComponent<VisibilityBinder>().PropertyPath=nameof(FpsPauseViewModel.CanRetry);
                     MenuButton(form.transform,"Exit",new Vector2(0,-35));
                 }
                 PrefabUtility.SaveAsPrefabAsset(form,path);
@@ -79,13 +80,14 @@ namespace FirstRep.Fps.Editor
             if(!string.IsNullOrEmpty(property))go.AddComponent<TextBinder>().PropertyPath=property;
             return text;
         }
-        static void MenuButton(Transform parent,string command,Vector2 position)
+        static GameObject MenuButton(Transform parent,string command,Vector2 position)
         {
             var go=new GameObject(command,typeof(RectTransform));go.transform.SetParent(parent,false);
             var rt=(RectTransform)go.transform;rt.anchorMin=rt.anchorMax=rt.pivot=new Vector2(.5f,.5f);rt.anchoredPosition=position;rt.sizeDelta=new Vector2(180,40);
             var image=go.AddComponent<Image>();image.color=new Color(.15f,.15f,.15f,.95f);
             var button=go.AddComponent<Button>();button.targetGraphic=image;go.AddComponent<ButtonBinder>().PropertyPath=command;
             var label=TextField(go.transform,"Label",null,new Vector2(.5f,.5f),Vector2.zero,new Vector2(180,40),TextAnchor.MiddleCenter);label.text=command;
+            return go;
         }
         [MenuItem("FirstRep/Framework/Build framework AssetBundles for Linux")]
         public static void BuildResources()

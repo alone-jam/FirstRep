@@ -2,7 +2,7 @@
 
 恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
 
-当前依赖固定为 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。武器通过 AbilitySystem、靶子通过 UnitModel，演员创建失败通过 IEntityManager.ShowEntityFailure 进入现有流程和 MVVM 菜单。最新批次用 Framework EventChannel 发送 HUD 状态快照，移除逐帧 Refresh，关闭退订、重开读取初态；命中标记只在活动时检查到期。Unity 6000.6.5f1 EditMode **9/9**、PlayMode **11/11** 通过，包含 HUD 事件次数、弹药/换弹、暂停期间状态变化、靶子复用和退出/重进订阅检查。见 [本批调用链、累计矩阵与边界](FRAMEWORK-HUD-EVENTS-20261020.md)、[最新证据](framework-hud-events-validation-20261020.json) 和 [脱敏副本](evidence/framework-hud-events-20261020/manifest.json)。此前增量见 [失败流程](FRAMEWORK-FAILURE-FLOW-20261020.md) 与 [武器/单位审计](FRAMEWORK-DEVELOPMENT-AUDIT-20261020.md)。
+当前依赖固定为 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。武器使用 AbilitySystem，靶子使用 UnitModel，HUD 由 EventChannel 快照驱动；演员或预载失败进入既有 Procedure/MVVM 菜单。最新批次增加可点击 Retry，通过 RelayCommand/ButtonBinder/VisibilityBinder 区分失败菜单与正常暂停，等待原 SceneLease/AssetBatch/Framework 会话完全退出后，再走正常 Enter。Unity 6000.6.5f1 EditMode **9/9**、PlayMode **15/15** 通过，新增重复资源缺失后恢复、演员失败重试及取消待重试覆盖。见 [本批范围与结果](FRAMEWORK-LOAD-RETRY-20261020.md)、[最新证据](framework-load-retry-validation-20261020.json)、[脱敏清单](evidence/framework-load-retry-20261020/manifest.json) 和 [累计使用矩阵](FRAMEWORK-HUD-EVENTS-20261020.md#累计-framework-使用矩阵)。此前各批次记录保持历史结果。
 
 先前同一 fork 的原生物理查询 7/7、源码 `9a7c412` 的完整 Player/无图形启动保持为历史结果，本轮没有重复上游全套测试或大型构建。旧 Player 不覆盖本轮增量。画面、实际听感和性能未验收；Release 上传排障已按优先级暂停，原包保留。下文旧官方 pin 的结果均为历史。
 
@@ -35,7 +35,7 @@
 | 音频 | `FpsPlayer.Start/Fire` 直接新建 AudioSource/PlayOneShot | SoundComponent/ISoundManager 与 Weapons 组加载播放 | 单次射击调用路径通过；环境无实际音频输出设备，听感未验 |
 | 移动 | `FpsPlayer.Update` 手写速度、重力、跳跃及 CharacterController.Move | ThreeC.ThirdPersonMotor 复用加减速/重力/跳跃；CharacterControllerStepper 处理 Unity 移动/位置恢复 | 单靶子实际原场景的移动与跳跃断言通过；FPS 仅决定输入缩放和相机朝向 |
 | 计时/事件/属性 | 原本已使用 ITimerManager、EventChannel<TargetHit>、AttributeSet | 保留并在 EntityLogic 生命周期解绑/回收 | 单靶子真实射击伤害、计时换弹和复活通过 |
-| 演员加载失败 | LoadOriginalLevel 只轮询 EntityCount，失败时可能永远等候；失败流程仅暂停 | 订阅/解绑 IEntityManager.ShowEntityFailure，立即复制池化参数；ProcedureBase 失败状态复用 UIManager、MvvmView 和命令/文本绑定器，取消实体/批次并保留生产 Exit 所有权 | InstantiateEntity/CreateEntity 注入失败均显示原因、禁用 Resume、可 Exit/Enter；正常暂停与 Play 后故障隔离通过。菜单自身缺失和业务 OnInit/OnShow 异常契约尚未覆盖 |
+| 演员加载失败 | LoadOriginalLevel 只轮询 EntityCount，失败时可能永远等候；失败流程仅暂停 | 订阅/解绑 IEntityManager.ShowEntityFailure，立即复制池化参数；ProcedureBase 失败状态复用 UIManager、MvvmView 和命令/文本绑定器，取消实体/批次并保留生产 Exit 所有权；RelayCommand/ButtonBinder/VisibilityBinder 提供 Retry | InstantiateEntity/CreateEntity 和真实预载路径缺失均显示原因；连续失败可重试，恢复资源配置后可成功进入；重复请求/取消/旧会话清理通过。菜单自身缺失和业务 OnInit/OnShow 异常契约尚未覆盖 |
 | 武器消费/冷却/换弹门槛 | FpsPlayer 用 nextShot/Time.time 控制射速，WeaponMagazine 直接 --Rounds | WeaponMagazine 组合 AbilityDefinition.WithCooldown/AddCost/BlockedBy、AbilitySystem.TryActivate/Tick、GameplayTagSet；EntityLogic 更新拥有者时间 | 拒绝不扣弹、暂停冻结、实际换弹持续开火阻挡、实体池复用重置均通过；容量/备用弹药/换弹转移仍为 FPS 业务 |
 | 靶子生命/伤害/死亡 | 用 AttributeSet 存数字，TargetPractice 自行减血/钳制/判死 | UnitModel.ConfigureHealth/TakeDamage/OnDamaged/OnDied，桥接既有 EventChannel、EntityManager 和 TimerManager | 真实射击携带 Entity.Id、过量伤害钳制、死亡计数、旧模型解绑和旧复活计时器取消通过；没有宣称接入完整 UnitWorld |
 | FPS 专有业务 | WeaponMagazine 弹匣规则、Unity 物理遮挡射线、相机瞄准/原 rig 对齐、原动画 clip 切换 | 保留领域规则与 Unity 物理/动画适配；未再建立输入、资源、实体池、事件总线、流程机或 UI 栈 | 不宣称这些业务函数本身来自 Framework，也不把它们作为泛用基础设施替代 Framework |

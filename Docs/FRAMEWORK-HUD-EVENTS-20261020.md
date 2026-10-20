@@ -58,3 +58,5 @@
 - Resource 初始化失败或失败菜单资源本身不可用时的产品流程，不能加绕过资源/UI 模块的后备实现。
 - 单独复现并确认 DefaultEntityHelper 对 EntityLogic.OnInit/OnShow 异常的成功/失败契约，再决定是否在 fork 修复并提交新上游 PR；本批不把待确认的契约当已修复缺陷。
 - 当前新代码仍需后续 Player 重建、图形支持和既有 HDRP 材质迁移问题的画面验收；当前 headless 回归不替代这些结果。
+
+后续进展：失败菜单的 Retry 现已完成，复用既有生产退出/重进、RelayCommand/ButtonBinder 和 VisibilityBinder；Unity 消费者 EditMode 9/9、PlayMode 15/15。上方 HUD 批次结果保持原文，本项的最新范围和剩余缺口见 [加载重试](FRAMEWORK-LOAD-RETRY-20261020.md)。主菜单及菜单自身资源缺失时的恢复仍未完成。

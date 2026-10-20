@@ -1,4 +1,4 @@
-> 当前固定 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。AbilitySystem 负责弹药/射速/换弹门槛，UnitModel 负责靶子伤害/死亡；新增 Framework 演员加载失败提示与 Exit 流程。消费者 EditMode 9/9、PlayMode 10/10 通过，见 [最新证据](framework-failure-flow-validation-20261020.json)。失败菜单禁用 Resume；普通暂停仍可恢复。原 Player 和历史录屏不验证本次代码，实际画面/听感/性能未验收，当前缺少显示/GPU/Xvfb 支持。Release 排障暂停，已有包保留。
+> 当前固定 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。AbilitySystem 负责弹药/射速/换弹门槛，UnitModel 负责靶子伤害/死亡，EventChannel 驱动 HUD。加载失败菜单现在提供 Retry/Exit：Retry 等待生产场景、资源和旧 Framework 会话完整退出后，再正常进入同一关卡；持续缺失会再次显示失败，修复配置后可成功重试。正常暂停显示 Resume/Exit，Retry 隐藏。消费者 EditMode 9/9、PlayMode 15/15 通过，见 [最新证据](framework-load-retry-validation-20261020.json)、[本批范围/剩余缺口](FRAMEWORK-LOAD-RETRY-20261020.md) 和 [累计使用矩阵](FRAMEWORK-HUD-EVENTS-20261020.md#累计-framework-使用矩阵)。菜单资源自身缺失/初始化失败的恢复入口与主菜单未完成。旧 Player/录屏不验证本次代码，当前画面/听感/性能未验收。Release 排障暂停，已有包保留。
 
 ## 历史检查点记录
 

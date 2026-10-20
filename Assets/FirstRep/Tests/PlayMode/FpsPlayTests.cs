@@ -101,6 +101,68 @@ float deadline=Time.realtimeSinceStartup+120;
 while(!status.Completed && Time.realtimeSinceStartup<deadline)yield return null;
 Assert.IsTrue(status.Completed,status.Error??"Scene leases did not finish");Assert.IsTrue(status.ScenesReleased);
 }
+static IEnumerator FailedMenu(SliceBootstrap boot){
+float deadline=Time.realtimeSinceStartup+120;
+while(!(Framework.GetModule<IProcedureManager>().CurrentProcedure is FailedOriginalLevel) && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<FailedOriginalLevel>());
+while(boot.UI.GetUIForm(SliceContent.PausePath)==null && Time.realtimeSinceStartup<deadline)yield return null;
+var menu=(FpsPauseForm)boot.UI.GetUIForm(SliceContent.PausePath);Assert.NotNull(menu);
+Assert.IsTrue(menu.transform.Find("Retry").gameObject.activeSelf);Assert.IsTrue(menu.transform.Find("Retry").GetComponent<Button>().interactable);
+Assert.IsFalse(menu.transform.Find("Resume").gameObject.activeSelf);Assert.IsFalse(menu.ViewModel.Resume.CanExecute(null));
+StringAssert.Contains("LEVEL LOAD FAILED",menu.transform.Find("Status").GetComponent<Text>().text);
+}
+static IEnumerator NewSession(SliceBootstrap boot,SliceExitStatus previous){
+float deadline=Time.realtimeSinceStartup+120;
+// Do not request a module while the old Framework is shutting down.
+while(ReferenceEquals(previous,boot.ExitStatus) && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.AreNotSame(previous,boot.ExitStatus,"Retry never entered a new session");Assert.IsTrue(previous.Completed);
+}
+static void ExpectMissingResourceFailure()=>LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("FirstRep framework integration failed: Framework content preload failed;"));
+[UnityTest] public IEnumerator MissingResourceCanFailRepeatedlyThenRetryWithoutRetainingTheOldSession(){
+int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;var boot=Fixture(out var content);string validPath=content.TargetAssetPath;
+content.TargetAssetPath="Assets/FirstRep/Framework/Missing-for-retry.prefab";ExpectMissingResourceFailure();yield return FailedMenu(boot);
+for(int attempt=0;attempt<3;attempt++){
+Assert.AreEqual(baseline+content.levelScenes.Length,UnityEngine.SceneManagement.SceneManager.sceneCount);Assert.AreEqual(0,boot.Entities.EntityCount);
+var menu=(FpsPauseForm)boot.UI.GetUIForm(SliceContent.PausePath);var oldModel=menu.ViewModel;
+var previous=boot.ExitStatus;var oldResources=Framework.GetModule<IResourceManager>();var oldEntities=Framework.GetModule<IEntityManager>();
+var oldChannel=Framework.GetModule<IEventManager>().GetChannel<PlayerHudChanged>();var leases=boot.Lifetime.Scenes.ToArray();var batch=boot.ContentBatch.Handle;
+Assert.AreEqual(1,batch.FailedCount);Assert.IsTrue(batch.IsValid);Assert.Greater(oldResources.CachedAssetCount,0);
+if(attempt==2)content.TargetAssetPath=validPath;else ExpectMissingResourceFailure();
+var button=menu.transform.Find("Retry").GetComponent<Button>();button.onClick.Invoke();
+Assert.IsTrue(previous.Requested);Assert.IsFalse(previous.Completed);Assert.AreSame(previous,boot.ExitStatus,"Retry entered before native cleanup finished");
+Assert.IsFalse(oldModel.Retry.CanExecute(null));Assert.IsFalse(oldModel.Exit.CanExecute(null));
+button.onClick.Invoke();oldModel.Retry.Execute(null);boot.Retry(); // stale clicks and repeated API calls must not queue more sessions.
+yield return NewSession(boot,previous);
+Assert.IsFalse(batch.IsValid);Assert.IsTrue(leases.All(lease=>lease.IsTerminal));Assert.AreEqual(0,oldResources.CachedAssetCount);Assert.AreEqual(0,oldEntities.EntityCount);
+Assert.IsTrue(oldChannel.IsShutdown);Assert.AreEqual(0,oldChannel.HandlerCount);
+if(attempt<2)yield return FailedMenu(boot);else yield return Ready(boot);
+}
+Assert.IsNull(boot.Failure);Assert.IsFalse(boot.IsPaused);Assert.AreEqual(1,Time.timeScale);Assert.IsFalse(boot.CanRetry);
+Assert.AreEqual(baseline+content.levelScenes.Length,UnityEngine.SceneManagement.SceneManager.sceneCount);Assert.AreEqual(2,boot.Entities.EntityCount);
+Assert.AreEqual(1,Object.FindObjectsByType<SliceSessionHost>(FindObjectsSortMode.None).Length);
+Assert.AreEqual(1,Framework.GetModule<IEventManager>().GetChannel<PlayerHudChanged>().HandlerCount);
+AssertHud((FpsHudForm)boot.UI.GetUIForm(SliceContent.HudPath),"30 / 180",0,false,false);
+var current=boot.ExitStatus;boot.Retry();Assert.AreSame(current,boot.ExitStatus,"Retry restarted normal play");
+boot.Pause();yield return null;var pause=(FpsPauseForm)boot.UI.GetUIForm(SliceContent.PausePath);
+Assert.IsTrue(pause.transform.Find("Resume").gameObject.activeSelf);Assert.IsFalse(pause.transform.Find("Retry").gameObject.activeSelf);Assert.IsFalse(pause.ViewModel.Retry.CanExecute(null));
+pause.transform.Find("Resume").GetComponent<Button>().onClick.Invoke();yield return null;
+boot.Exit();yield return Closed(boot.ExitStatus);Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);
+Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
+}
+[UnityTest] public IEnumerator ExplicitExitCancelsAFailedLoadRetry()=>CancelledLoadRetry(false);
+[UnityTest] public IEnumerator DestroyingBootstrapCancelsAFailedLoadRetry()=>CancelledLoadRetry(true);
+static IEnumerator CancelledLoadRetry(bool destroyBootstrap){
+int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;var boot=Fixture(out var content);
+content.TargetAssetPath="Assets/FirstRep/Framework/Missing-for-retry.prefab";ExpectMissingResourceFailure();yield return FailedMenu(boot);
+var previous=boot.ExitStatus;var menu=(FpsPauseForm)boot.UI.GetUIForm(SliceContent.PausePath);
+menu.transform.Find("Retry").GetComponent<Button>().onClick.Invoke();Assert.IsTrue(previous.Requested);
+if(destroyBootstrap)Object.Destroy(boot.gameObject);else boot.Exit();
+yield return Closed(previous);for(int i=0;i<10;i++)yield return null;
+Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);Assert.AreEqual(0,Object.FindObjectsByType<SliceSessionHost>(FindObjectsSortMode.None).Length);
+Assert.AreEqual(0,Object.FindObjectsByType<FpsPlayer>(FindObjectsSortMode.None).Length);
+if(!destroyBootstrap){Assert.AreSame(previous,boot.ExitStatus);Object.Destroy(boot.gameObject);}
+Object.Destroy(content);yield return null;
+}
 [UnityTest] public IEnumerator ConcurrentImpactEffectsKeepIndependentTransformsAndLifetimes(){
 var boot=Fixture(out var content);yield return Ready(boot);
 var a=content.spawnPosition+Vector3.up*2;var b=a+Vector3.right*2;
@@ -242,7 +304,8 @@ Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
 }
 [UnityTest] public IEnumerator ActorInstantiationFailureShowsFrameworkMenuAndAllowsExitAndReentry()=>FailedActorSession(false);
 [UnityTest] public IEnumerator ActorCreationFailureShowsFrameworkMenuAndAllowsExitAndReentry()=>FailedActorSession(true);
-static IEnumerator FailedActorSession(bool failCreate){
+[UnityTest] public IEnumerator ActorCreationFailureCanRetryThroughTheBoundMenuButton()=>FailedActorSession(true,true);
+static IEnumerator FailedActorSession(bool failCreate,bool retry=false){
 int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;
 var boot=Fixture(out var content);var entities=Framework.GetModule<IEntityManager>();
 var helper=new FailingEntityHelper(typeof(TargetPractice),failCreate);entities.SetEntityHelper(helper);
@@ -262,9 +325,15 @@ StringAssert.Contains("Injected entity display failure",menu.transform.Find("Sta
 Assert.IsFalse(menu.transform.Find("Resume").GetComponent<Button>().interactable);Assert.IsFalse(menu.ViewModel.Resume.CanExecute(null));
 menu.transform.Find("Resume").GetComponent<Button>().onClick.Invoke();Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<FailedOriginalLevel>());
 var model=menu.ViewModel;var exit=boot.ExitStatus;Assert.IsTrue(menu.transform.Find("Exit").GetComponent<Button>().interactable);
+if(retry){
+Assert.IsTrue(menu.transform.Find("Retry").gameObject.activeSelf);Assert.IsTrue(model.Retry.CanExecute(null));
+menu.transform.Find("Retry").GetComponent<Button>().onClick.Invoke();yield return NewSession(boot,exit);
+}else{
 menu.transform.Find("Exit").GetComponent<Button>().onClick.Invoke();yield return Closed(exit);
-Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);Assert.IsFalse(model.Exit.CanExecute(null));
-boot.Enter();yield return Ready(boot);Assert.IsNull(boot.Failure);Assert.AreEqual(2,boot.Entities.EntityCount);
+Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);boot.Enter();
+}
+Assert.IsFalse(model.Exit.CanExecute(null));Assert.IsFalse(model.Retry.CanExecute(null));
+yield return Ready(boot);Assert.IsNull(boot.Failure);Assert.AreEqual(2,boot.Entities.EntityCount);
 boot.Exit();yield return Closed(boot.ExitStatus);Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
 }
 [UnityTest] public IEnumerator EffectFailureAfterLoadDoesNotTriggerAnExpiredLoadListener(){

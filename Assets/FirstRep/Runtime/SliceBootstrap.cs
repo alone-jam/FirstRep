@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using EjoyFramework.Core;
 using EjoyFramework.Core.Coroutines;
 using EjoyFramework.Core.Entity;
@@ -28,10 +29,13 @@ namespace FirstRep.Fps
         public string Failure { get; private set; }
         private int nextEffectId = 10000;
         private bool applicationQuitting;
+        private Coroutine retryRoutine;
+        public bool CanRetry => isActiveAndEnabled && !applicationQuitting && !string.IsNullOrEmpty(Failure) && ExitStatus!=null && !ExitStatus.Requested;
         void Awake() => Enter();
         public void Enter()
         {
             if(ExitStatus!=null && !ExitStatus.Completed)throw new InvalidOperationException("Previous session has not finished its scene exit");
+            CancelRetry();
             if (!content || !content.IsReady) throw new InvalidOperationException("Reviewed original content is missing; no replacement art is supplied.");
             var services=new GameObject("FirstRep framework session");
             Base = services.AddComponent<BaseComponent>();
@@ -77,9 +81,29 @@ namespace FirstRep.Fps
         }
         public void Exit()
         {
+            CancelRetry();
             if(ExitStatus==null || ExitStatus.Requested || ExitStatus.Completed)return;
             var current=Framework.GetModule<IProcedureManager>().CurrentProcedure as OriginalLevelProcedure;
             if(current!=null)current.Exit();else Lifetime.BeginExit();
+        }
+        public void Retry()
+        {
+            if(!CanRetry)return;
+            var previous=ExitStatus;Exit();
+            retryRoutine=StartCoroutine(EnterAfterExit(previous));
+        }
+        IEnumerator EnterAfterExit(SliceExitStatus previous)
+        {
+            // This owner survives Framework shutdown; no new module is requested
+            // until SceneLease release and native service destruction both finish.
+            while(!previous.Completed)yield return null;
+            retryRoutine=null;
+            if(isActiveAndEnabled && !applicationQuitting)Enter();
+        }
+        void CancelRetry()
+        {
+            if(retryRoutine==null)return;
+            StopCoroutine(retryRoutine);retryRoutine=null;
         }
         // Unity closes native scenes itself on application quit. BaseComponent may
         // already have shut the framework down before this component is destroyed.
