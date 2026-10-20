@@ -42,7 +42,7 @@ Framework README Quick Start（当前固定包 README 第 136 行起）规定完
 
 第二次消费者尝试为 8/19：就绪问题解决后，剩余失败定位到官方按钮绑定约定自动追加 `Command`，而旧 VM 命名未带该后缀。已按官方约定改为 StartCommand/ResumeCommand/RetryCommand/MainMenuCommand/ExitCommand，没有恢复手写绑定器。改名后一份过期生成访问器曾导致准备阶段编译失败、没有运行测试；保留原文件后临时排除该过期输出，仅让官方生成器重生成。最终访问器完全由官方工具重写，临时编译保护不在最终源码中；源码快照取自准备完成后。
 
-82 个 Runtime/Editor/Test 源码、程序集描述及 meta 与最终测试快照逐字节一致。HUD、暂停、主菜单、Framework variant 和 SliceContent 的测试后原件已另存，提交前只去除行尾空格，所有 YAML token/字段/对象 ID/GUID 不变。没有修改正式原美术或丢弃失败证据。没有新的登录、许可激活、安装、条款操作或数据删除。
+功能提交 `89399de` 的 82 个 Runtime/Editor/Test 源码、程序集描述及 meta 与最终测试快照逐字节一致。随后仅把 3 份新 meta 的行尾空格规范化（其中一份为 Generated 文件夹 meta）；GUID 和所有 token 不变，证据单独记录，未改 C# 或程序集描述。HUD、暂停、主菜单、Framework variant 和 SliceContent 的测试后原件已另存，提交前只去除行尾空格，所有 YAML token/字段/对象 ID/GUID 不变。没有修改正式原美术或丢弃失败证据。没有新的登录、许可激活、安装、条款操作或数据删除。
 
 ## 累计使用与剩余边界
 
