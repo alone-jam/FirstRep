@@ -1,4 +1,4 @@
-> 当前固定 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。最新增量通过真实 AbilitySystem 执行弹药成本、冷却和换弹阻挡，通过 UnitModel 执行靶子伤害与死亡；消费者 EditMode 9/9、PlayMode 7/7 通过，见 [本轮证据](framework-adoption-increment-20261020.json)。本轮未重建 Player，旧 Player 与历史录屏不验证本次代码，当前画面/听感/性能未验收。Release 排障暂停，已有本地包保留。遵守 [存储规则](STORAGE-AND-RECOVERY.md)，不从本地目录名推导持久性。
+> 当前固定 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。AbilitySystem 负责弹药/射速/换弹门槛，UnitModel 负责靶子伤害/死亡；新增 Framework 演员加载失败提示与 Exit 流程。消费者 EditMode 9/9、PlayMode 10/10 通过，见 [最新证据](framework-failure-flow-validation-20261020.json)。失败菜单禁用 Resume；普通暂停仍可恢复。原 Player 和历史录屏不验证本次代码，实际画面/听感/性能未验收，当前缺少显示/GPU/Xvfb 支持。Release 排障暂停，已有包保留。
 
 ## 历史检查点记录
 

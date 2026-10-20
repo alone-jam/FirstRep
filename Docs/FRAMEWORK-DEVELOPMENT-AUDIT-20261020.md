@@ -36,6 +36,6 @@ Framework 实现依据：fork `Runtime/GamePlay/Combat/Abilities/AbilitySystem.c
 - 新增 6 项 Editor 回归，全部消费者 EditMode 9/9；首次 PlayMode 7/7，补强实际射击来源与换弹持续开火断言后再跑 PlayMode 7/7。均在真实 Unity 6000.6.5f1、同一固定 fork 上退出 0，原始工程/场景/实体池和模块均参与；ControlledInput 仅提供可控输入，不替代 Framework。
 - 本轮未改 Framework 源码、包 pin、PR 说明或正式美术资源；没有大型构建。此前 Player 对本次源码增量无覆盖。当前画面、实际音频播放、独立 Player、完整上游套件均未重验。Tools/Checks/Program.cs 的旧示例同步到新规则，但本轮没有运行该独立 .NET 示例，不能计作测试通过。
 
-下一批候选：把 HUD 的逐帧 Refresh/字符串生成收敛到已有事件和绑定机制；核验异步实体显示失败是否进入关卡失败流程，优先复用现有 Framework 失败通知。两者尚未实施或宣称验证通过。
+下一批候选：把 HUD 的逐帧 Refresh/字符串生成收敛到已有事件和绑定机制；核验异步实体显示失败是否进入关卡失败流程，优先复用现有 Framework 失败通知。这是本轮当时的剩余项；后续失败流程批次已完成 IEntityManager 失败通知与可退出界面，见 [目标与结果](FRAMEWORK-FAILURE-FLOW-20261020.md) 和 [最新证据](framework-failure-flow-validation-20261020.json)。HUD 事件刷新仍未实施。
 
 本轮结果与源码绑定见 [framework-adoption-increment-20261020.json](framework-adoption-increment-20261020.json)，脱敏副本及原件/副本 hash 见 [manifest](evidence/framework-adoption-20261020/manifest.json)。

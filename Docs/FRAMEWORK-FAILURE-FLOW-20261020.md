@@ -29,3 +29,5 @@ HUD 事件驱动刷新仍是下一批候选。本轮只做增量消费者测试�
 剩余高价值项：HUD 的事件驱动刷新；资源初始化失败/失败菜单自身缺失时的产品流程；可操作的重试/主菜单（本轮重进由现有 Enter API 验证，未新增 Retry 按钮）；单独验证 DefaultEntityHelper 目前捕获 OnInit/OnShow 业务异常并记录日志时，是否会把半初始化实体当作成功，以及应有的框架失败契约。本轮只覆盖 IEntityManager 已报告的显示失败，不把这些边界宣称为已解决。
 
 已测功能路径当前没有阻塞。视觉验收有明确环境缺口：12:17 UTC 未发现 /dev/dri、DISPLAY、Xvfb 或先前 render-support；本轮没有安装替代环境或创建新图形配置。Headless 验证了界面文字和命令绑定，但未验证实际渲染、物理鼠标交互、音频设备或性能；既有材质/颜色差异也未解决。没有大型构建，旧 Player 不覆盖本批增量。Release 继续暂停，PR #19/#20 说明未动。
+
+源码、测试及 UI 资产的绑定、成功/失败轮次与未覆盖项见 [结构化证据](framework-failure-flow-validation-20261020.json)，原件/脱敏副本 hash 见 [清单](evidence/framework-failure-flow-20261020/manifest.json)。
