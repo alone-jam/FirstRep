@@ -1,0 +1,516 @@
+{
+  "recordedAtUtc": "2026-10-20T07:48:58.940058+00:00",
+  "sourceBaseCommit": "03a2eeed99cf60d7c60ae446ca930a7262fc6fda",
+  "testedWorkingTreeChanges": [
+    {
+      "path": "Tools/run_unity_checked.py",
+      "bytes": 2903,
+      "sha256": "87f79903dcce97e0b4941acde15684d3ba8f50a827106fb7776a02332fb8985d",
+      "availability": "versioned source change included with this summary"
+    },
+    {
+      "path": "Tools/unity-environment.json",
+      "bytes": 1553,
+      "sha256": "ae3091ff00ad022c1cbdebc27f2334e6cd815db3c4aa8a0c77243ddf99b0dc56",
+      "availability": "versioned source change included with this summary"
+    }
+  ],
+  "framework": {
+    "url": "https://github.com/alone-jam/EjoyFramework.git",
+    "revision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "upstreamPullRequests": [
+      "https://github.com/one2world/EjoyFramework/pull/19",
+      "https://github.com/one2world/EjoyFramework/pull/20"
+    ],
+    "localAdoptionWaitsForUpstreamApproval": false
+  },
+  "editor": {
+    "version": "6000.6.5f1",
+    "revision": "3ff58d469c8a",
+    "installationEvidence": "Docs/editor-recovery-validation-20261020.json"
+  },
+  "license": {
+    "approvedPersonalActivation": {
+      "success": true,
+      "exitCode": 0,
+      "newUndisclosedTermsAccepted": false
+    },
+    "authStatus": {
+      "exitCode": 0,
+      "loggedIn": true,
+      "active": null,
+      "signedIn": null
+    },
+    "licenseStatus": {
+      "exitCode": 0,
+      "loggedIn": null,
+      "active": true,
+      "signedIn": true
+    },
+    "scope": "User completed official browser login and explicitly authorized Personal activation after current terms disclosure. No credentials or license files included."
+  },
+  "environment": {
+    "host": "8d483965f866",
+    "sameSelectedExecutionEnvironment": true,
+    "workspaceFreeBytesAfterNativeTests": 4530622464,
+    "storageRules": "Docs/STORAGE-AND-RECOVERY.md"
+  },
+  "initialAttempt": {
+    "runDirectory": "Reports/fork-validation-20261020T073039Z",
+    "exitCode": 1,
+    "reason": "UPM could not write default /home/agent/.cache/Unity/upm/db; no dependency verification or tests completed in this attempt.",
+    "fix": "Checked launcher supplies configured Unity XDG defaults and UPM_CACHE_ROOT=/workspace/tools/state/upm, preserving caller overrides. No system permission escalation."
+  },
+  "dependency": {
+    "name": "com.ejoy.framework",
+    "source": "Git",
+    "packageId": "com.ejoy.framework@https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "resolvedPath": "/workspace/FirstRep/Library/PackageCache/com.ejoy.framework@093a175b60a1",
+    "passed": true
+  },
+  "consumerRun": {
+    "startedAtUtc": "2026-10-20T07:31:31.518090+00:00",
+    "sourceCommit": "03a2eeed99cf60d7c60ae446ca930a7262fc6fda",
+    "forkRevision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "editorVersion": "6000.6.5f1",
+    "editorRevision": "3ff58d469c8a",
+    "runDirectory": "/workspace/FirstRep/Reports/fork-validation-20261020T073131Z",
+    "approvedPersonalActivation": {
+      "success": true,
+      "exitCode": 0,
+      "newUndisclosedTermsAccepted": false
+    },
+    "stages": [
+      {
+        "name": "dependency",
+        "startedAtUtc": "2026-10-20T07:31:31.729915+00:00",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "Tools/run_unity_checked.py",
+          "-batchmode",
+          "-nographics",
+          "-job-worker-count",
+          "1",
+          "-refreshImportMode",
+          "InProcess",
+          "-desiredWorkerCount",
+          "1",
+          "-standbyWorkerCount",
+          "0",
+          "-projectPath",
+          "/workspace/FirstRep",
+          "-quit",
+          "-executeMethod",
+          "FirstRep.Fps.Editor.FrameworkDependencyCheck.Run",
+          "-logFile",
+          "/workspace/FirstRep/Reports/fork-validation-20261020T073131Z/dependency.log"
+        ],
+        "workspaceFreeBeforeBytes": 8766468096,
+        "exitCode": 0,
+        "finishedAtUtc": "2026-10-20T07:42:50.101640+00:00",
+        "workspaceFreeAfterBytes": 4811194368
+      },
+      {
+        "name": "editmode",
+        "startedAtUtc": "2026-10-20T07:42:50.103174+00:00",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "Tools/run_unity_checked.py",
+          "-batchmode",
+          "-nographics",
+          "-job-worker-count",
+          "1",
+          "-refreshImportMode",
+          "InProcess",
+          "-desiredWorkerCount",
+          "1",
+          "-standbyWorkerCount",
+          "0",
+          "-projectPath",
+          "/workspace/FirstRep",
+          "-runTests",
+          "-testPlatform",
+          "EditMode",
+          "-assemblyNames",
+          "FirstRep.Fps.Tests",
+          "-testResults",
+          "/workspace/FirstRep/Reports/fork-validation-20261020T073131Z/editmode.xml",
+          "-logFile",
+          "/workspace/FirstRep/Reports/fork-validation-20261020T073131Z/editmode.log"
+        ],
+        "workspaceFreeBeforeBytes": 4811194368,
+        "exitCode": 0,
+        "finishedAtUtc": "2026-10-20T07:43:10.894259+00:00",
+        "workspaceFreeAfterBytes": 4812025856
+      },
+      {
+        "name": "playmode",
+        "startedAtUtc": "2026-10-20T07:43:10.894698+00:00",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "Tools/run_unity_checked.py",
+          "-batchmode",
+          "-nographics",
+          "-job-worker-count",
+          "1",
+          "-refreshImportMode",
+          "InProcess",
+          "-desiredWorkerCount",
+          "1",
+          "-standbyWorkerCount",
+          "0",
+          "-projectPath",
+          "/workspace/FirstRep",
+          "-runTests",
+          "-testPlatform",
+          "PlayMode",
+          "-assemblyNames",
+          "FirstRep.Fps.PlayTests",
+          "-testResults",
+          "/workspace/FirstRep/Reports/fork-validation-20261020T073131Z/playmode.xml",
+          "-logFile",
+          "/workspace/FirstRep/Reports/fork-validation-20261020T073131Z/playmode.log"
+        ],
+        "workspaceFreeBeforeBytes": 4812025856,
+        "exitCode": 0,
+        "finishedAtUtc": "2026-10-20T07:44:15.179800+00:00",
+        "workspaceFreeAfterBytes": 4810416128
+      }
+    ],
+    "externalArtifactBackupConfigured": false,
+    "authStatus": {
+      "exitCode": 0,
+      "loggedIn": true,
+      "active": null,
+      "signedIn": null
+    },
+    "licenseStatus": {
+      "exitCode": 0,
+      "loggedIn": null,
+      "active": true,
+      "signedIn": true
+    },
+    "finishedAtUtc": "2026-10-20T07:44:15.180285+00:00"
+  },
+  "nativeRun": {
+    "startedAtUtc": "2026-10-20T07:45:38.999990+00:00",
+    "project": "/workspace/framework-native-validation-20261020T074538Z",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "Tools/run_unity_checked.py",
+      "-batchmode",
+      "-nographics",
+      "-job-worker-count",
+      "1",
+      "-refreshImportMode",
+      "InProcess",
+      "-desiredWorkerCount",
+      "1",
+      "-standbyWorkerCount",
+      "0",
+      "-projectPath",
+      "/workspace/framework-native-validation-20261020T074538Z",
+      "-runTests",
+      "-testPlatform",
+      "EditMode",
+      "-assemblyNames",
+      "EjoyFramework.GamePlay.Tests",
+      "-testFilter",
+      "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests",
+      "-testResults",
+      "/workspace/FirstRep/Reports/fork-native-20261020T074538Z/native-query.xml",
+      "-logFile",
+      "/workspace/FirstRep/Reports/fork-native-20261020T074538Z/native-query.log"
+    ],
+    "forkRevision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "editorVersion": "6000.6.5f1",
+    "scope": "Focused native Unity physics regression; separate test project on same execution environment and retained authenticated PTY",
+    "rawEvidenceBackedUpExternally": false,
+    "exitCode": 0,
+    "finishedAtUtc": "2026-10-20T07:46:29.376372+00:00",
+    "workspaceFreeBytes": 4530630656,
+    "resolvedPackageLock": {
+      "version": "https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.burst": "1.8.29",
+        "com.unity.collections": "6.4.0",
+        "com.unity.inputsystem": "1.19.0",
+        "com.unity.mathematics": "1.3.3",
+        "com.unity.nuget.newtonsoft-json": "3.2.2",
+        "com.unity.test-framework": "1.6.0",
+        "com.unity.ugui": "2.0.0",
+        "com.unity.modules.ai": "1.0.0",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.video": "1.0.0",
+        "com.unity.modules.animation": "1.0.0"
+      },
+      "hash": "093a175b60a196e2ad864a01ace49e90f58aacc3"
+    },
+    "packageLockSha256": "710141c08050e861f5a2f2624605a1b229a0e88325c32f68699ddf5985adddf2"
+  },
+  "testResults": [
+    {
+      "suite": "FirstRep EditMode",
+      "exitCode": 0,
+      "xml": "Reports/fork-validation-20261020T073131Z/editmode.xml",
+      "summary": {
+        "id": "2",
+        "testcasecount": "3",
+        "result": "Passed",
+        "total": "3",
+        "passed": "3",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 07:43:00Z",
+        "end-time": "2026-10-20 07:43:00Z",
+        "duration": "0.071507"
+      },
+      "cases": [
+        {
+          "fullname": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.ExplicitFrameworkIdSurvivesUnityEntityIdMigration",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.MissingExplicitIdFailsBeforeAttachingLogic",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.UpstreamPointerInputTests.GitPackageMouseBindingsReachActualInputSystemDevice",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "suite": "FirstRep PlayMode",
+      "exitCode": 0,
+      "xml": "Reports/fork-validation-20261020T073131Z/playmode.xml",
+      "summary": {
+        "id": "2",
+        "testcasecount": "5",
+        "result": "Passed",
+        "total": "5",
+        "passed": "5",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 07:43:22Z",
+        "end-time": "2026-10-20 07:44:03Z",
+        "duration": "41.603652"
+      },
+      "cases": [
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentImpactEffectsKeepIndependentTransformsAndLifetimes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentSamePrefabEntitiesHaveIndependentHandles",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.DestroyingBootstrapDuringNativeLoadsStillReleasesSceneLeases",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ProductionExitAndReentryUnloadActualAdditiveScenes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.SingleTargetIntegrationExercisesFrameworkModulesAndGameplay",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "suite": "Framework native physics",
+      "exitCode": 0,
+      "xml": "Reports/fork-native-20261020T074538Z/native-query.xml",
+      "summary": {
+        "id": "2",
+        "testcasecount": "7",
+        "result": "Passed",
+        "total": "7",
+        "passed": "7",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 07:46:16Z",
+        "end-time": "2026-10-20 07:46:17Z",
+        "duration": "0.1955013"
+      },
+      "cases": [
+        {
+          "fullname": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.ColliderKeysPreserveDistinctRegistrationIdsForSameNamedObjects",
+          "result": "Passed"
+        },
+        {
+          "fullname": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.ConvexUnregisteredColliderContainingOverlapOriginIsRejected",
+          "result": "Passed"
+        },
+        {
+          "fullname": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.ExplicitUnbakedStaticMeshOccludesHistoricalActorAndPreservesHistoryAdmission",
+          "result": "Passed"
+        },
+        {
+          "fullname": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.InitialOverlapIsVisibleAndMovedStaticGeometryIsRejected",
+          "result": "Passed"
+        },
+        {
+          "fullname": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.NonConvexInteriorWithoutSurfaceOverlapDoesNotInventAStaticHit",
+          "result": "Passed"
+        },
+        {
+          "fullname": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.SweptProjectileHitsStaticMeshWithoutTunnelingAndReportsFallback",
+          "result": "Passed"
+        },
+        {
+          "fullname": "EjoyFramework.GamePlay.Tests.StaticPhysicsHistoricalQueryTests.UnregisteredColliderInStaticLayerIsRejected",
+          "result": "Passed"
+        }
+      ]
+    }
+  ],
+  "testGeneratedAsset": {
+    "path": "Assets/HDRPDefaultResources/HDRenderPipelineGlobalSettings.asset",
+    "change": "HDRP serialized runtime settings reference list was emptied during PlayMode. Generated file and exact patch retained in the successful run directory.",
+    "restoredFromCommit": "03a2eeed99cf60d7c60ae446ca930a7262fc6fda",
+    "restoredSha256": "a0697c18786f9fa1b10c15f4c7e3aef6a91057ade619f7e019b7a104d40159ab",
+    "assetsHaveNoGitDiff": true
+  },
+  "evidence": [
+    {
+      "path": "Reports/fork-validation-20261020T073039Z/dependency-launcher.log",
+      "bytes": 2180,
+      "sha256": "26d5ba34817005a86683b84a15801c215a317d65f54af6a36ce89e60b6f76d36",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073039Z/dependency.log",
+      "bytes": 9467,
+      "sha256": "097ca9790f5de72bc70493f9aae70f6a9a4738c70af1fcc012e99fcef42c8828",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073039Z/processes.json",
+      "bytes": 1693,
+      "sha256": "e2bced402fed0b7501b018be97456a2f361b4e6b9177f5bcd9963acfe5ef6b6b",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/dependency-launcher.log",
+      "bytes": 2180,
+      "sha256": "0a73cd3c4a2433b3fd6aca0d6b0f187ed3bcd05ccc488f4032f5184580799f34",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/dependency.log",
+      "bytes": 4374623,
+      "sha256": "7dcfee00b171be6cc2bd0193467225863023986bdd0f80f63e40485fecb160cc",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/editmode-launcher.log",
+      "bytes": 2180,
+      "sha256": "bef6fc13d801866ae8cd04cfecff00600422493598404c02c4b546f3646fd2c2",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/editmode.log",
+      "bytes": 47725,
+      "sha256": "63314f945b0c36351ff58b9fb65bcc12daaf13466728a505cbbe76ccf50f43dd",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/editmode.xml",
+      "bytes": 5537,
+      "sha256": "85b7ebd451a1655176377051963ade9776daf536f4c139dacf74924d06b3f23d",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/hdrp-global-settings-test-generated.asset",
+      "bytes": 57421,
+      "sha256": "54d724f52e6e8bd8451a736802f60b2813b0d45b772bc78207292729ec2a8d33",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/hdrp-global-settings-test-generated.patch",
+      "bytes": 1216,
+      "sha256": "02d7dc393381c1cc7e6ba3475606579a7ca021a269c72a9f94bcdbcbba5c30d0",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/playmode-launcher.log",
+      "bytes": 2180,
+      "sha256": "07a249016b0878060122a385d251026b8b17060832d1e28d761b1bab68e0cad9",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/playmode.log",
+      "bytes": 755126,
+      "sha256": "4483a601bc5b955358f05dabf539575c5c9e9582094e6b7520b34afb5549c15e",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/playmode.xml",
+      "bytes": 465058,
+      "sha256": "fed0b6f5075610eba29ddb0c21c5af70829119fdf80b865daeca66454a4a1f5f",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-validation-20261020T073131Z/processes.json",
+      "bytes": 3765,
+      "sha256": "0850504302b5fb44332526b0073921d325bcf2dde52b34692fc115f1faae43a8",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-native-20261020T074538Z/launcher.log",
+      "bytes": 2180,
+      "sha256": "c7ce0ff4c69ce8aa0fb13b3d2fdf469d2e815f95422202c1e66739eaeb676126",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-native-20261020T074538Z/native-query.log",
+      "bytes": 611794,
+      "sha256": "f0698a4e8fdc96d05732f930b3dd3da920bec306e7ff14600cd4dda402489a95",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-native-20261020T074538Z/native-query.xml",
+      "bytes": 8687,
+      "sha256": "75dc5ae05c086bc6e052a8d36778cb588af34f3fbb1f5117b9160281bcf8169e",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/fork-native-20261020T074538Z/process.json",
+      "bytes": 1314,
+      "sha256": "4ddf8d5b07126b4860af91c36e7bdaea795b0b59cccfa3ff8da3f2359b8e5e54",
+      "availability": "local staging only; no external backup configured"
+    },
+    {
+      "path": "Reports/dependency-20261020T0742408244980Z/framework-dependency-resolution.json",
+      "bytes": 300,
+      "sha256": "5e09650b7d47a0cc0089adccc33b2ac3240dc15d847aad68854d643248806784",
+      "availability": "local staging only; no external backup configured"
+    }
+  ],
+  "limitations": [
+    "Headless tests do not verify current Player, rendered graphics, audio-device playback or performance.",
+    "Current fork AssetBundles and full Player have not been rebuilt; prior official-pin Player/GIF remain historical only.",
+    "Raw logs/XML and generated asset evidence are local staging only; their hashes and this reviewed summary are tracked in the existing source repository. No external artifact backup or directory retention guarantee is confirmed.",
+    "Only seven focused StaticPhysicsHistoricalQuery tests were run from the upstream Unity suite, not the complete framework suite."
+  ],
+  "historicalRecordsOverwritten": false
+}

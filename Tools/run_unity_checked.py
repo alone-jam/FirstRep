@@ -36,7 +36,11 @@ storage_paths = [project, (project / 'Temp').resolve(), (project / 'Builds').res
 for path in storage_paths:
     if free_bytes(path) < reserve:
         sys.exit('Insufficient disk reserve before launch: ' + str(path))
-process = subprocess.Popen([editor, *sys.argv[1:]], cwd=project)
+env = os.environ.copy()
+for key, value in config['cliStateEnvironment'].items():
+    env.setdefault(key, value)
+env.setdefault('UPM_CACHE_ROOT', config['upmCacheRoot'])
+process = subprocess.Popen([editor, *sys.argv[1:]], cwd=project, env=env)
 stopped_for_disk = False
 while process.poll() is None:
     exhausted = next((path for path in storage_paths if free_bytes(path) < reserve), None)

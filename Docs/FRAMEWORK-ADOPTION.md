@@ -2,7 +2,7 @@
 
 恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
 
-当前依赖已改为 alone-jam fork 的固定修复提交，Unity 消费者回归待验；下文旧官方 pin 的测试和 Player 均为历史证据。历史实际 Unity 6000.6.5f1：FirstRep EditMode 3/3、PlayMode 5/5 通过。上游相关测试 22/23 通过，一项历史碰撞测试断言失败，详见下文。生产 Player 构建与画面验收单独记录，不能由无图形测试推断。
+当前依赖为 alone-jam fork 固定提交 `093a175b60a196e2ad864a01ace49e90f58aacc3`。2026-10-20 实际 Unity 6000.6.5f1 已核验 UPM 来源为该 Git URL/SHA，FirstRep EditMode **3/3**、PlayMode **5/5**、框架原生物理查询回归 **7/7** 全部通过，退出码均为 0。见 [当前 fork 证据](current-fork-validation.json)。新 Player、画面与听感尚未复验；下文旧官方 pin 的结果保留为历史。
 
 ## 依赖来源
 
@@ -12,7 +12,9 @@
 
 后续流程：在 fork 分支修复并添加回归，独立向上游提交 PR；把验证过的修复集成到 `firstrep-integration`，再同步更新 FirstRep 的 manifest、lock、依赖检查常量及来源记录。保留 PR 与提交映射，后续按需同步上游，避免重复应用已合并补丁。
 
-本次记录见 [fork-adoption-validation.json](fork-adoption-validation.json)。此次验证：真实 Framework 纯 .NET Combat 回归 47/47 通过，不使用 Unity stub；同一测试集合对修复前代码有 14 项失败。该结果不能证明 Unity 物理测试、UPM 实际解析、FirstRep EditMode/PlayMode 或新 Player 通过。Unity 6000.6.5f1/revision 3ff58d469c8a Editor 随后已恢复，但实际依赖验证启动因无有效许可证退出 198，未完成这些检查（见 [最新证据](editor-recovery-validation-20261020.json)）；下文 3/3、5/5、22/23、构建与 GIF 结果仅属于旧官方 pin。框架升级后须重新生成 AssetBundles 并完整构建 Player，不能用旧 Player 或仅 BuildScriptsOnly 作为新依赖的验证。
+先前纯 .NET 验证见 [fork-adoption-validation.json](fork-adoption-validation.json)：真实 Framework Combat 回归 47/47 通过，不使用 Unity stub；同一集合对修复前代码有 14 项失败。随后 Editor 恢复后的无许可证退出 198 已保留在 [历史恢复证据](editor-recovery-validation-20261020.json)。用户完成官方登录并明确授权 Personal 激活后，本次真实 Unity 依赖及消费者、原生物理回归全部通过。原生 7 项包含非凸中心无表面重叠控制、表面重叠的未注册碰撞体拒绝及凸碰撞体包含起点的拒绝，补验了 PR #19 的几何修正。没有修改包缓存或跳过该测试。
+
+首次许可恢复后的运行因默认 UPM 缓存 `/home/agent/.cache/Unity/upm/db` 不可写退出 1；启动器现按清单设置可写 `UPM_CACHE_ROOT` 及 Unity 专用 XDG 默认值，并保留调用方覆盖。成功运行和失败尝试的命令、退出码、XML 各项状态和原始证据 hash 均在 [current-fork-validation.json](current-fork-validation.json)。PlayMode 自动清空 HDRP 全局设置的运行时引用列表，已另存生成文件和差异，再还原为测试前的原始版本；Assets 无 Git 差异。原始日志/XML 仅本地暂存，外部备份未配置。框架升级后仍须重新生成 AssetBundles 并完整构建 Player，不能用旧 Player 或仅 BuildScriptsOnly 验证新依赖。
 
 
 ## 具体对应清单
@@ -35,7 +37,7 @@
 
 作者侧预制体配置在 `FrameworkAssetSetup` 中创建，使用原版 rig/粒子/Robot，未替换模型、贴图或音频。Player 构建前调用上游 `AssetBundleBuilder.BuildAll`，保留原有材质组合策略；未降低美术资源质量。生成的 AssetBundles 不进入 Git。
 
-## 官方修复与实际结果
+## 历史官方修复与实际结果
 
 官方提交 [a5e1ec6](https://github.com/one2world/EjoyFramework/commit/a5e1ec6f3472f741815108509ba303ce39b933c3) 使用独占实例池修复 [#17](https://github.com/one2world/EjoyFramework/issues/17)，以 Collider 身份键修复 Unity 6000.6 编译兼容，并明确拒绝未支持的 Resources 模式（[#16](https://github.com/one2world/EjoyFramework/issues/16)）。FirstRep 继续使用上游 EditorSimulation/AssetBundle 路径。
 
@@ -43,7 +45,7 @@
 
 独立项目运行同一官方 Git 包的 EntityManager、DefaultEntityHelper、ResourceComponentMode、StaticPhysicsHistoricalQuery 相关测试：22/23 通过。`UnregisteredColliderInStaticLayerIsRejected` 第 66 行射线拒绝断言通过，第 67 行从非凸 MeshCollider 中心出发的小球查询未抛出异常。未修改上游缓存或跳过该测试；额外实际 Unity 探针确认：非凸网格中心的 OverlapSphere=0/Sweep=Miss；表面相交或改为凸碰撞体时均正确抛出 InvalidOperationException，指向该断言的几何假设，而非身份键修复回归。已补充 [现有 #3](https://github.com/one2world/EjoyFramework/issues/3#issuecomment-6195904536)。FirstRep 当前射击使用 Unity 实时物理射线，不调用 StaticPhysicsHistoricalQuery；其消费者测试已独立通过。
 
-## 可复验的消费者验证
+## 历史官方 pin 的消费者验证
 
 结构化结果及每个 XML 的 SHA-256 见 [official-framework-validation.json](official-framework-validation.json)。完整原始 XML/日志保存在本地 Reports：`official-a5e1ec6-editmode.xml`、`official-a5e1ec6-playmode-preserved.xml`、`official-a5e1ec6-upstream-unity.xml`。无凭据、许可证、缓存或构建二进制进入源码。
 

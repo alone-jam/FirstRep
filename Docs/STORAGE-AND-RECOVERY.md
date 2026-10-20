@@ -41,18 +41,20 @@
 2. **先完成存储配置核验。** 当前 `verifiedPersistentDirectory`、`configuredExternalArtifactBackup` 均为 null。待配置项是用户确认的产物目的地、权限/保留期和取回验证方式；若平台提供目录契约，需记录官方出处、适用环境与范围后再用。配置前可做安全源码工作，但不能将新大型唯一产物宣称已可靠保存。
 3. **检查源码与资源。** `python3 Tools/check_environment.py --verify-remote` 只读输出状态，不安装、不下载、不登录、不读密钥。若需恢复 LFS，先核对既有 `origin`，在授权和空间允许时运行 `git lfs pull origin work`；之后逐项校验 payload 的 SHA256/OID。本次已完成下载与校验，使用了本地 `git lfs install --local --skip-repo` 恢复过滤器，未改全局配置或 hooks。`python3 Tools/verify_lfs_payloads.py --include-local-cache` 可只读复验两份内容；不带该开关则只验工作副本。13 GB 原始资产之外还需 Editor、Library 和打包空间，不能仅看当前剩余盘就宣称完整构建可行。
 4. **恢复工具。** 用户原先已明确要求安装 Unity CLI 及 Unity 6000.6.5f1；本次已从官方版本 manifest 恢复 CLI `1.0.0-beta.13`，按官方 SHA256 核验，入口为 `python3 Tools/run_unity_cli.py`。其状态存放在安装清单列明的 Unity 专用 XDG 目录；未修改 shell 配置、系统包或凭据。Editor 现已通过官方 CLI 安装成功，实测版本和二进制内 revision 一致；记录见 [最新恢复证据](editor-recovery-validation-20261020.json)。依据 [Unity CLI 官方安装说明](https://docs.unity.com/en-us/unity-cli/use-unity-cli) 恢复 CLI 后先读 `unity --help`、`unity install --help`、`unity install-path --help`，记录精确 CLI 版本/hash。确认安装路径后使用 `unity install 6000.6.5f1`；feed 找不到版本时按 [官方参考](https://docs.unity.com/en-us/unity-cli/unity-cli-reference) 核对 changeset，项目记录为 `3ff58d469c8a`，不改装 latest。模块先按该版本官方清单核验，只恢复现有 Linux 目标所需模块。不要自动接受条款、购买席位或提升系统权限。
-5. **认证与版本。** 用户通过正规私密流程确认当前账号/许可证适用及需要的新条款；遵守 [Unity Editor 条款](https://unity.com/legal/editor-terms-of-service/software)。可用 CLI 的 `auth status` 只在授权上下文中检查且不提交身份输出；本次实测 loggedIn=false、license active=false（退出码分别为 3、4），未发起登录或激活。接下来需要用户通过私密正规流程恢复认证/有效许可；不把未登录直接等同于安装命令必需登录。遇新条款/许可确认停下交用户处理。本机 Debian 13/glibc 2.41；现行 CLI 文档列举 Linux RHEL 9/Ubuntu 22.04+，不能由 glibc 满足就声称本发行版受支持，须实际兼容性检查。不要为此静默换机器。
+5. **认证与版本。** 用户通过正规私密流程确认当前账号/许可证适用及需要的新条款；遵守 [Unity Editor 条款](https://unity.com/legal/editor-terms-of-service/software)。可用 CLI 的 `auth status` 只在授权上下文中检查且不提交身份输出；恢复初次实测 loggedIn=false、license active=false（退出码分别为 3、4）；后续用户已完成官方登录并明确授权 Personal 激活，当前许可检查和真实 Editor 运行均成功，见 [当前 fork 验证](current-fork-validation.json)。不把未登录直接等同于安装命令必需登录。遇新条款/许可确认停下交用户处理。本机 Debian 13/glibc 2.41；现行 CLI 文档列举 Linux RHEL 9/Ubuntu 22.04+，不能由 glibc 满足就声称本发行版受支持，须实际兼容性检查。不要为此静默换机器。
 本次容量恢复：用户明确批准清理 `/workspace/FirstRep/.git/lfs/objects`。重新校验 1,193 个工作副本/缓存对象及资产 `.meta` 无差异后，仅删除该目录内的 1,193 个重复对象，根目录及其他目录保留；实际释放 12,988,174,336 字节。删除后再次逐项核对工作副本大小/SHA256，全部通过。缓存将来需要时须从既有 origin 再下载；缺少缓存不阻止 Unity 使用完整工作副本。这项精确批准不授权后续其他清理。
 
 随后 `python3 Tools/run_unity_cli.py install 6000.6.5f1 --non-interactive --format ndjson` 成功退出 0，官方 CLI 完成下载校验与安装；未使用 `--accept-eula`。Editor `-version` 输出 6000.6.5f1，二进制含 `3ff58d469c8a`，本地 SHA256 已记录。安装后约剩 8.2 GiB，额外导入/构建空间仍须实测监控，不预先保证充足。
 
-当前真正阻碍是许可：用实际工程启动依赖验证入口，Editor 在 2026-10-20 07:11 UTC 退出 **198**，提示 `No valid Unity Editor license found. Please activate your license.`，没有执行到成功的依赖验证，也没有完成 EditMode/PlayMode。原始日志仅保存在当前任务的唯一 run 目录，脱敏摘要及各文件 hash见 [editor-recovery-validation-20261020.json](editor-recovery-validation-20261020.json)；旧审计与旧测试 JSON 未覆盖。
+以下为已解决的历史许可阻碍：用实际工程启动依赖验证入口，Editor 在 2026-10-20 07:11 UTC 退出 **198**，提示 `No valid Unity Editor license found. Please activate your license.`，没有执行到成功的依赖验证，也没有完成 EditMode/PlayMode。原始日志仅保存在当前任务的唯一 run 目录，脱敏摘要及各文件 hash见 [editor-recovery-validation-20261020.json](editor-recovery-validation-20261020.json)；旧审计与旧测试 JSON 未覆盖。
 
-用户下一步需要在**这个任务的正规私密认证上下文**中完成 `python3 Tools/run_unity_cli.py auth login` 的官方浏览器登录流程，再检查 `license status` 并激活适用的已有许可。`auth login --help`、`license activate --help` 已核对；选择 Personal 时 CLI 明确要求接受其条款，不能自动替用户选择或执行 `--accept-eula`。不购买席位，不在聊天索要密码、token 或许可证文件，也不把用户其他设备已登录等同于本执行器已认证。若平台未提供对应私密浏览器/终端入口，该入口本身需先由平台确认。参考 [Unity CLI 官方登录流程](https://docs.unity.com/en-us/unity-cli/use-unity-cli#sign-in)。
+当时后续步骤是在**这个任务的正规私密认证上下文**中完成 `python3 Tools/run_unity_cli.py auth login` 的官方浏览器登录流程，再检查 `license status` 并激活适用的已有许可。`auth login --help`、`license activate --help` 已核对；选择 Personal 时 CLI 明确要求接受其条款，不能自动替用户选择或执行 `--accept-eula`。不购买席位，不在聊天索要密码、token 或许可证文件，也不把用户其他设备已登录等同于本执行器已认证。若平台未提供对应私密浏览器/终端入口，该入口本身需先由平台确认。参考 [Unity CLI 官方登录流程](https://docs.unity.com/en-us/unity-cli/use-unity-cli#sign-in)。
 
 6. **预检和真实回归。** 使用 `python3 Tools/check_environment.py --require-ready`；仅检查存在与 pin一致性，不能代替许可和真实版本检查。Editor 路径默认来自安装清单，可用 `FIRSTREP_UNITY_EDITOR` 指向同版本的合法安装；此变量不改变存储契约。启动入口 `run_unity_checked.py`、`run_low_memory_build.py` 在缺失 Editor/LFS 时先退出，不创建 Temp/Reports或假装完成验证。
 
-恢复后，在工程根目录给每次运行分配新的 `<run-id>`（不是重复使用历史日志名），再创建本地暂存 `Reports/<run-id>`。下列为待执行命令模板，不是本次通过结果：
+当前用户已完成官方登录并明确授权 Personal 激活（含披露的现行条款），CLI 激活与许可检查退出 0。真实 UPM fork 来源核验、FirstRep EditMode 3/3、PlayMode 5/5、框架原生物理查询 7/7 均通过，见 [当前 fork 验证](current-fork-validation.json)。旧退出 198 的 JSON 不覆盖。默认 HOME 下 UPM 缓存不可写的问题已通过清单中的 `upmCacheRoot` 与启动器的 `UPM_CACHE_ROOT` 默认值修复；Unity XDG 默认路径同 CLI，保留调用方覆盖，不复制或读取凭据。
+
+工程根目录每次运行分配新的 `<run-id>`（不是重复使用历史日志名），再创建本地暂存 `Reports/<run-id>`。下列为后续复验模板；本轮实际命令、退出码与 XML 见上述新记录：
 
 ```bash
 python3 Tools/run_unity_checked.py -batchmode -nographics -quit -projectPath "$PWD" \

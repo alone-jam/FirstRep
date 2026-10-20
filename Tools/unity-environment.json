@@ -4,6 +4,7 @@
   "editorExecutable": "/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Unity",
   "editorPathMeaning": "Historical installation location and current default; no directory retention guarantee",
   "editorOverrideVariable": "FIRSTREP_UNITY_EDITOR",
+  "upmCacheRoot": "/workspace/tools/state/upm",
   "cliVersion": "1.0.0-beta.13",
   "cliVersionStatus": "Recovered 2026-10-20 from official version manifest; historical CLI version remains unknown",
   "cliExecutable": "/workspace/tools/unity-recovery/unity",

@@ -1,4 +1,4 @@
-> 当前依赖已切换为 alone-jam fork 的固定提交，见 [框架接入](FRAMEWORK-ADOPTION.md)。以下官方 `a5e1ec6` 的 3/3、5/5、构建和录屏均为历史结果，不验证当前 fork。恢复前必须遵循 [存储与恢复规则](STORAGE-AND-RECOVERY.md)：历史本地保存不代表平台持久保证；恢复前 Editor、原始 Reports、Library 和 Player 路径不可见；Editor 随后已恢复，LFS 资产随后已全部取回并逐项校验，已批准的重复缓存清理和 Editor 安装均已完成；实际工程启动因无有效许可证退出 198。见 [最新恢复证据](editor-recovery-validation-20261020.json)。历史复制校验清单见 [当时记录](persistent-player-validation.json)，不表示现在存在可取回的外部备份。
+> 当前使用 alone-jam fork 固定提交 `093a175b60a196e2ad864a01ace49e90f58aacc3`。Personal 许可经用户授权激活后，真实 Unity 6000.6.5f1 依赖核验、EditMode 3/3、PlayMode 5/5 和框架原生物理查询 7/7 均通过，见 [当前 fork 验证](current-fork-validation.json)。新 Player、画面及听感尚未复验；以下旧官方 pin 的构建和录屏均为历史。遵循 [存储与恢复规则](STORAGE-AND-RECOVERY.md)：LFS 与 Editor 已恢复，旧 Player 未恢复，原始新日志仅本地暂存，尚无外部产物备份或目录持久保证。
 
 ## 历史检查点记录
 
