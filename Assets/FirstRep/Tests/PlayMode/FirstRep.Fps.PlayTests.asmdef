@@ -4,7 +4,8 @@
     "FirstRep.Fps",
     "EjoyFramework.Core",
     "EjoyFramework.Core.Unity",
-    "UnityEngine.UI"
+    "UnityEngine.UI",
+    "EjoyFramework.GamePlay.Units"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

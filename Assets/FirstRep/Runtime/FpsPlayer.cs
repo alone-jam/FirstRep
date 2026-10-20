@@ -26,7 +26,7 @@ namespace FirstRep.Fps
         private ThirdPersonMotor locomotion;
         private uint controlSequence;
         private WeaponMagazine magazine;
-        private float pitch, nextShot, hitUntil;
+        private float pitch, hitUntil;
         private int reloadTimer, kills;
         public bool IsPaused => bootstrap && bootstrap.IsPaused;
         public string HudText => $"FIRSTREP • LEVEL 01    {magazine.Rounds:00} / {magazine.Reserve}    TARGETS {kills}{(magazine.Reloading ? "    RELOADING" : "")}";
@@ -48,13 +48,14 @@ namespace FirstRep.Fps
         protected override void OnShow(object userData)
         {
             base.OnShow(userData); var spawn=ActorSpawn.From(userData); bootstrap=spawn.Bootstrap;content=bootstrap.content;
-            transform.SetPositionAndRotation(spawn.Position,spawn.Rotation); magazine=new WeaponMagazine(30,180); pitch=nextShot=0;kills=0;locomotion.Reset();
+            transform.SetPositionAndRotation(spawn.Position,spawn.Rotation); magazine=new WeaponMagazine(30,180); pitch=0;kills=0;locomotion.Reset();
             hits.Subscribe(OnHit);
             Cursor.lockState=CursorLockMode.Locked;Cursor.visible=false;
         }
         protected override void OnUpdate(float elapseSeconds,float realElapseSeconds)
         {
             if (input == null || IsPaused || elapseSeconds <= 0) return;
+            magazine.Tick(elapseSeconds);
             if (input.GetButtonDown("Pause")) { Pause(); return; }
             if (Cursor.lockState == CursorLockMode.Locked)
             {
@@ -74,9 +75,9 @@ namespace FirstRep.Fps
             view.fieldOfView = Mathf.Lerp(view.fieldOfView, aiming ? 45 : 75, 1 - Mathf.Exp(-12 * Time.deltaTime));
             if (transform.position.y < content.spawnPosition.y - 80) Respawn();
             if (input.GetButtonDown("Reload")) Reload();
-            if (input.GetButton("Fire") && Time.time >= nextShot && magazine.TryFire())
+            if (input.GetButton("Fire") && magazine.TryFire())
             {
-                nextShot = Time.time + 0.12f; Fire();
+                Fire();
             }
         }
         private void Fire()
@@ -91,7 +92,7 @@ namespace FirstRep.Fps
             if (Physics.Raycast(muzzle, delta.normalized, out var obstruction, delta.magnitude, shotMask, QueryTriggerInteraction.Ignore))
             { hit = obstruction; cameraHit = true; }
             if (!cameraHit) return;
-            hit.collider.GetComponentInParent<TargetPractice>()?.Hit(25);
+            hit.collider.GetComponentInParent<TargetPractice>()?.Hit(25,Entity.Id);
             bootstrap.ShowImpact(hit.point + hit.normal * 0.005f, Quaternion.LookRotation(hit.normal));
         }
         private void Reload()

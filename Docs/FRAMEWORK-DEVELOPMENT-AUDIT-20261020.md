@@ -2,7 +2,7 @@
 
 基线：FirstRep `1831c48d8c3b2b0cfb561c8caf289a8c6ec9a686`；Git UPM fork `093a175b60a196e2ad864a01ace49e90f58aacc3`；Unity 6000.6.5f1 / 3ff58d469c8a。2026-10-20 11:43 UTC 原环境预检通过，1,193 个 LFS 工作副本存在、Editor 存在，原 PTY 的 auth/license status 均退出 0（loggedIn/active/signedIn=true）。没有从断连推断丢失、重装或切换环境。Release 认证排障暂停；现有包和草稿保留。
 
-以下位置是基线代码位置，按真实调用链审查，不按引用/using 数量评分。
+以下位置是基线代码位置，`Runtime/…` 均相对 `Assets/FirstRep/`；按真实调用链审查，不按引用/using 数量评分。
 
 | 功能 | 实际调用位置与 Framework API | 分类及判断 |
 |---|---|---|
@@ -28,3 +28,12 @@ Framework 实现依据：fork `Runtime/GamePlay/Combat/Abilities/AbilitySystem.c
 ## 验证边界与资源约束
 
 工作区仅约 1.51 GiB 可用，继续保留 1 GiB 保护阈值；本轮做源码和现有工程的增量测试，不做大型 Player 重建、不删除缓存/已有包。原版 FPSSample 资产及 `.meta` 保持。先前已构建 Player 对本轮后续代码变化不提供验证；新的测试证据须单独记录版本、命令、结果、原件 hash 与备份/脱敏状态。无图形测试不证明画面、听感或性能。
+
+## 本轮实施结果
+
+- WeaponMagazine 现在由真实 AbilityDefinition（WithCooldown/AddCost/BlockedBy）、AbilitySystem.TryActivate/Tick 和 GameplayTagSet 执行弹药消费、射速及换弹阻挡；只保留容量、备用弹药和换弹转移规则。FpsPlayer 已移除 nextShot/Time.time 射速逻辑，通过 EntityLogic 的 elapsedSeconds 推进；暂停冻结冷却，复用新一轮弹匣。
+- TargetPractice 的伤害钳制、生命和一次死亡事件由 UnitModel 管理；OnDamaged 桥接既有 TargetHit 通道，OnDied 交给 EntityManager 隐藏，TimerManager 负责复活。OnHide 解绑模型事件，OnShow 取消旧复活回调并按当前 Framework Entity.Id 建立新模型。这里只接入生命/伤害能力，不宣称已接入完整 UnitWorld、索敌或历史碰撞世界。
+- 新增 6 项 Editor 回归，全部消费者 EditMode 9/9；首次 PlayMode 7/7，补强实际射击来源与换弹持续开火断言后再跑 PlayMode 7/7。均在真实 Unity 6000.6.5f1、同一固定 fork 上退出 0，原始工程/场景/实体池和模块均参与；ControlledInput 仅提供可控输入，不替代 Framework。
+- 本轮未改 Framework 源码、包 pin、PR 说明或正式美术资源；没有大型构建。此前 Player 对本次源码增量无覆盖。当前画面、实际音频播放、独立 Player、完整上游套件均未重验。Tools/Checks/Program.cs 的旧示例同步到新规则，但本轮没有运行该独立 .NET 示例，不能计作测试通过。
+
+下一批候选：把 HUD 的逐帧 Refresh/字符串生成收敛到已有事件和绑定机制；核验异步实体显示失败是否进入关卡失败流程，优先复用现有 Framework 失败通知。两者尚未实施或宣称验证通过。

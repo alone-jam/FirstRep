@@ -113,6 +113,53 @@ Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);
 foreach(var path in content.levelScenes)Assert.IsFalse(UnityEngine.SceneManagement.SceneManager.GetSceneByPath(path).isLoaded);
 Object.Destroy(content);yield return null;
 }
+[UnityTest] public IEnumerator WeaponCooldownFreezesWhilePausedAndResetsOnPooledReuse(){
+var boot=Fixture(out var content);yield return Ready(boot);
+Framework.GetModule<IInputManager>().SetHelper(new ControlledInput());
+var player=((GameObject)boot.Entities.GetEntity(1).Handle).GetComponent<FpsPlayer>();
+var magazine=Field<WeaponMagazine>(player,"magazine");
+Assert.IsTrue(magazine.TryFire());Assert.IsFalse(magazine.TryFire());Assert.AreEqual(29,magazine.Rounds);
+boot.Pause();yield return new WaitForSecondsRealtime(0.2f);
+Assert.AreEqual(0,Time.timeScale);Assert.IsFalse(magazine.TryFire(),"Entity owner advanced ability cooldown during pause");Assert.AreEqual(29,magazine.Rounds);
+boot.Resume();yield return new WaitForSeconds(0.14f);
+Assert.IsTrue(magazine.TryFire(),"Entity update did not tick the real AbilitySystem");
+var handle=player.gameObject;boot.Entities.HideEntity(1);
+boot.Entities.ShowEntity(2,SliceContent.PlayerEntityPath,"Players",0,new ActorSpawn(boot,content.spawnPosition,Quaternion.identity));
+float deadline=Time.realtimeSinceStartup+30;
+while(!boot.Entities.HasEntity(2) && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.IsTrue(boot.Entities.HasEntity(2));Assert.AreSame(handle,boot.Entities.GetEntity(2).Handle);
+var reused=((GameObject)boot.Entities.GetEntity(2).Handle).GetComponent<FpsPlayer>();
+var fresh=Field<WeaponMagazine>(reused,"magazine");Assert.AreNotSame(magazine,fresh);Assert.AreEqual(30,fresh.Rounds);Assert.IsTrue(fresh.TryFire(),"Previous life retained a cooldown");
+Object.Destroy(content);
+}
+[UnityTest] public IEnumerator UnitDamageEventsAndPooledIdentityDoNotRetainAStaleRespawn(){
+var boot=Fixture(out var content);yield return Ready(boot);
+Framework.GetModule<IInputManager>().SetHelper(new ControlledInput());
+var target=Object.FindFirstObjectByType<TargetPractice>();var oldUnit=target.Unit;int oldId=target.Entity.Id;
+Assert.AreEqual(oldId,oldUnit.Id);Assert.AreEqual(100,target.Health);
+int deaths=0,source=-1;float applied=0;
+oldUnit.OnDamaged+=(unit,amount,attacker)=>{applied=amount;source=attacker;};
+oldUnit.OnDied+=(unit,attacker)=>{deaths++;source=attacker;};
+var player=((GameObject)boot.Entities.GetEntity(1).Handle).GetComponent<FpsPlayer>();
+target.Hit(-25,1);Assert.AreEqual(100,target.Health);
+target.Hit(25,1);Assert.AreEqual(75,target.Health);Assert.AreEqual(25,applied);Assert.AreEqual(1,source);
+target.Hit(1000,1);Assert.AreEqual(0,target.Health);Assert.AreEqual(75,applied);Assert.AreEqual(1,deaths);
+target.Hit(1000,1);Assert.AreEqual(1,deaths);Assert.AreEqual(1,Field<int>(player,"kills"));
+Assert.IsFalse(boot.Entities.HasEntity(oldId));
+int newId=oldId+1;
+boot.Entities.ShowEntity(newId,content.TargetAssetPath,"Targets",0,new ActorSpawn(boot,content.targetPositions[0],Quaternion.identity));
+float deadline=Time.realtimeSinceStartup+30;
+while(!boot.Entities.HasEntity(newId) && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.IsTrue(boot.Entities.HasEntity(newId));Assert.AreSame(target.gameObject,boot.Entities.GetEntity(newId).Handle);
+Assert.AreNotSame(oldUnit,target.Unit);Assert.AreEqual(newId,target.Unit.Id);Assert.AreEqual(100,target.Health);
+// The detached model can no longer publish hits or hide the reused Unity entity.
+oldUnit.ConfigureHealth(100);oldUnit.TakeDamage(100,1);
+Assert.AreEqual(1,Field<int>(player,"kills"));Assert.IsTrue(boot.Entities.HasEntity(newId));
+yield return new WaitForSeconds(4.2f);
+Assert.IsFalse(boot.Entities.HasEntity(oldId),"A cancelled prior-life timer respawned its old ID");
+Assert.IsTrue(boot.Entities.HasEntity(newId));Assert.AreEqual(100,target.Health);
+Object.Destroy(content);
+}
 [UnityTest] public IEnumerator SingleTargetIntegrationExercisesFrameworkModulesAndGameplay(){
 
 var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");Assert.NotNull(original);
@@ -166,18 +213,21 @@ input.held="Mouse1";yield return new WaitForSeconds(0.4f);Assert.Less(player.vie
 var target=Object.FindFirstObjectByType<TargetPractice>();Assert.NotNull(target);
 var hitVolume=target.GetComponent<Collider>();Assert.NotNull(hitVolume);
 target.transform.position += player.view.transform.position+player.view.transform.forward*1.5f-hitVolume.bounds.center;Physics.SyncTransforms();
+int shotSource=-1;target.Unit.OnDamaged+=(unit,amount,source)=>shotSource=source;
 input.held="Mouse0";yield return null;input.held=null;yield return null;
 var magazine=Field<WeaponMagazine>(player,"magazine");Assert.AreEqual(29,magazine.Rounds,"Fire binding did not consume one round");
-var health=Field<object>(target,"health");Assert.Less((float)health.GetType().GetProperty("CurrentValue").GetValue(health),100,"Real hitscan did not damage target");
+Assert.AreEqual(75,target.Health,"Real hitscan did not damage the framework UnitModel");
+Assert.AreEqual(player.Entity.Id,shotSource,"Actual hitscan did not propagate its framework entity identity");
 input.down="R";yield return null;input.down=null;yield return null;yield return null;
 Assert.IsTrue(reopenedHud.transform.Find("Header").GetComponent<Text>().text.Contains("RELOADING"),"MVVM reload status was lost");
+input.held="Mouse0";yield return new WaitForSeconds(0.2f);input.held=null;Assert.AreEqual(29,magazine.Rounds,"Held fire bypassed the framework reload tag");
 yield return new WaitForSeconds(2.1f);Assert.AreEqual(30,magazine.Rounds,"Ejoy reload timer did not finish");
 Assert.IsFalse(reopenedHud.transform.Find("Header").GetComponent<Text>().text.Contains("RELOADING"));
 target.Hit(100);
 int targetId=target.Entity.Id;
 Assert.IsFalse(Framework.GetModule<IEntityManager>().HasEntity(targetId),"Lethal hit did not return target to the framework pool");
 Assert.IsFalse(target.gameObject.activeInHierarchy);
-yield return new WaitForSeconds(4.2f);Assert.IsTrue(Framework.GetModule<IEntityManager>().HasEntity(targetId));Assert.IsTrue(System.Array.Exists(target.GetComponentsInChildren<Renderer>(),r=>r.enabled),"Ejoy timer did not respawn original target");
+yield return new WaitForSeconds(4.2f);Assert.IsTrue(Framework.GetModule<IEntityManager>().HasEntity(targetId));Assert.AreEqual(100,target.Health);Assert.AreEqual(targetId,target.Unit.Id);Assert.IsTrue(System.Array.Exists(target.GetComponentsInChildren<Renderer>(),r=>r.enabled),"Ejoy timer did not respawn original target");
 bootstrap.Exit();yield return Closed(bootstrap.ExitStatus);Object.Destroy(boot);Object.Destroy(content);yield return null;
 }
 }

@@ -9,7 +9,9 @@
     "Unity.RenderPipelines.Core.Runtime",
     "EjoyFramework.GamePlay.Unity",
     "UnityEngine.UI",
-    "Unity.InputSystem"
+    "Unity.InputSystem",
+    "EjoyFramework.GamePlay.Combat",
+    "EjoyFramework.GamePlay.Units"
   ],
   "autoReferenced": true
 }
