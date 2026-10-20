@@ -1,0 +1,79 @@
+{
+  "verifiedAtUtc": "2026-10-20T14:38:09.005862+00:00",
+  "buildSourceCommit": "ad9f75a996befa57ebf7b0bbfab79f7af25eae38",
+  "verifiedEvidenceCommit": "a85dd348e2b42e1bf29956f6bc11a5fb1473a792",
+  "remoteWorkHead": "a85dd348e2b42e1bf29956f6bc11a5fb1473a792",
+  "frameworkCommit": "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
+  "remoteFrameworkHead": "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
+  "AssetsPackagesProjectSettingsUnchangedFromBuildSource": true,
+  "retrievedAndByteComparedFiles": [
+    {
+      "path": "Docs/CURRENT-BUNDLES-BUILD-20261020.md",
+      "bytes": 5426,
+      "sha256": "a211ae8cbd8c6f83102b34d0604435f2974dc106483a9cb89996d47d183531aa",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/CURRENT-BUNDLES-BUILD-20261020.md"
+    },
+    {
+      "path": "Docs/FIRST-PLAYABLE.md",
+      "bytes": 7080,
+      "sha256": "69e5f94843e39b91fad051007abac517668c8c1f5c12c1857bcbde10bed76531",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/FIRST-PLAYABLE.md"
+    },
+    {
+      "path": "Docs/FRAMEWORK-ADOPTION.md",
+      "bytes": 16785,
+      "sha256": "a8c3f0d160adfe13ee58b69ea2e285cbdb4ec3a4333ead7e6fc4d46aef2eba4b",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/FRAMEWORK-ADOPTION.md"
+    },
+    {
+      "path": "Docs/current-bundles-build-validation-20261020.json",
+      "bytes": 21198,
+      "sha256": "fc60ec1eef0335651bf9ad57e79735b5c596284c92782cb5fd65ba2ae0c5acc0",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/current-bundles-build-validation-20261020.json"
+    },
+    {
+      "path": "Docs/evidence/current-bundles-20261020/README.md",
+      "bytes": 1021,
+      "sha256": "d43184240b73085d097c89b9d60644b9b0e1cf4106efa669cc1972f2956b24bd",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/evidence/current-bundles-20261020/README.md"
+    },
+    {
+      "path": "Docs/evidence/current-bundles-20261020/bundles-launcher.log.gz",
+      "bytes": 901,
+      "sha256": "dbfcdba95dd0010f74066e0b95288c6369b3337f06d0c856ca05ba426a18d3e6",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/evidence/current-bundles-20261020/bundles-launcher.log.gz"
+    },
+    {
+      "path": "Docs/evidence/current-bundles-20261020/bundles.log.gz",
+      "bytes": 41467,
+      "sha256": "851620327b0d5fe8c005220dd2293dea4747681d1a9adb6339b0bd8c4157c8cf",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/evidence/current-bundles-20261020/bundles.log.gz"
+    },
+    {
+      "path": "Docs/evidence/current-bundles-20261020/manifest.json",
+      "bytes": 3170,
+      "sha256": "2610b1e70c2b5155161b1d31ebc96b48d8ec8348e0ef73a651596993900664af",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/evidence/current-bundles-20261020/manifest.json"
+    },
+    {
+      "path": "Docs/evidence/current-bundles-20261020/prepared-validation-launcher.log.gz",
+      "bytes": 902,
+      "sha256": "b38fd3f1b7e5d4ce24cf72b42448c57b6b2970ca080f054779e90bb6015a333e",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/evidence/current-bundles-20261020/prepared-validation-launcher.log.gz"
+    },
+    {
+      "path": "Docs/evidence/current-bundles-20261020/prepared-validation.log.gz",
+      "bytes": 10514,
+      "sha256": "49e668617e9ab1d816f85b68051e9c4ffb684337229a1747fc8fa2637c2e90f9",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/Docs/evidence/current-bundles-20261020/prepared-validation.log.gz"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6216,
+      "sha256": "1a4f6cdb8007d183aed7c2866ea8e3060e695cb2e352977b8960b2eec6353cb0",
+      "url": "https://raw.githubusercontent.com/alone-jam/FirstRep/a85dd348e2b42e1bf29956f6bc11a5fb1473a792/README.md"
+    }
+  ],
+  "count": 11,
+  "boundary": "Only source repository records and sanitized evidence were retrieved. Raw logs, bundles and Player are not backed up by this verification."
+}

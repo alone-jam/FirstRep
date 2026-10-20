@@ -428,6 +428,9 @@
     "Raw logs and large artifacts remain local with no verified external backup."
   ],
   "remoteVerification": {
-    "status": "pending push and retrieval"
+    "status": "verified",
+    "evidenceCommit": "a85dd348e2b42e1bf29956f6bc11a5fb1473a792",
+    "retrievedAndByteComparedFiles": 11,
+    "record": "Docs/current-bundles-remote-verification-20261020.json"
   }
 }
