@@ -4,8 +4,16 @@
   "editorExecutable": "/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Unity",
   "editorPathMeaning": "Historical installation location and current default; no directory retention guarantee",
   "editorOverrideVariable": "FIRSTREP_UNITY_EDITOR",
-  "cliVersion": null,
-  "cliVersionStatus": "Historical CLI binary/version not retained in tracked setup; record exact version and SHA256 after authorized recovery",
+  "cliVersion": "1.0.0-beta.13",
+  "cliVersionStatus": "Recovered 2026-10-20 from official version manifest; historical CLI version remains unknown",
+  "cliExecutable": "/workspace/tools/unity-recovery/unity",
+  "cliSha256": "a84dace1f5e85b629fff841ddfc5ec8e97fd2a178242fca91c80bc5680142fb3",
+  "cliManifestUrl": "https://public-cdn.cloud.unity3d.com/hub/prod/cli/1.0.0-beta.13/latest.json",
+  "cliStateEnvironment": {
+    "XDG_CONFIG_HOME": "/workspace/tools/state/config",
+    "XDG_CACHE_HOME": "/workspace/tools/state/cache",
+    "XDG_DATA_HOME": "/workspace/tools/state/data"
+  },
   "target": "StandaloneLinux64",
   "frameworkProvenance": "Docs/UpstreamVersions.json",
   "configuredExternalArtifactBackup": null,

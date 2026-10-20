@@ -1,4 +1,4 @@
-> 当前依赖已切换为 alone-jam fork 的固定提交，见 [框架接入](FRAMEWORK-ADOPTION.md)。以下官方 `a5e1ec6` 的 3/3、5/5、构建和录屏均为历史结果，不验证当前 fork。恢复前必须遵循 [存储与恢复规则](STORAGE-AND-RECOVERY.md)：历史本地保存不代表平台持久保证；当前 Editor、原始 Reports、Library 和 Player 路径不可见，LFS 资产尚未取回。历史复制校验清单见 [当时记录](persistent-player-validation.json)，不表示现在存在可取回的外部备份。
+> 当前依赖已切换为 alone-jam fork 的固定提交，见 [框架接入](FRAMEWORK-ADOPTION.md)。以下官方 `a5e1ec6` 的 3/3、5/5、构建和录屏均为历史结果，不验证当前 fork。恢复前必须遵循 [存储与恢复规则](STORAGE-AND-RECOVERY.md)：历史本地保存不代表平台持久保证；当前 Editor、原始 Reports、Library 和 Player 路径不可见，LFS 资产随后已全部取回并逐项校验，Unity CLI 已恢复；Editor 仍因空间/认证许可前提未满足而未安装。见 [恢复进度](recovery-progress-20261020.json)。历史复制校验清单见 [当时记录](persistent-player-validation.json)，不表示现在存在可取回的外部备份。
 
 ## 历史检查点记录
 

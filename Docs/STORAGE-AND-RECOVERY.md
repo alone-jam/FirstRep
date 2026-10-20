@@ -29,19 +29,23 @@
 
 ## 当前可恢复范围与缺口
 
-2026-10-20 核查时，远端 `work` 与本地 `155f110f5446e66ea99b6dbf7a783661b7dbabe7` 一致；fork `firstrep-integration` 为 `093a175b60a196e2ad864a01ace49e90f58aacc3`。这些提交及跟踪的摘要/GIF可从既有 Git 目的地定位，但不是所有文件的独立备份证明。
+2026-10-20 恢复前核查时，远端 `work` 与本地 `155f110f5446e66ea99b6dbf7a783661b7dbabe7` 一致；fork `firstrep-integration` 为 `093a175b60a196e2ad864a01ace49e90f58aacc3`。这些提交及跟踪的摘要/GIF可从既有 Git 目的地定位，但不是所有文件的独立备份证明。
 
-`git lfs ls-files --json` 报告 1,193 个资产、声明大小 12,985,685,428 字节，checkout/downloaded 均为 0。本地仅有这些资产的指针；尚未核验远端 LFS payload 可恢复。不要将工程目录存在表述成美术资源完整可用。
+恢复前 `git lfs ls-files --json` 报告 1,193 个资产、声明大小 12,985,685,428 字节，checkout/downloaded 均为 0。随后已从既有 origin 全部下载、展开，并对每个工作副本及缓存对象核对大小/SHA256，全部匹配；资产及 `.meta` 无 Git 差异。见 [本次恢复记录](recovery-progress-20261020.json)。这证明此时取回和本地完整性，不构成远端长期保留承诺或独立备份。
 
-原 Editor 路径、`Library`、`Reports`、`Builds`、`Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad` 当前不可见。历史 JSON 和 GIF保留；原始 XML、Player 和许可证的恢复情况未知。已有记录见 [只读审计](environment-recovery-audit-20261020.json)，历史 [官方版本测试](official-framework-validation.json)、[Player 构建](current-player-validation.json)、[当时副本哈希](persistent-player-validation.json)。保留这些历史记录原文；其中“persisted”只描述当时本地复制，不升级为平台保证。
+原 Editor 可执行文件、`Library`、`Builds`、`Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad` 当前不可见。旧 `Reports` 原始证据未恢复；本次另建了唯一 run ID 的恢复校验报告。历史 JSON 和 GIF保留；原始 XML、Player 和许可证的恢复情况未知。已有记录见 [只读审计](environment-recovery-audit-20261020.json)，历史 [官方版本测试](official-framework-validation.json)、[Player 构建](current-player-validation.json)、[当时副本哈希](persistent-player-validation.json)。保留这些历史记录原文；其中“persisted”只描述当时本地复制，不升级为平台保证。
 
 ## 恢复顺序与验证入口
 
 1. **先定位原状态，不切换执行器。** 在同一任务核对环境配置、已发布基线、恢复记录及文件路径；如需平台支持，提供环境 ID、时间、主机和缺失路径，不提供凭据。本任务没有权限接口证明原发布状态，不能自行发布/重建新环境。
 2. **先完成存储配置核验。** 当前 `verifiedPersistentDirectory`、`configuredExternalArtifactBackup` 均为 null。待配置项是用户确认的产物目的地、权限/保留期和取回验证方式；若平台提供目录契约，需记录官方出处、适用环境与范围后再用。配置前可做安全源码工作，但不能将新大型唯一产物宣称已可靠保存。
-3. **检查源码与资源。** `python3 Tools/check_environment.py --verify-remote` 只读输出状态，不安装、不下载、不登录、不读密钥。若需恢复 LFS，先核对既有 `origin`，在授权和空间允许时运行 `git lfs pull origin work`；之后逐项校验 payload 的 SHA256/OID。该下载本次未执行；13 GB 原始资产之外还需 Editor、Library 和打包空间，不能仅看当前剩余盘就宣称完整构建可行。
-4. **恢复工具。** 用户原先已明确要求安装 Unity CLI 及 Unity 6000.6.5f1；但本次没有再次安装，当前 CLI 版本/认证状态未知。依据 [Unity CLI 官方安装说明](https://docs.unity.com/en-us/unity-cli/use-unity-cli) 恢复 CLI 后先读 `unity --help`、`unity install --help`、`unity install-path --help`，记录精确 CLI 版本/hash。确认安装路径后使用 `unity install 6000.6.5f1`；feed 找不到版本时按 [官方参考](https://docs.unity.com/en-us/unity-cli/unity-cli-reference) 核对 changeset，项目记录为 `3ff58d469c8a`，不改装 latest。模块先按该版本官方清单核验，只恢复现有 Linux 目标所需模块。不要自动接受条款、购买席位或提升系统权限。
-5. **认证与版本。** 用户通过正规私密流程确认当前账号/许可证适用及需要的新条款；遵守 [Unity Editor 条款](https://unity.com/legal/editor-terms-of-service/software)。可用 CLI 的 `auth status` 只在授权上下文中检查且不提交身份输出；遇新登录/许可界面停下交用户处理。本机 Debian 13/glibc 2.41；现行 CLI 文档列举 Linux RHEL 9/Ubuntu 22.04+，不能由 glibc 满足就声称本发行版受支持，须实际兼容性检查。不要为此静默换机器。
+3. **检查源码与资源。** `python3 Tools/check_environment.py --verify-remote` 只读输出状态，不安装、不下载、不登录、不读密钥。若需恢复 LFS，先核对既有 `origin`，在授权和空间允许时运行 `git lfs pull origin work`；之后逐项校验 payload 的 SHA256/OID。本次已完成下载与校验，使用了本地 `git lfs install --local --skip-repo` 恢复过滤器，未改全局配置或 hooks。`python3 Tools/verify_lfs_payloads.py --include-local-cache` 可只读复验两份内容；不带该开关则只验工作副本。13 GB 原始资产之外还需 Editor、Library 和打包空间，不能仅看当前剩余盘就宣称完整构建可行。
+4. **恢复工具。** 用户原先已明确要求安装 Unity CLI 及 Unity 6000.6.5f1；本次已从官方版本 manifest 恢复 CLI `1.0.0-beta.13`，按官方 SHA256 核验，入口为 `python3 Tools/run_unity_cli.py`。其状态存放在安装清单列明的 Unity 专用 XDG 目录；未修改 shell 配置、系统包或凭据。Editor 尚未下载安装。依据 [Unity CLI 官方安装说明](https://docs.unity.com/en-us/unity-cli/use-unity-cli) 恢复 CLI 后先读 `unity --help`、`unity install --help`、`unity install-path --help`，记录精确 CLI 版本/hash。确认安装路径后使用 `unity install 6000.6.5f1`；feed 找不到版本时按 [官方参考](https://docs.unity.com/en-us/unity-cli/unity-cli-reference) 核对 changeset，项目记录为 `3ff58d469c8a`，不改装 latest。模块先按该版本官方清单核验，只恢复现有 Linux 目标所需模块。不要自动接受条款、购买席位或提升系统权限。
+5. **认证与版本。** 用户通过正规私密流程确认当前账号/许可证适用及需要的新条款；遵守 [Unity Editor 条款](https://unity.com/legal/editor-terms-of-service/software)。可用 CLI 的 `auth status` 只在授权上下文中检查且不提交身份输出；本次实测 loggedIn=false、license active=false（退出码分别为 3、4），未发起登录或激活。接下来需要用户通过私密正规流程恢复认证/有效许可；不把未登录直接等同于安装命令必需登录。遇新条款/许可确认停下交用户处理。本机 Debian 13/glibc 2.41；现行 CLI 文档列举 Linux RHEL 9/Ubuntu 22.04+，不能由 glibc 满足就声称本发行版受支持，须实际兼容性检查。不要为此静默换机器。
+当前容量阻碍：官方发布接口确认 `6000.6.5f1 / 3ff58d469c8a` 的 Linux Editor 下载 4,158,326,508 字节、解压 9,277,388,800 字节。LFS 两份内容保留后工作区剩约 5.15 GB，连不保留下载包的 Editor 解压加 1 GiB 余量也不够；`/tmp` 亦不足以容纳 Editor 加该余量。没有启动明知放不下的安装，也没有把工具迁到临时盘假装解决。
+
+可供用户审批的精确容量方案是删除 `/workspace/FirstRep/.git/lfs/objects` 中这次下载的重复对象缓存（payload 12,985,685,428 字节），**仅在获得明确删除批准后**执行；当前没有该批准，缓存仍完整保留。每个缓存对象已经与工作副本及 OID 一致校验，原始资产本体不在该候选删除范围内。预检仅以工作副本 payload 为资源前提，缓存缺失本身不阻止 Unity；未来缓存可从既有 origin 再取回。释放后仍需监控真实导入/构建额外空间，不能预先保证够用。不得擅自扩盘、切换执行器或删除其他文件。
+
 6. **预检和真实回归。** 使用 `python3 Tools/check_environment.py --require-ready`；仅检查存在与 pin一致性，不能代替许可和真实版本检查。Editor 路径默认来自安装清单，可用 `FIRSTREP_UNITY_EDITOR` 指向同版本的合法安装；此变量不改变存储契约。启动入口 `run_unity_checked.py`、`run_low_memory_build.py` 在缺失 Editor/LFS 时先退出，不创建 Temp/Reports或假装完成验证。
 
 恢复后，在工程根目录给每次运行分配新的 `<run-id>`（不是重复使用历史日志名），再创建本地暂存 `Reports/<run-id>`。下列为待执行命令模板，不是本次通过结果：

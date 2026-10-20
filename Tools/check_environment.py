@@ -44,9 +44,11 @@ def inspect(verify_remote=False):
     # git-lfs reports pointers and local object presence without fetching or checking out.
     lfs_data = json.loads(command(["git", "lfs", "ls-files", "--json"], root))
     files = lfs_data["files"] if isinstance(lfs_data, dict) else lfs_data
-    missing = [f for f in files if not f["checkout"] or not f["downloaded"]]
+    # Checked-out assets are needed by Unity; the duplicate local object cache is
+    # regenerable and is reported independently, not a launch prerequisite.
+    missing = [f for f in files if not f["checkout"]]
     if missing:
-        blockers.append(f'{len(missing)} LFS files lack checked-out payload or a local LFS object')
+        blockers.append(f'{len(missing)} LFS files lack checked-out payload')
     head = command(["git", "rev-parse", "HEAD"], root)
     remote = None
     if verify_remote:
@@ -67,10 +69,13 @@ def inspect(verify_remote=False):
                    "expectedRevision": config["editorRevision"], "executablePresent": available,
                    "binaryVersionExecuted": False, "licenseChecked": False},
         "unityCliOnPath": shutil.which("unity"),
+        "configuredUnityCli": {"path": config.get("cliExecutable"),
+                               "present": bool(config.get("cliExecutable")) and Path(config["cliExecutable"]).is_file()},
         "lfs": {"files": len(files), "checkedOut": sum(f["checkout"] for f in files),
                 "localObjectsPresent": sum(f["downloaded"] for f in files),
                 "expectedPayloadBytes": sum(f["size"] for f in files),
-                "payloadHashesVerified": False, "remotePayloadsVerified": False},
+                "payloadHashesVerifiedByThisCheck": False, "remotePayloadsVerifiedByThisCheck": False,
+                "integrityVerificationCommand": "python3 Tools/verify_lfs_payloads.py"},
         "mountObservationsOnly": observations,
         "verifiedPersistentDirectory": config["verifiedPersistentDirectory"],
         "configuredExternalArtifactBackup": config["configuredExternalArtifactBackup"],

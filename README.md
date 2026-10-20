@@ -8,7 +8,7 @@ Unity 6000.6.5f1 / HDRP 17.6 / EjoyFramework v2.1.0. This is a work-in-progress 
 
 See the [file/API adoption audit and actual test boundaries](Docs/FRAMEWORK-ADOPTION.md).
 
-Before resuming, follow [storage and recovery rules](Docs/STORAGE-AND-RECOVERY.md) and run `python3 Tools/check_environment.py --verify-remote`. No per-directory retention guarantee or external artifact backup is currently confirmed. The current checkout lacks the historical Editor/Player and has unhydrated Git LFS assets; tracked test summaries and the GIF remain historical evidence.
+Before resuming, follow [storage and recovery rules](Docs/STORAGE-AND-RECOVERY.md) and run `python3 Tools/check_environment.py --verify-remote`. No per-directory retention guarantee or external artifact backup is currently confirmed. The current checkout lacks the historical Editor/Player. All 1,193 LFS asset payloads have now been restored and SHA256-verified; the official Unity CLI has been recovered, while Editor installation is blocked by capacity and inactive authentication/licensing. See [recovery progress](Docs/recovery-progress-20261020.json). Tracked earlier test summaries and the GIF remain historical evidence.
 
 ## Checkout and run
 

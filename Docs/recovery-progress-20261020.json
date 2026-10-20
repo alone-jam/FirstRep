@@ -1,0 +1,115 @@
+{
+  "checkedAtUtc": "2026-10-20T06:53:42.149414+00:00",
+  "host": "8d483965f866",
+  "sourceCommitBeforeRecoveryChanges": "158cb88bd37103225fc9f730e61cbd865ddd2810",
+  "authorization": "Prior explicit install request for Unity CLI and Unity 6000.6.5f1; continued recovery of existing origin assets. No deletion, new terms, login, activation, privilege expansion, environment switch or publication authorized/executed.",
+  "lfs": {
+    "remote": "https://github.com/alone-jam/FirstRep.git",
+    "fetchCommand": "git -c credential.helper= -c credential.https://github.com.helper=<existing gh credential helper> lfs pull origin work",
+    "fetchExitCode": 0,
+    "pullCheckoutSkipped": "Repository lacked LFS filters; enabled filters with git lfs install --local --skip-repo, without global config or hook changes; then git lfs checkout exited 0",
+    "verification": {
+      "checkedAtUtc": "2026-10-20T06:52:33.398247+00:00",
+      "sourceCommit": "158cb88bd37103225fc9f730e61cbd865ddd2810",
+      "files": 1193,
+      "payloadBytes": 12985685428,
+      "workingPayloadsVerified": true,
+      "localCacheVerified": true,
+      "manifestSha256": "333793f2a49078bafeb936c7534c8451e1941bc393fffd6d30f44b997fcb5a07",
+      "failures": [],
+      "boundary": "Local integrity at this time; not a platform retention or independent artifact backup guarantee"
+    },
+    "verificationReportSha256": "9163d6cddfce2b0a19c4029de49da83f7a7f2e87fe510b3609b4dfca5fb15672",
+    "workingAssetDiffEmpty": true,
+    "remotePayloadRetrievalVerifiedAtThisTime": true,
+    "retentionGuaranteeOrIndependentBackupVerified": false
+  },
+  "cli": {
+    "version": "1.0.0-beta.13",
+    "platform": "linux-x64",
+    "url": "https://public-cdn.cloud.unity3d.com/hub/prod/cli/1.0.0-beta.13/unity-linux-x64",
+    "manifestUrl": "https://public-cdn.cloud.unity3d.com/hub/prod/cli/1.0.0-beta.13/latest.json",
+    "sha256": "a84dace1f5e85b629fff841ddfc5ec8e97fd2a178242fca91c80bc5680142fb3",
+    "bytes": 31239296,
+    "officialInstallerSha256": "d1e5315e4a994056110dc421570a02fbbe73ab6b979ed8568b756f9d49fb0418",
+    "scope": "Standalone binary restored from official manifest; no shell startup files, system packages or authentication changed"
+  },
+  "authLicenseStatus": {
+    "authentication": {
+      "exitCode": 3,
+      "loggedIn": false,
+      "signedIn": null,
+      "active": null,
+      "licenseCount": 0,
+      "loginOrActivationAttempted": false
+    },
+    "license": {
+      "exitCode": 4,
+      "loggedIn": null,
+      "signedIn": false,
+      "active": false,
+      "licenseCount": 0,
+      "loginOrActivationAttempted": false
+    }
+  },
+  "editor": {
+    "version": "6000.6.5f1",
+    "revision": "3ff58d469c8a",
+    "metadataSource": "https://services.api.unity.com/unity/editor/release/v1/releases?version=6000.6.5f1&platform=LINUX&architecture=X86_64",
+    "downloadUrl": "https://download.unity3d.com/download_unity/3ff58d469c8a/LinuxEditorInstaller/Unity-6000.6.5f1.tar.xz",
+    "downloadSizeBytes": 4158326508,
+    "installedSizeBytes": 9277388800,
+    "officialIntegrity": "md5-JGqusADR2G0YWktozxe6tQ==",
+    "configuredInstallRoot": "/workspace/tools/Unity/Hub/Editor",
+    "installPathReadBackVerified": true,
+    "cliDryRunExitCode": 0,
+    "cliDryRunModules": [],
+    "downloadOrInstallStarted": false,
+    "moduleAndRuntimeCompatibilityVerified": false
+  },
+  "capacity": {
+    "workspaceAvailableBytes": 5148184576,
+    "tmpAvailableBytes": 9441071104,
+    "reserveBytes": 1073741824,
+    "workspaceRequiredForEditorArchiveAndInstallPlusReserve": 14509457132,
+    "workspaceDeficitBytes": 9361272556,
+    "evenWithoutArchiveEditorPlusReserveFitsWorkspace": false,
+    "editorPlusReserveFitsTmp": false,
+    "candidateDuplicateCachePath": "/workspace/FirstRep/.git/lfs/objects",
+    "candidateDuplicateCachePayloadBytes": 12985685428,
+    "candidateDeletionExecuted": false,
+    "candidateDeletionApproval": "Not granted; exact deletion permission needed before cleanup",
+    "importBuildAdditionalSpace": "Unknown, not included in this Editor-only estimate"
+  },
+  "unityRegression": {
+    "status": "Not run",
+    "forkRevision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "blockers": [
+      "Editor cannot fit with current retained copies and reserve",
+      "CLI reports loggedIn=false and active license=false; user must restore authentication/license through private normal flow"
+    ],
+    "historicalResultsReusedAsCurrent": false
+  },
+  "artifactBackup": {
+    "configuredDestination": null,
+    "currentFilesAreOnlyTaskWorkingCopies": true
+  },
+  "remaining": [
+    "Obtain explicit approval before removing the verified duplicate LFS object cache, or another authorized capacity solution without changing environment",
+    "Restore valid Unity authentication/license through user private flow; do not auto-accept new agreements",
+    "Install exact Editor from official CLI, check actual revision/modules/runtime prerequisites, then run current fork Unity tests",
+    "Configure authorized artifact preservation with retention and retrieval verification"
+  ],
+  "validation": {
+    "realLfsPayloadAndCacheHashChecks": "1193/1193 sizes and SHA256 match",
+    "cliBinarySha256MatchesOfficialManifest": true,
+    "configuredCliVersionAndDryRun": "passed, 1.0.0-beta.13, exact Editor resolved",
+    "sourceAssetAndMetaDiffEmpty": true,
+    "historicalEvidenceUnchanged": true,
+    "editorLauncherExitCode": 2,
+    "editorLauncherOnlyBlocker": "Configured Editor executable is missing or not executable",
+    "editorLauncherDidNotCreateTempOrLibrary": true,
+    "pythonSyntaxAndJson": "passed",
+    "unityCompilationOrTests": "not run"
+  }
+}
