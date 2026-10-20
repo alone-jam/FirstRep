@@ -1,4 +1,4 @@
-> 当前使用 alone-jam fork 固定提交 `093a175b60a196e2ad864a01ace49e90f58aacc3`。Personal 许可经用户授权激活后，真实 Unity 6000.6.5f1 依赖核验、EditMode 3/3、PlayMode 5/5 和框架原生物理查询 7/7 均通过，见 [当前 fork 验证](current-fork-validation.json)。新 Player 完整构建与实际无图形启动已通过，但 Release 附件上传 401，仍未交付，见 [本轮构建记录](fork-player-validation-20261020.json)；画面及听感尚未复验；以下旧官方 pin 的构建和录屏均为历史。遵循 [存储与恢复规则](STORAGE-AND-RECOVERY.md)：LFS 与 Editor 已恢复，旧 Player 未恢复，原始新日志仅本地暂存，尚无外部产物备份或目录持久保证。
+> 当前固定 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。最新增量通过真实 AbilitySystem 执行弹药成本、冷却和换弹阻挡，通过 UnitModel 执行靶子伤害与死亡；消费者 EditMode 9/9、PlayMode 7/7 通过，见 [本轮证据](framework-adoption-increment-20261020.json)。本轮未重建 Player，旧 Player 与历史录屏不验证本次代码，当前画面/听感/性能未验收。Release 排障暂停，已有本地包保留。遵守 [存储规则](STORAGE-AND-RECOVERY.md)，不从本地目录名推导持久性。
 
 ## 历史检查点记录
 

@@ -1,0 +1,94 @@
+{
+  "recordedAtUtc": "2026-10-20T11:57:27.508462+00:00",
+  "codeCommit": "e15ff6d596dd8458b40637a9e3afa105f7ad028a",
+  "frameworkCommit": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+  "unityVersion": "6000.6.5f1",
+  "copiesAreSanitized": true,
+  "originalsPreservedLocally": true,
+  "redactionScope": [
+    "Entire licensing/authentication/credential/account/token and machine/session/client/connection identifier diagnostic lines removed, with explicit per-line markers.",
+    "Entire Player connection discovery lines removed.",
+    "Email addresses, IPv4/MAC addresses, UUID-shaped IDs, host name, home/runtime-user and workspace/tool/temp paths replaced. Pattern-based replacement may also remove nonprivate GUIDs or version-shaped strings.",
+    "XML test names, outcomes, totals and timings preserved; redaction marker inserted after XML declaration.",
+    "Only these seven Unity logs/XML were read; no credential store or activation/license file was inspected or included."
+  ],
+  "files": [
+    {
+      "originalLocalPath": "Reports/framework-adoption-20261020T115044Z/dependency.log",
+      "originalBytes": 69372,
+      "originalSha256": "ce71f888fa780a03dcd6326ba4c63f69835884b4b2c7686da21d566684fbcc7b",
+      "sanitizedFile": "dependency.log.gz",
+      "sanitizedBytes": 67260,
+      "sanitizedSha256": "5932f758526cd42ed811c54173e03940175efedffb470d27c55183da7c4725ab",
+      "gzipBytes": 10337,
+      "gzipSha256": "e81c64d9cd45ac1ec215b84dd6eed0a5811efab032db26bd56d89dedd6314c29",
+      "redactedWholeLines": 31
+    },
+    {
+      "originalLocalPath": "Reports/framework-adoption-20261020T115044Z/editmode.log",
+      "originalBytes": 44673,
+      "originalSha256": "7ec514ec36fb35b713a4f26fc4930c79dea33cea150b8953bdfa7c9d1b0aa5fe",
+      "sanitizedFile": "editmode.log.gz",
+      "sanitizedBytes": 40813,
+      "sanitizedSha256": "329c9513e7cf65815133fb12b48be48aced4c07d4c471e2f1e30c9af29ecb9d9",
+      "gzipBytes": 8645,
+      "gzipSha256": "448fe10bda7910375a474b31f3e2fd3248579b4a644190c17df08bb7e9a3cd31",
+      "redactedWholeLines": 32
+    },
+    {
+      "originalLocalPath": "Reports/framework-adoption-20261020T115044Z/editmode.xml",
+      "originalBytes": 10070,
+      "originalSha256": "114b4143f2eff5bee5c2dc24642ee0d74d1a89672aa4f76869f5b95e5b235ea3",
+      "sanitizedFile": "editmode.xml.gz",
+      "sanitizedBytes": 10141,
+      "sanitizedSha256": "6ca16f18f3c2cb7e504a8a111adca476bfa912620720c6576ae30f70cff5640a",
+      "gzipBytes": 1461,
+      "gzipSha256": "197d77cbcc8dcbf4bd31390da75a9d82280051a56179b9bbd8fe37d7e3bcd419",
+      "redactedWholeLines": 0
+    },
+    {
+      "originalLocalPath": "Reports/framework-adoption-20261020T115044Z/playmode.log",
+      "originalBytes": 942956,
+      "originalSha256": "0bf86de10312919c48da8eb3ae2142ef078216da887740661bfbad5d53ffe58b",
+      "sanitizedFile": "initial-playmode.log.gz",
+      "sanitizedBytes": 938569,
+      "sanitizedSha256": "7df5c53bac3302a816dd8706a92fa82884fecd5a98c7410b8a801b3989aac3de",
+      "gzipBytes": 31542,
+      "gzipSha256": "d5122194e5c14862e5430466bb33605ba7d1ce4cbbf6d7cd00d3abbb8ea23d35",
+      "redactedWholeLines": 33
+    },
+    {
+      "originalLocalPath": "Reports/framework-adoption-20261020T115044Z/playmode.xml",
+      "originalBytes": 619114,
+      "originalSha256": "0da33a2fbb76628ba56e6b36c68e247f41c3dc3c0341966c7b429d611e8ffa39",
+      "sanitizedFile": "initial-playmode.xml.gz",
+      "sanitizedBytes": 619185,
+      "sanitizedSha256": "8dfb71c30505c2af89707a58801a6d945990829114bde2c2c9146a552a43666e",
+      "gzipBytes": 6801,
+      "gzipSha256": "69037dd850267a4903fe7962b332909e997607c12a08d8f008643ad2a33282d4",
+      "redactedWholeLines": 0
+    },
+    {
+      "originalLocalPath": "Reports/framework-adoption-20261020T115315Z/playmode.log",
+      "originalBytes": 956557,
+      "originalSha256": "73c349ac514ceeae797df4c6221e480c9451b5a85cb2934e3af1394a75452e6d",
+      "sanitizedFile": "final-playmode.log.gz",
+      "sanitizedBytes": 952170,
+      "sanitizedSha256": "847d91b4aad444e71f9d0681809ffae5be08838cba98ea55ff320ae36a5febd8",
+      "gzipBytes": 32469,
+      "gzipSha256": "1ec0a202b61b1c4aaf2564dc056350f2284a095ec5c8f86b7c3821b3316ac8c8",
+      "redactedWholeLines": 33
+    },
+    {
+      "originalLocalPath": "Reports/framework-adoption-20261020T115315Z/playmode.xml",
+      "originalBytes": 619120,
+      "originalSha256": "2d43c29769dcd7ac210901ed4e0d17802b621b91d92b50d82bb88315d31f7fda",
+      "sanitizedFile": "final-playmode.xml.gz",
+      "sanitizedBytes": 619191,
+      "sanitizedSha256": "42df70b0af0c9239d2cd4c28c0bc7b9283a1fb1de45162cadd76ef4cf6ae114f",
+      "gzipBytes": 6806,
+      "gzipSha256": "6a7e955b746c0437c5d871a3d2073b255e326dae500f88307080304e3e090295",
+      "redactedWholeLines": 0
+    }
+  ]
+}

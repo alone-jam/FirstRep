@@ -37,3 +37,5 @@ Framework 实现依据：fork `Runtime/GamePlay/Combat/Abilities/AbilitySystem.c
 - 本轮未改 Framework 源码、包 pin、PR 说明或正式美术资源；没有大型构建。此前 Player 对本次源码增量无覆盖。当前画面、实际音频播放、独立 Player、完整上游套件均未重验。Tools/Checks/Program.cs 的旧示例同步到新规则，但本轮没有运行该独立 .NET 示例，不能计作测试通过。
 
 下一批候选：把 HUD 的逐帧 Refresh/字符串生成收敛到已有事件和绑定机制；核验异步实体显示失败是否进入关卡失败流程，优先复用现有 Framework 失败通知。两者尚未实施或宣称验证通过。
+
+本轮结果与源码绑定见 [framework-adoption-increment-20261020.json](framework-adoption-increment-20261020.json)，脱敏副本及原件/副本 hash 见 [manifest](evidence/framework-adoption-20261020/manifest.json)。

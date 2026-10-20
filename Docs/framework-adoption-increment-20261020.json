@@ -1,0 +1,603 @@
+{
+  "recordedAtUtc": "2026-10-20T11:58:11.551582+00:00",
+  "codeCommit": "e15ff6d596dd8458b40637a9e3afa105f7ad028a",
+  "auditCommit": "88ceffb8fa3c103e1957fdfda2604a842a0837db",
+  "testRunBaseCommit": "88ceffb8fa3c103e1957fdfda2604a842a0837db",
+  "sourceBinding": "Runtime/Test .cs and .asmdef files in final run snapshot exactly match codeCommit; the only post-test change is metadata whitespace normalization recorded below. Editor tests are unchanged between the two runs.",
+  "postTestMetadataFormattingOnly": [
+    {
+      "path": "Assets/FirstRep/Tests/Editor/WeaponMagazineFrameworkTests.cs.meta",
+      "testedSha256": "d215bd6427520e7bc463c098753f789d1b04e28cf78d4389c88572497de93aca",
+      "committedSha256": "d9ffb7084155b82dded9e1cb5fc588f87332d26e3e4969ddc5c01c520e90057d",
+      "change": "Trailing whitespace normalized after tests; GUID and YAML values unchanged."
+    }
+  ],
+  "frameworkRevision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+  "frameworkUrl": "https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+  "frameworkSourceChanged": false,
+  "editor": {
+    "version": "6000.6.5f1",
+    "revision": "3ff58d469c8a",
+    "actualVersionCommandOutput": "6000.6.5f1"
+  },
+  "environment": {
+    "originalEnvironmentReused": true,
+    "authStatus": {
+      "exitCode": 0,
+      "loggedIn": true,
+      "active": null,
+      "signedIn": null
+    },
+    "licenseStatus": {
+      "exitCode": 0,
+      "loggedIn": null,
+      "active": true,
+      "signedIn": true
+    },
+    "activationPerformedThisRun": false,
+    "installOrEnvironmentSwitchPerformed": false,
+    "workspaceFreeBytes": 1644007424,
+    "oneGiBDiskReserveRetained": true,
+    "userDataDeletionPerformed": false
+  },
+  "dependencyResolution": {
+    "name": "com.ejoy.framework",
+    "source": "Git",
+    "packageId": "com.ejoy.framework@https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "resolvedPath": "/workspace/FirstRep/Library/PackageCache/com.ejoy.framework@093a175b60a1",
+    "passed": true
+  },
+  "dependencyEvidence": {
+    "path": "Reports/dependency-20261020T1150570814420Z/framework-dependency-resolution.json",
+    "sha256": "5e09650b7d47a0cc0089adccc33b2ac3240dc15d847aad68854d643248806784"
+  },
+  "changes": [
+    "WeaponMagazine composes real AbilitySystem.TryActivate/Tick, AbilityDefinition.WithCooldown/AddCost/BlockedBy and GameplayTagSet; ammo costs, fire cooldown and reload gating are framework-owned.",
+    "FpsPlayer removes nextShot/Time.time fire gating and advances owned ability state through EntityLogic elapsed time. Real hitscan passes shooter Framework Entity.Id.",
+    "TargetPractice uses UnitModel.ConfigureHealth/TakeDamage/OnDamaged/OnDied for health, clamping, attacker identity and death dispatch. EntityManager/TimerManager still own hide/pool and respawn scheduling.",
+    "Target lifecycle unsubscribes prior UnitModel handlers and cancels an old respawn timer when the pooled instance is shown again with another entity ID."
+  ],
+  "testResults": [
+    {
+      "suite": "EditMode",
+      "xmlLocalPath": "Reports/framework-adoption-20261020T115044Z/editmode.xml",
+      "xmlBytes": 10070,
+      "xmlSha256": "114b4143f2eff5bee5c2dc24642ee0d74d1a89672aa4f76869f5b95e5b235ea3",
+      "summary": {
+        "id": "2",
+        "testcasecount": "9",
+        "result": "Passed",
+        "total": "9",
+        "passed": "9",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 11:51:19Z",
+        "end-time": "2026-10-20 11:51:19Z",
+        "duration": "0.0823092"
+      },
+      "cases": [
+        {
+          "fullname": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.ExplicitFrameworkIdSurvivesUnityEntityIdMigration",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.MissingExplicitIdFailsBeforeAttachingLogic",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.UpstreamPointerInputTests.GitPackageMouseBindingsReachActualInputSystemDevice",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.CancelledReloadCannotGrantAmmoOrKeepFireBlocked",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.EmptyMagazineAndPartialReloadConserveFiniteReserve",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.OwnersHaveIndependentAmmoCooldownAndReloadTags",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.RejectedCooldownDoesNotSpendAmmo",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.ReloadTagBlocksAnOtherwiseReadyShotWithoutSpendingAmmo",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.ZeroElapsedTimeDoesNotAdvanceCooldown",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "suite": "Final PlayMode",
+      "xmlLocalPath": "Reports/framework-adoption-20261020T115315Z/playmode.xml",
+      "xmlBytes": 619120,
+      "xmlSha256": "2d43c29769dcd7ac210901ed4e0d17802b621b91d92b50d82bb88315d31f7fda",
+      "summary": {
+        "id": "2",
+        "testcasecount": "7",
+        "result": "Passed",
+        "total": "7",
+        "passed": "7",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 11:53:27Z",
+        "end-time": "2026-10-20 11:54:11Z",
+        "duration": "44.3450792"
+      },
+      "cases": [
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentImpactEffectsKeepIndependentTransformsAndLifetimes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentSamePrefabEntitiesHaveIndependentHandles",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.DestroyingBootstrapDuringNativeLoadsStillReleasesSceneLeases",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ProductionExitAndReentryUnloadActualAdditiveScenes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.SingleTargetIntegrationExercisesFrameworkModulesAndGameplay",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.UnitDamageEventsAndPooledIdentityDoNotRetainAStaleRespawn",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.WeaponCooldownFreezesWhilePausedAndResetsOnPooledReuse",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "suite": "Initial PlayMode",
+      "xmlLocalPath": "Reports/framework-adoption-20261020T115044Z/playmode.xml",
+      "xmlBytes": 619114,
+      "xmlSha256": "0da33a2fbb76628ba56e6b36c68e247f41c3dc3c0341966c7b429d611e8ffa39",
+      "summary": {
+        "id": "2",
+        "testcasecount": "7",
+        "result": "Passed",
+        "total": "7",
+        "passed": "7",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 11:51:40Z",
+        "end-time": "2026-10-20 11:52:26Z",
+        "duration": "46.4542263"
+      },
+      "cases": [
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentImpactEffectsKeepIndependentTransformsAndLifetimes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentSamePrefabEntitiesHaveIndependentHandles",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.DestroyingBootstrapDuringNativeLoadsStillReleasesSceneLeases",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ProductionExitAndReentryUnloadActualAdditiveScenes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.SingleTargetIntegrationExercisesFrameworkModulesAndGameplay",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.UnitDamageEventsAndPooledIdentityDoNotRetainAStaleRespawn",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.WeaponCooldownFreezesWhilePausedAndResetsOnPooledReuse",
+          "result": "Passed"
+        }
+      ]
+    }
+  ],
+  "distinctCurrentConsumerCases": 16,
+  "stageCommands": [
+    {
+      "run": "initial",
+      "name": "dependency",
+      "startedAtUtc": "2026-10-20T11:50:44.575213+00:00",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "Tools/run_unity_checked.py",
+        "-batchmode",
+        "-nographics",
+        "-job-worker-count",
+        "1",
+        "-refreshImportMode",
+        "InProcess",
+        "-desiredWorkerCount",
+        "1",
+        "-standbyWorkerCount",
+        "0",
+        "-projectPath",
+        "/workspace/FirstRep",
+        "-quit",
+        "-executeMethod",
+        "FirstRep.Fps.Editor.FrameworkDependencyCheck.Run",
+        "-logFile",
+        "/workspace/FirstRep/Reports/framework-adoption-20261020T115044Z/dependency.log"
+      ],
+      "workspaceFreeBeforeBytes": 1626152960,
+      "exitCode": 0,
+      "finishedAtUtc": "2026-10-20T11:51:09.848692+00:00",
+      "workspaceFreeAfterBytes": 1646354432
+    },
+    {
+      "run": "initial",
+      "name": "editmode",
+      "startedAtUtc": "2026-10-20T11:51:09.849199+00:00",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "Tools/run_unity_checked.py",
+        "-batchmode",
+        "-nographics",
+        "-job-worker-count",
+        "1",
+        "-refreshImportMode",
+        "InProcess",
+        "-desiredWorkerCount",
+        "1",
+        "-standbyWorkerCount",
+        "0",
+        "-projectPath",
+        "/workspace/FirstRep",
+        "-runTests",
+        "-testPlatform",
+        "EditMode",
+        "-assemblyNames",
+        "FirstRep.Fps.Tests",
+        "-testResults",
+        "/workspace/FirstRep/Reports/framework-adoption-20261020T115044Z/editmode.xml",
+        "-logFile",
+        "/workspace/FirstRep/Reports/framework-adoption-20261020T115044Z/editmode.log"
+      ],
+      "workspaceFreeBeforeBytes": 1646354432,
+      "exitCode": 0,
+      "finishedAtUtc": "2026-10-20T11:51:29.118569+00:00",
+      "workspaceFreeAfterBytes": 1648775168
+    },
+    {
+      "run": "initial",
+      "name": "playmode",
+      "startedAtUtc": "2026-10-20T11:51:29.120264+00:00",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "Tools/run_unity_checked.py",
+        "-batchmode",
+        "-nographics",
+        "-job-worker-count",
+        "1",
+        "-refreshImportMode",
+        "InProcess",
+        "-desiredWorkerCount",
+        "1",
+        "-standbyWorkerCount",
+        "0",
+        "-projectPath",
+        "/workspace/FirstRep",
+        "-runTests",
+        "-testPlatform",
+        "PlayMode",
+        "-assemblyNames",
+        "FirstRep.Fps.PlayTests",
+        "-testResults",
+        "/workspace/FirstRep/Reports/framework-adoption-20261020T115044Z/playmode.xml",
+        "-logFile",
+        "/workspace/FirstRep/Reports/framework-adoption-20261020T115044Z/playmode.log"
+      ],
+      "workspaceFreeBeforeBytes": 1648775168,
+      "exitCode": 0,
+      "finishedAtUtc": "2026-10-20T11:52:38.465593+00:00",
+      "workspaceFreeAfterBytes": 1646469120
+    },
+    {
+      "run": "final",
+      "name": "playmode",
+      "startedAtUtc": "2026-10-20T11:53:15.585650+00:00",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "Tools/run_unity_checked.py",
+        "-batchmode",
+        "-nographics",
+        "-job-worker-count",
+        "1",
+        "-refreshImportMode",
+        "InProcess",
+        "-desiredWorkerCount",
+        "1",
+        "-standbyWorkerCount",
+        "0",
+        "-projectPath",
+        "/workspace/FirstRep",
+        "-runTests",
+        "-testPlatform",
+        "PlayMode",
+        "-assemblyNames",
+        "FirstRep.Fps.PlayTests",
+        "-testResults",
+        "/workspace/FirstRep/Reports/framework-adoption-20261020T115315Z/playmode.xml",
+        "-logFile",
+        "/workspace/FirstRep/Reports/framework-adoption-20261020T115315Z/playmode.log"
+      ],
+      "workspaceFreeBeforeBytes": 1646194688,
+      "exitCode": 0,
+      "finishedAtUtc": "2026-10-20T11:54:24.850516+00:00",
+      "workspaceFreeAfterBytes": 1644347392
+    }
+  ],
+  "testedSourceFileHashes": [
+    {
+      "path": "Assets/FirstRep/Runtime/BuildSmokeProbe.cs",
+      "sha256": "fb04d6c8d59742539bf3a40e5fb0ce895ce5766c71dd5abd911c32a58255db26",
+      "bytes": 6765
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/BuildSmokeProbe.cs.meta",
+      "sha256": "48d060a2431a7d46fdae0b142462507e12f33c7af2b357d863cfee020fc8ba77",
+      "bytes": 59
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FirstPersonPresentation.cs",
+      "sha256": "370dc2588aba5deb760b6aae76eba20e6995184ccef4db0f96838365bbc4185b",
+      "bytes": 1481
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FirstPersonPresentation.cs.meta",
+      "sha256": "02ec75562da5e1a377675f19379f5637f3527d09d5e86f67c534612858ff0a18",
+      "bytes": 243
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FirstRep.Fps.asmdef",
+      "sha256": "3aedabb8fa23851cfb22a897e5d3f77c1dd2339b380c603e03a96f68278a7f60",
+      "bytes": 455
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FirstRep.Fps.asmdef.meta",
+      "sha256": "1408067323beda6512f3f506d192e2d77c9010582982e34376f5e7db5cf18380",
+      "bytes": 166
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsHudForm.cs",
+      "sha256": "bf138daf4b5bcb2cc90757a97753f966a91d4d32c2e5acf25380953ff92ce3cf",
+      "bytes": 653
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsHudForm.cs.meta",
+      "sha256": "7d15e421a5dbdd47d17c8efc0f769ada3186dbbcdb690a828eee2518f675f06a",
+      "bytes": 60
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsPauseForm.cs",
+      "sha256": "fb2d635fb7c08e4c11b9f29687a7f851f499a29917f329e3a17b4ac1b46370eb",
+      "bytes": 401
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsPauseForm.cs.meta",
+      "sha256": "69fdbdef040ee6a7fd58958a9efc82625e60a733f205d025620ec6e7103f78b0",
+      "bytes": 60
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsPlayer.cs",
+      "sha256": "e20335e87dc07d559ffbb45f8fa423eb020a6b63ed716629c2fde5cece34fc7e",
+      "bytes": 7358
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsPlayer.cs.meta",
+      "sha256": "0d3d084014d726c6b607b85c8114dd6c397fb712173d8bde87369f6ebbc3a148",
+      "bytes": 243
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsViewModels.cs",
+      "sha256": "1ce98a0b3310ea4374eb0c1f3fbbf2c07258270dec1180c10e15a140a36aecf4",
+      "bytes": 2322
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsViewModels.cs.meta",
+      "sha256": "a7fd335154185370dba2d616822bb3d3fcf7fd7c68cc4bfdf3b22476d6939e53",
+      "bytes": 60
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/ImpactEffect.cs",
+      "sha256": "8844648f9a20ca8037af99be1fbe0d526be554d1f46f419e60de4f4498b74f39",
+      "bytes": 1012
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/ImpactEffect.cs.meta",
+      "sha256": "7d85e5092e96f1d0e6b20a9453f3c7f53b458c60d65d1e1b6aca9058e01fe729",
+      "bytes": 60
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/LevelProcedures.cs",
+      "sha256": "bd3558465e740fd0fdf524642b3aead631c7f04e9f1842da2af0109e2e3209d4",
+      "bytes": 6324
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/LevelProcedures.cs.meta",
+      "sha256": "02d0697f5e35dae56bf90a12bc242afc041f89e99eebdd06d20f2a32bd255789",
+      "bytes": 60
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/PresentationSettings.cs",
+      "sha256": "54f5491f5b74dd9384054a6cc72827555483b7ae480df61ff96802a8bd4246bd",
+      "bytes": 4171
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/PresentationSettings.cs.meta",
+      "sha256": "dbe8e13c4db20aede47a2bea1f1b90b217f7b964d148f892df4be76dfea220ab",
+      "bytes": 59
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceBootstrap.cs",
+      "sha256": "e1c17624d7f773620465bb5a8dfa2fff2198f1d25d15dc7ba195019d590d78ed",
+      "bytes": 6009
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceBootstrap.cs.meta",
+      "sha256": "814f8f2cf9f6c746b5d980da64e5d109ac59bbc10141da19626816b8cdd8ba73",
+      "bytes": 243
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceContent.cs",
+      "sha256": "a6e0a372906f6528b567d099bc8da8b2bdf0f1f3d1cea416daacfe88d058d620",
+      "bytes": 1547
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceContent.cs.meta",
+      "sha256": "f7a526cb1ec4a0df80e34ad990951684636474d10231d448ca1545d8d1a64754",
+      "bytes": 243
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceSessionHost.cs",
+      "sha256": "a680a5db78b67b7b8230f9ac8b07b0ff169bbc22f33acd1f4a80d063021686b0",
+      "bytes": 3167
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceSessionHost.cs.meta",
+      "sha256": "50422e7e3c59e06b7e3099affc38a18d7c2ac6841b3d84d1fd3d892c04606235",
+      "bytes": 60
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/TargetPractice.cs",
+      "sha256": "05efa49305eb324d5d6e1cc3563781b6d4d59fb73284d009d9106ffacd6642e6",
+      "bytes": 2753
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/TargetPractice.cs.meta",
+      "sha256": "b82f8276df0156aaa74cc4df92a821a2c38c102cb6b7a7cebeef92fdcd8b6b92",
+      "bytes": 243
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/WeaponMagazine.cs",
+      "sha256": "a2e3dc7b5bd5b3781d9b0253f786e41dee3a69b1d6c3ebfed5d6164d8e8df7e3",
+      "bytes": 2098
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/WeaponMagazine.cs.meta",
+      "sha256": "2fa73b550b8a99f1883074108d3598d805a2d508d9021273645821a712d0b738",
+      "bytes": 243
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/EntityHelperCompatibilityTests.cs",
+      "sha256": "854eeb65cbe1c1ba9777cbf8fc6b66fb7f1540b63f486b3cd43fdc64aa8d2387",
+      "bytes": 1336
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/EntityHelperCompatibilityTests.cs.meta",
+      "sha256": "ddc150eaf7f2bca6d0afb658ffafcfc9bdcf46e537e9367affb3e1b2621e797a",
+      "bytes": 59
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/FirstRep.Fps.Tests.asmdef",
+      "sha256": "a065f5171f78c75351b91c218790a50189d1fc1c96781a094b2db671e8f10b27",
+      "bytes": 298
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/FirstRep.Fps.Tests.asmdef.meta",
+      "sha256": "835be161bd93b0307e0364aed3e0e77a2a41e1f4021a7465e438be62bcddb183",
+      "bytes": 166
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/UpstreamPointerInputTests.cs",
+      "sha256": "fc93743e985c14b1065a434dd1e5cd0a33f249264cea749230c1b3b9b9be0baf",
+      "bytes": 1252
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/UpstreamPointerInputTests.cs.meta",
+      "sha256": "9170b2ea3aa5a9e80dfd087e78398461f124369ae94cbe37cca41305008fc3bc",
+      "bytes": 60
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/WeaponMagazineFrameworkTests.cs",
+      "sha256": "bca5bb87da4bfefe63146f236aa1758faa0736b3eecb35d1ff92d1f67035d70c",
+      "bytes": 3017
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor/WeaponMagazineFrameworkTests.cs.meta",
+      "sha256": "d215bd6427520e7bc463c098753f789d1b04e28cf78d4389c88572497de93aca",
+      "bytes": 243
+    },
+    {
+      "path": "Assets/FirstRep/Tests/Editor.meta",
+      "sha256": "c47a60e3f4c1838c4491b35ff18b908d040da723df76c8a035ff77cdf79a06d5",
+      "bytes": 172
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FirstRep.Fps.PlayTests.asmdef",
+      "sha256": "20e08bb86e5ed36a1c56b2aeca69ef96a838c37011873de5eb8f42f69737d5d9",
+      "bytes": 254
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FirstRep.Fps.PlayTests.asmdef.meta",
+      "sha256": "9b208c2d77c4bf9c5f31fb587c3fd0cc3b0f90d1f9b858a819c45bc87812be7e",
+      "bytes": 166
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs",
+      "sha256": "b4599df5c03abb9bb7c1e5917b5b5304b02819169825a67438985e543e9d69fd",
+      "bytes": 20668
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs.meta",
+      "sha256": "21b0450f02b087a11aeb1330123e31474fe63ccdbced51ce42b32bf0e47375ec",
+      "bytes": 59
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode.meta",
+      "sha256": "3048120603dadc30ae75f4ee3eb6b8cc90bcdf575b7632ce082e17158769e4bc",
+      "bytes": 172
+    }
+  ],
+  "publicSanitizedEvidence": {
+    "manifest": "Docs/evidence/framework-adoption-20261020/manifest.json",
+    "manifestSha256": "d51e5e3202094d21b92ccda62506ec77b800c72326c3fc456dc4431b8532ec20",
+    "copies": 7,
+    "originalsPreservedLocally": true,
+    "rawOriginalsPublished": false,
+    "remoteDownloadVerification": "Pending until this evidence commit is pushed."
+  },
+  "scopeLimits": [
+    "Headless actual Unity consumer suites only. No new Player build, rendered graphics, audio-device playback, performance or full upstream framework suite run.",
+    "The prior Player/archive were built from 9a7c412b22fd0d5b1143fc04c683c681fa47522d and do not validate these changes. Release work remains paused.",
+    "Tools/Checks/Program.cs legacy .NET example updated but not executed in this increment.",
+    "No framework source/fork revision or upstream PR description/merge changed.",
+    "Original private logs remain local; public evidence consists of explicitly marked sanitized copies with original/copy hashes. No directory retention guarantee or original-log external backup is inferred."
+  ],
+  "nextCandidates": [
+    "Use existing framework events/bindings to stop HUD polling/formatting when state has not changed.",
+    "Review production asynchronous entity-display failure handling using existing framework failure notifications."
+  ],
+  "historicalEvidenceOverwritten": false
+}

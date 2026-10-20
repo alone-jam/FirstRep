@@ -2,7 +2,9 @@
 
 恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
 
-当前依赖为 alone-jam fork 固定提交 `093a175b60a196e2ad864a01ace49e90f58aacc3`。2026-10-20 实际 Unity 6000.6.5f1 已核验 UPM 来源为该 Git URL/SHA，FirstRep EditMode **3/3**、PlayMode **5/5**、框架原生物理查询回归 **7/7** 全部通过，退出码均为 0。见 [当前 fork 证据](current-fork-validation.json)。当前 fork 的新 bundles 与完整 Linux Player 已构建成功（0 错误、85 警告），实际无图形启动退出 0，确认 4 场景、3 靶子与地面。Release 附件上传返回 401，草稿无附件，尚未交付；见 [新 Player 记录](fork-player-validation-20261020.json)。画面、听感和性能仍未验收；下文旧官方 pin 的结果保留为历史。
+当前依赖固定为 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。最新消费者增量已将射速/弹药消费/换弹标签接入 AbilitySystem，靶子生命/伤害/死亡接入 UnitModel；Unity 6000.6.5f1 EditMode **9/9**、PlayMode **7/7** 通过，依赖来源检查退出 0。实际射击来源、暂停、换弹、死亡及换 ID 的对象池复用均有断言。见 [实际调用审计与目标](FRAMEWORK-DEVELOPMENT-AUDIT-20261020.md)、[本轮结构化证据](framework-adoption-increment-20261020.json) 和 [脱敏副本](evidence/framework-adoption-20261020/manifest.json)。
+
+先前同一 fork 的原生物理查询 7/7、源码 `9a7c412` 的完整 Player/无图形启动保持为历史结果，本轮没有重复上游全套测试或大型构建。旧 Player 不覆盖本轮增量。画面、实际听感和性能未验收；Release 上传排障已按优先级暂停，原包保留。下文旧官方 pin 的结果均为历史。
 
 ## 依赖来源
 
@@ -33,6 +35,8 @@
 | 音频 | `FpsPlayer.Start/Fire` 直接新建 AudioSource/PlayOneShot | SoundComponent/ISoundManager 与 Weapons 组加载播放 | 单次射击调用路径通过；环境无实际音频输出设备，听感未验 |
 | 移动 | `FpsPlayer.Update` 手写速度、重力、跳跃及 CharacterController.Move | ThreeC.ThirdPersonMotor 复用加减速/重力/跳跃；CharacterControllerStepper 处理 Unity 移动/位置恢复 | 单靶子实际原场景的移动与跳跃断言通过；FPS 仅决定输入缩放和相机朝向 |
 | 计时/事件/属性 | 原本已使用 ITimerManager、EventChannel<TargetHit>、AttributeSet | 保留并在 EntityLogic 生命周期解绑/回收 | 单靶子真实射击伤害、计时换弹和复活通过 |
+| 武器消费/冷却/换弹门槛 | FpsPlayer 用 nextShot/Time.time 控制射速，WeaponMagazine 直接 --Rounds | WeaponMagazine 组合 AbilityDefinition.WithCooldown/AddCost/BlockedBy、AbilitySystem.TryActivate/Tick、GameplayTagSet；EntityLogic 更新拥有者时间 | 拒绝不扣弹、暂停冻结、实际换弹持续开火阻挡、实体池复用重置均通过；容量/备用弹药/换弹转移仍为 FPS 业务 |
+| 靶子生命/伤害/死亡 | 用 AttributeSet 存数字，TargetPractice 自行减血/钳制/判死 | UnitModel.ConfigureHealth/TakeDamage/OnDamaged/OnDied，桥接既有 EventChannel、EntityManager 和 TimerManager | 真实射击携带 Entity.Id、过量伤害钳制、死亡计数、旧模型解绑和旧复活计时器取消通过；没有宣称接入完整 UnitWorld |
 | FPS 专有业务 | WeaponMagazine 弹匣规则、Unity 物理遮挡射线、相机瞄准/原 rig 对齐、原动画 clip 切换 | 保留领域规则与 Unity 物理/动画适配；未再建立输入、资源、实体池、事件总线、流程机或 UI 栈 | 不宣称这些业务函数本身来自 Framework，也不把它们作为泛用基础设施替代 Framework |
 
 作者侧预制体配置在 `FrameworkAssetSetup` 中创建，使用原版 rig/粒子/Robot，未替换模型、贴图或音频。Player 构建前调用上游 `AssetBundleBuilder.BuildAll`，保留原有材质组合策略；未降低美术资源质量。生成的 AssetBundles 不进入 Git。
