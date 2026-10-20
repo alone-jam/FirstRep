@@ -9,7 +9,8 @@
     "Email addresses, IPv4/MAC addresses, UUID-shaped identifiers, hostname and user-home paths; UUID replacement may also remove nonprivate GUIDs.",
     "Absolute project, tool, scratch and temporary paths replaced by labeled roots.",
     "XML test-case names, results, totals, timings and failure contents otherwise retained; log line count preserved by explicit redaction markers.",
-    "No credential store or license file read; only the eight explicitly listed Unity diagnostic/test outputs used."
+    "No credential store or license file read; only the eight explicitly listed Unity diagnostic/test outputs used.",
+    "Entire Player connection discovery lines removed, including transient Editor IDs, discovery GUIDs and network port/address diagnostics."
   ],
   "files": [
     {
@@ -17,33 +18,33 @@
       "originalBytes": 4374623,
       "originalSha256": "7dcfee00b171be6cc2bd0193467225863023986bdd0f80f63e40485fecb160cc",
       "sanitizedFile": "consumer-dependency.log.gz",
-      "sanitizedBytes": 4370147,
-      "sanitizedSha256": "433bc62c75c7fcc441feea1fa7e595901409df00e7d1c9a8d23754f8b71217a9",
-      "gzipBytes": 888094,
-      "gzipSha256": "c91831472bddc1a906547896a639151c74f610cc6caf301a39161be0b75c2495",
-      "redactedWholeLines": 43
+      "sanitizedBytes": 4369450,
+      "sanitizedSha256": "9d941b6847eb630ad1f48be5de3e8499b373698abdeca9d83f546310df1865f9",
+      "gzipBytes": 887941,
+      "gzipSha256": "15f5dfc48c8259425f20fbe73c143a6b1b1285c111e89090064bbd9ca5fc30df",
+      "redactedWholeLines": 49
     },
     {
       "originalLocalPath": "Reports/fork-validation-20261020T073131Z/editmode.log",
       "originalBytes": 47725,
       "originalSha256": "63314f945b0c36351ff58b9fb65bcc12daaf13466728a505cbbe76ccf50f43dd",
       "sanitizedFile": "consumer-editmode.log.gz",
-      "sanitizedBytes": 44597,
-      "sanitizedSha256": "0b1204f7d4c172caaab0371fbd9c60284604a4d6e4c8235b392ed571ca51bf59",
-      "gzipBytes": 9341,
-      "gzipSha256": "22d14734dcf3097a9443804088f24d5c8fa05f377b1cfdf3865a0237f4def804",
-      "redactedWholeLines": 26
+      "sanitizedBytes": 43900,
+      "sanitizedSha256": "736601ffbe9bcdefd0a01fc34eaebf10df71f77e145c36016af1ff2694669eff",
+      "gzipBytes": 9185,
+      "gzipSha256": "a330785d657c5151b0b2a26f630543b2b586d426c030fc7411eb4cbe1ed9afd2",
+      "redactedWholeLines": 32
     },
     {
       "originalLocalPath": "Reports/fork-validation-20261020T073131Z/playmode.log",
       "originalBytes": 755126,
       "originalSha256": "4483a601bc5b955358f05dabf539575c5c9e9582094e6b7520b34afb5549c15e",
       "sanitizedFile": "consumer-playmode.log.gz",
-      "sanitizedBytes": 751607,
-      "sanitizedSha256": "154184c583bdee45c945d19f5d098ff6a2056525dbdad0db646113debcbfa30f",
-      "gzipBytes": 28101,
-      "gzipSha256": "437ff505a65ccd8cb11c0fc5bdff60510da78b52c7608cb0b2990a1514a567ce",
-      "redactedWholeLines": 27
+      "sanitizedBytes": 750910,
+      "sanitizedSha256": "6bd3216eb8131408de587c350a821ed8d591d813b130786c3aa6b3b2ac8a4685",
+      "gzipBytes": 27948,
+      "gzipSha256": "ce7cb74a992da22b3b829cec60550adaaf61d5bd021024dbdb0ef60973231464",
+      "redactedWholeLines": 33
     },
     {
       "originalLocalPath": "Reports/fork-validation-20261020T073131Z/editmode.xml",
@@ -72,11 +73,11 @@
       "originalBytes": 611794,
       "originalSha256": "f0698a4e8fdc96d05732f930b3dd3da920bec306e7ff14600cd4dda402489a95",
       "sanitizedFile": "native-physics.log.gz",
-      "sanitizedBytes": 606900,
-      "sanitizedSha256": "5cb3f208d936cd2d62dc3ecd4f0142533bbbc11487dbb9896af409d584b28a2f",
-      "gzipBytes": 139891,
-      "gzipSha256": "9b8c542da4f293150c9b606d2ab33ef1f8b5819b13a1997ef61c6743146a8acf",
-      "redactedWholeLines": 35
+      "sanitizedBytes": 606203,
+      "sanitizedSha256": "f7f97f6491a2ea767250ec4fc757d61004274873ba7198940b06bfd587a2b86c",
+      "gzipBytes": 139738,
+      "gzipSha256": "552b3182cb17e057232d2dcba1beefa4065b5490d40bb076913a8ed52b88a1ad",
+      "redactedWholeLines": 41
     },
     {
       "originalLocalPath": "Reports/fork-native-20261020T074538Z/native-query.xml",
@@ -94,11 +95,11 @@
       "originalBytes": 9467,
       "originalSha256": "097ca9790f5de72bc70493f9aae70f6a9a4738c70af1fcc012e99fcef42c8828",
       "sanitizedFile": "failed-cache-dependency.log.gz",
-      "sanitizedBytes": 8795,
-      "sanitizedSha256": "fb58f494c6e54e739defabd11317f40f818419be292e5c2a0deb15a05fa92fe1",
-      "gzipBytes": 2685,
-      "gzipSha256": "398ed5c9cd0d265f0ccea0871f55802dae918108c420bfe785efce60362e06bc",
-      "redactedWholeLines": 19
+      "sanitizedBytes": 8098,
+      "sanitizedSha256": "8c2a9cb34e3117e7c73ced2bd55c9948afcfa390c770c8095a34d3dda9e86761",
+      "gzipBytes": 2515,
+      "gzipSha256": "cf2752302e0cfc48257cfbf5adca66facb285ae17599623fb45e20075f08c734",
+      "redactedWholeLines": 25
     }
   ]
 }
