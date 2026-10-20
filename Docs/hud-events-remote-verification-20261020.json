@@ -1,0 +1,122 @@
+{
+  "verifiedAtUtc": "2026-10-20T12:35:54.528693+00:00",
+  "repository": "alone-jam/FirstRep",
+  "branch": "work",
+  "verifiedCommit": "ada27cdb8ffa6adea9f7c76e41ee00bd08148d57",
+  "remoteCommitMatchesLocal": true,
+  "method": "Public raw GitHub download at full commit SHA; byte equality, size and SHA256 checked against local committed files.",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 1941,
+      "sha256": "6dce25a9dc2fd6a012f4b65a371a7cf70b5b677223573abe2fd16d88a851c2e8",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsHudForm.cs",
+      "bytes": 557,
+      "sha256": "9869eddb45953287718ebf6fae444d60fc3b15969cdc18d9253a46f1779b21da",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsPlayer.cs",
+      "bytes": 8722,
+      "sha256": "e7bb12c73010f3b1388ade657626120fa5d8524a0f09c8530dbc7365b7bf03d6",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsViewModels.cs",
+      "bytes": 3311,
+      "sha256": "c1ba8e58c15987452acefb1c4c8f1aa08e3c961b3753fc45bcfbf0de85cc5d85",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs",
+      "bytes": 31524,
+      "sha256": "e74d69261a33645d8c8eaf424cbea91c3a5a4b43f309ac2296d8a8db71321b36",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-HUD-EVENTS-20261020.md",
+      "bytes": 8960,
+      "sha256": "b3073b68a68fcc29b3fae5a928e1312105e43b81b82ad2af499f1b95001b9fbf",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-ADOPTION.md",
+      "bytes": 16298,
+      "sha256": "64e99c99c95354fb2ef1d086a52e394a40831ed7b154fb0293a1dfad1709f8f3",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-DEVELOPMENT-AUDIT-20261020.md",
+      "bytes": 7818,
+      "sha256": "5507156df7f83c5f82605724d59bea805974e8faa6ecb4d67947c04176f3cce0",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/framework-hud-events-validation-20261020.json",
+      "bytes": 28329,
+      "sha256": "23cc23f38e6a3e1bcb7aac32d3b0007461f45fca76b2eb1c1f8ea811b2cac448",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-hud-events-20261020/manifest.json",
+      "bytes": 3631,
+      "sha256": "12066a23e2b7458868b47e9bbf7999d8b25ecaabc028e4b4898d1c1f6cd333b3",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-hud-events-20261020/README.md",
+      "bytes": 749,
+      "sha256": "7f76fadcafd8321e0e46e2fd199d4c36d3ee612dbb83a307f631e32885048825",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-hud-events-20261020/prepare.log.gz",
+      "bytes": 10660,
+      "sha256": "41d95be4f402ce3fe4b2462e10b7524a84cc821f6cd725bb132e405e3c917230",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-hud-events-20261020/editmode.log.gz",
+      "bytes": 8609,
+      "sha256": "00e18cd283834b8bbfbd1d8fab54724d79a305ac8a819103411fd5ec5b76aedb",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-hud-events-20261020/editmode.xml.gz",
+      "bytes": 1458,
+      "sha256": "55ff868303d4530621dfb5aa2a72dfd46d878c3ba7fbf504cb2c0a0441c59087",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-hud-events-20261020/playmode.log.gz",
+      "bytes": 47497,
+      "sha256": "a43c3d12faca991694319d739b2177ab7ec8e0ccff89be4ef8fb65b83c65cce3",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-hud-events-20261020/playmode.xml.gz",
+      "bytes": 11364,
+      "sha256": "18d139fb4179f02a5d17671ea20a29e2af2779ac899ef4d85b7da8580bdb1dad",
+      "httpStatus": 200,
+      "downloadVerified": true
+    }
+  ]
+}

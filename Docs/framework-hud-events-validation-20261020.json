@@ -688,7 +688,14 @@
     "copies": 5,
     "originalsPreservedLocally": true,
     "rawOriginalsPublished": false,
-    "remoteDownloadVerification": "Pending push and download verification."
+    "remoteDownloadVerification": {
+      "verifiedAtUtc": "2026-10-20T12:35:54.528693+00:00",
+      "verifiedCommit": "ada27cdb8ffa6adea9f7c76e41ee00bd08148d57",
+      "files": 16,
+      "allBytesAndSha256Match": true,
+      "record": "Docs/hud-events-remote-verification-20261020.json",
+      "boundary": "Verification covers the named committed files and sanitized copies; raw original logs remain local. This summary is updated after verification and published in the follow-up commit."
+    }
   },
   "remainingHighValueItems": [
     "Retry/main-menu product entry; current Exit and Enter API are validated, no Retry button.",
