@@ -831,6 +831,10 @@
   },
   "nextAcceptanceConditions": "Docs/DEVELOPMENT-CLOSEOUT-20261020.md#下一轮明确验收条件",
   "remoteVerification": {
-    "status": "pending push and byte retrieval"
+    "status": "verified",
+    "projectCommit": "29f75622d112fee18cff2d347c344c5a4bd8eec0",
+    "frameworkCommit": "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
+    "changedFilesRetrievedAndByteCompared": 16,
+    "record": "Docs/development-closeout-remote-verification-20261020.json"
   }
 }

@@ -1,0 +1,108 @@
+{
+  "verifiedAtUtc": "2026-10-20T13:48:32.676551+00:00",
+  "baseline": "51b1eb7870b15de86ded08343458506bd75934bc",
+  "verifiedProjectCommit": "29f75622d112fee18cff2d347c344c5a4bd8eec0",
+  "remoteWorkHead": "29f75622d112fee18cff2d347c344c5a4bd8eec0",
+  "frameworkCommit": "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
+  "remoteFrameworkIntegrationHead": "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
+  "changedFilesRetrievedAndByteCompared": [
+    {
+      "path": "Assets/FirstRep/Runtime/BuildSmokeProbe.cs",
+      "bytes": 7608,
+      "sha256": "43a42e68cf6e62b913c6955a61a109427ab0004f0e419f6336ad9674b45946c4",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Assets/FirstRep/Runtime/BuildSmokeProbe.cs"
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs",
+      "bytes": 46286,
+      "sha256": "f427fc1d98ece2bd45aafd83e47ee1b7e96123c191629b1206d0568bc0a0df06",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs"
+    },
+    {
+      "path": "Docs/DEVELOPMENT-CLOSEOUT-20261020.md",
+      "bytes": 6770,
+      "sha256": "40f029859388cb7335d4bb5d5e86ccff5eb6120563f10660d9d018151e4274f9",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/DEVELOPMENT-CLOSEOUT-20261020.md"
+    },
+    {
+      "path": "Docs/FIRST-PLAYABLE.md",
+      "bytes": 6861,
+      "sha256": "97b040f2e997f9e76ee4898a009465468a3f7347bb91599b3ecb1cdc67f4cc03",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/FIRST-PLAYABLE.md"
+    },
+    {
+      "path": "Docs/FRAMEWORK-ADOPTION.md",
+      "bytes": 16498,
+      "sha256": "e8e8226baf928ff9d18cbcabed7dfad1a6ff03f9e84cd2842743212590de4d9e",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/FRAMEWORK-ADOPTION.md"
+    },
+    {
+      "path": "Docs/development-closeout-validation-20261020.json",
+      "bytes": 30979,
+      "sha256": "9dd2a9f774f7a1deebc754256021f9df6c7824d8ee0aa600bf09f28463f7d44d",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/development-closeout-validation-20261020.json"
+    },
+    {
+      "path": "Docs/evidence/development-closeout-20261020/README.md",
+      "bytes": 629,
+      "sha256": "6d8c6cbe1fccafe54a14e386634fbc5132e0d071e25f17c1aaa4c415ce23af93",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/evidence/development-closeout-20261020/README.md"
+    },
+    {
+      "path": "Docs/evidence/development-closeout-20261020/dependency.log.gz",
+      "bytes": 10564,
+      "sha256": "92aebf1ad336fb8b75ae74a444814b34b597be588bb120a6020ef384bfc5ac02",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/evidence/development-closeout-20261020/dependency.log.gz"
+    },
+    {
+      "path": "Docs/evidence/development-closeout-20261020/editmode.log.gz",
+      "bytes": 8625,
+      "sha256": "b3248361838c5d12302de7fd895a726896928614ea41f9efc34b8161e7ef104c",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/evidence/development-closeout-20261020/editmode.log.gz"
+    },
+    {
+      "path": "Docs/evidence/development-closeout-20261020/editmode.xml.gz",
+      "bytes": 1466,
+      "sha256": "0aae166d7ba800be2c0bf197dab612bba7635b748b1c49af602c30f35295e5af",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/evidence/development-closeout-20261020/editmode.xml.gz"
+    },
+    {
+      "path": "Docs/evidence/development-closeout-20261020/manifest.json",
+      "bytes": 3627,
+      "sha256": "70e32356b760a154dce6ed61a2a8c2c8ecbb81d1d9c019d6b02e186bf4d782e9",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/evidence/development-closeout-20261020/manifest.json"
+    },
+    {
+      "path": "Docs/evidence/development-closeout-20261020/playmode.log.gz",
+      "bytes": 85466,
+      "sha256": "135cc41c0af73e4fb04397caa1a5f6e1049a3c88efd5b00150cb66164722980c",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/evidence/development-closeout-20261020/playmode.log.gz"
+    },
+    {
+      "path": "Docs/evidence/development-closeout-20261020/playmode.xml.gz",
+      "bytes": 22299,
+      "sha256": "fe0970e5f6914fa9e143c76aebe40cc0ff78c31b041086be6f488c723329e893",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Docs/evidence/development-closeout-20261020/playmode.xml.gz"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5945,
+      "sha256": "71ebdda839ba851a1a2f7ab493c601718d137caaa3d1e81a116946db4babe93d",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/README.md"
+    },
+    {
+      "path": "Tools/check_player_provenance.py",
+      "bytes": 3319,
+      "sha256": "77d1e9a76cfb209205246eae20816db818ee4cb7bffa0b041e4f60b1b17172ed",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Tools/check_player_provenance.py"
+    },
+    {
+      "path": "Tools/run-firstrep.sh",
+      "bytes": 1220,
+      "sha256": "1ba38eb7efc5a04eaff46178dc62d7502cddadd78cd1a67974c179562efafa21",
+      "retrievedUrl": "https://raw.githubusercontent.com/alone-jam/FirstRep/29f75622d112fee18cff2d347c344c5a4bd8eec0/Tools/run-firstrep.sh"
+    }
+  ],
+  "count": 16,
+  "boundary": "Source/docs/sanitized evidence retrieved from existing authorized GitHub repositories; not a raw-log or Player backup."
+}
