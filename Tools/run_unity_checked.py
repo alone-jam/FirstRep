@@ -4,10 +4,20 @@
 This does not authenticate or change credential storage. Launch from the retained
 PTY; restarting it with an unrelated exec command changes the Linux keyring.
 """
-import os, pathlib, shutil, subprocess, sys, time
+import json, os, pathlib, shutil, subprocess, sys, time
 
-editor = '/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Unity'
 project = pathlib.Path(__file__).resolve().parents[1]
+config = json.loads((project / 'Tools/unity-environment.json').read_text())
+editor = os.environ.get(config['editorOverrideVariable'], config['editorExecutable'])
+for index, argument in enumerate(sys.argv[1:], start=1):
+    if argument.lower() in ('-logfile', '-testresults') and index + 1 < len(sys.argv):
+        output = sys.argv[index + 1]
+        if output != '-' and (project / output).exists():
+            sys.exit('Refusing to overwrite existing evidence: ' + output)
+# Fail before creating Temp or launching Unity when recovery prerequisites are absent.
+preflight = subprocess.run([sys.executable, str(project / 'Tools/check_environment.py'), '--require-ready'], cwd=project)
+if preflight.returncode:
+    sys.exit(preflight.returncode)
 reserve = 1024**3
 
 def free_bytes(path):
@@ -24,7 +34,7 @@ if not (project / 'Temp').exists() and not (project / 'Temp').is_symlink():
     (project / 'Temp').mkdir()
 storage_paths = [project, (project / 'Temp').resolve(), (project / 'Builds').resolve(), (project / 'Library/PlayerDataCache').resolve()]
 for path in storage_paths:
-    if not path.exists() or free_bytes(path) < reserve:
+    if free_bytes(path) < reserve:
         sys.exit('Insufficient disk reserve before launch: ' + str(path))
 process = subprocess.Popen([editor, *sys.argv[1:]], cwd=project)
 stopped_for_disk = False

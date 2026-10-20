@@ -8,6 +8,8 @@ Unity 6000.6.5f1 / HDRP 17.6 / EjoyFramework v2.1.0. This is a work-in-progress 
 
 See the [file/API adoption audit and actual test boundaries](Docs/FRAMEWORK-ADOPTION.md).
 
+Before resuming, follow [storage and recovery rules](Docs/STORAGE-AND-RECOVERY.md) and run `python3 Tools/check_environment.py --verify-remote`. No per-directory retention guarantee or external artifact backup is currently confirmed. The current checkout lacks the historical Editor/Player and has unhydrated Git LFS assets; tracked test summaries and the GIF remain historical evidence.
+
 ## Checkout and run
 
 Install Git LFS before cloning, then run `git lfs pull`. Original binary art is stored in LFS; it must be downloaded before opening the project. Unity resolves EjoyFramework from the pinned Git URL in `Packages/manifest.json`. See [controls and build instructions](Docs/FIRST-PLAYABLE.md).
@@ -16,7 +18,7 @@ Install Git LFS before cloning, then run `git lfs pull`. Original binary art is 
 
 The official dependency and actual consumer test evidence are published in [the adoption audit](Docs/FRAMEWORK-ADOPTION.md) and [structured results](Docs/official-framework-validation.json). The dependency has no local framework patches. Production builds use the upstream AssetBundle builder. See [bundle hashes and build history](Docs/production-validation.json).
 
-Visual acceptance is separate from headless gameplay tests. Known migration color/material artifacts remain under investigation. The verified Player is saved locally at `Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad`; `Tools/run-firstrep.sh` prefers this persistent copy. The old executable was removed with approval. [Persistence and file hashes](Docs/persistent-player-validation.json). Actual audio-device playback remains unverified in this environment. No credentials, licenses, local caches, binaries or diagnostic authentication data are included.
+Visual acceptance is separate from headless gameplay tests. Known migration color/material artifacts remain under investigation. The historical Player was copied and verified locally at `Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad`; that directory is currently absent. The launcher prefers that local path, but neither it nor `Builds` proves backup or platform retention. [Historical copy and hashes](Docs/persistent-player-validation.json). Actual audio-device playback remains unverified. No credentials, licenses, local caches, binaries or diagnostic authentication data are included.
 
 ## Runtime capture
 

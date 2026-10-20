@@ -1,4 +1,4 @@
-> 当前源码固定官方 EjoyFramework `a5e1ec6f3472f741815108509ba303ce39b933c3`，EditMode 3/3、退出修复后的 PlayMode 5/5 通过。2026-10-16 新生产 AssetBundles（2 个、9 项）和完整 Linux Player 已成功构建：0 错误、86 警告、1:23:35。新 Player 已持久保存到 `Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad`，321 个构建文件逐一 SHA-256 匹配；启动脚本优先使用该副本。旧 Player 目录及另一处历史主数据硬链接经用户逐项授权后已删除；新版 `Builds/Linux` 临时源仍保留。见 [持久化验证](persistent-player-validation.json)。正常配置已通过开启 HDRP 相机的 NaN/Infinity 清理消除 Bloom 整屏黑传播，Bloom/后处理/次表面散射保留；已有材质色彩和条纹异常仍在，真实窗口 GIF 已嵌入 README（96 秒录制、8 倍速播放，原始状态轨迹另存）；无图形设备的 smoke 只证明 4 场景、3 靶子及地面加载正常。见 [当前证据](current-player-validation.json)、[框架审查](FRAMEWORK-ADOPTION.md)。以下全部是历史记录，旧图形配置、补丁及构建数字不能当作当前源码结果。
+> 当前依赖已切换为 alone-jam fork 的固定提交，见 [框架接入](FRAMEWORK-ADOPTION.md)。以下官方 `a5e1ec6` 的 3/3、5/5、构建和录屏均为历史结果，不验证当前 fork。恢复前必须遵循 [存储与恢复规则](STORAGE-AND-RECOVERY.md)：历史本地保存不代表平台持久保证；当前 Editor、原始 Reports、Library 和 Player 路径不可见，LFS 资产尚未取回。历史复制校验清单见 [当时记录](persistent-player-validation.json)，不表示现在存在可取回的外部备份。
 
 ## 历史检查点记录
 

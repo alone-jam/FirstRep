@@ -1,0 +1,164 @@
+{
+  "checkedAtUtc": "2026-10-20T06:44:42.673456+00:00",
+  "priorReadOnlyAudit": {
+    "timeUtc": "2026-10-20T04:10:09Z through 2026-10-20T04:10:47Z",
+    "host": "8d483965f866",
+    "editorRootMissing": true,
+    "reportsLibraryBuildsDeliverablesMissing": true,
+    "absenceCause": "Unknown; no reset, deletion, mount restoration or executor replacement proven",
+    "earlierObservation": "2026-10-19 framework-pr-evidence/validation.json recorded same missing paths with cause unknown"
+  },
+  "currentPreflight": {
+    "checkedAtUtc": "2026-10-20T06:44:42.650625+00:00",
+    "host": "8d483965f866",
+    "project": "/workspace/FirstRep",
+    "head": "155f110f5446e66ea99b6dbf7a783661b7dbabe7",
+    "remoteWorkHead": "155f110f5446e66ea99b6dbf7a783661b7dbabe7",
+    "remoteChecked": true,
+    "configurationConsistent": true,
+    "editor": {
+      "path": "/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Unity",
+      "expectedVersion": "6000.6.5f1",
+      "expectedRevision": "3ff58d469c8a",
+      "executablePresent": false,
+      "binaryVersionExecuted": false,
+      "licenseChecked": false
+    },
+    "unityCliOnPath": null,
+    "lfs": {
+      "files": 1193,
+      "checkedOut": 0,
+      "localObjectsPresent": 0,
+      "expectedPayloadBytes": 12985685428,
+      "payloadHashesVerified": false,
+      "remotePayloadsVerified": false
+    },
+    "mountObservationsOnly": {
+      "/workspace/FirstRep": {
+        "filesystems": [
+          {
+            "target": "/workspace",
+            "source": "overlay[/workspace]",
+            "fstype": "overlay",
+            "options": "rw,nosuid,nodev,relatime,lowerdir=/run/kata-containers/erofs-multi-layer/8d483965f8664337848b4c20ea2e9673/lower-0,upperdir=/run/kata-containers/erofs-multi-layer/8d483965f8664337848b4c20ea2e9673/upper/upper,workdir=/run/kata-containers/erofs-multi-layer/8d483965f8664337848b4c20ea2e9673/upper/work,index=off,metacopy=off"
+          }
+        ]
+      },
+      "/tmp": {
+        "filesystems": [
+          {
+            "target": "/tmp",
+            "source": "none",
+            "fstype": "tmpfs",
+            "options": "ro,nosuid,nodev,relatime"
+          },
+          {
+            "target": "/tmp",
+            "source": "none",
+            "fstype": "tmpfs",
+            "options": "rw,nosuid,nodev,relatime"
+          }
+        ]
+      }
+    },
+    "verifiedPersistentDirectory": null,
+    "configuredExternalArtifactBackup": null,
+    "prerequisitesPresent": false,
+    "blockers": [
+      "Configured Editor executable is missing or not executable",
+      "1193 LFS files lack checked-out payload or a local LFS object"
+    ],
+    "boundary": "Presence is not licensing, Unity test success, payload integrity or retention proof. No file was changed."
+  },
+  "officialScope": {
+    "cloudEnvironments": "https://learn.chatgpt.com/docs/environments/cloud-environments",
+    "dotCodingThreads": "https://learn.chatgpt.com/docs/dots/computers-and-apps",
+    "policyDocument": "STORAGE-AND-RECOVERY.md",
+    "perDirectoryRetentionGuaranteeFound": false,
+    "sevenDayStatement": "Default saved VM state recoverable for up to seven days, not an at-least-seven-day guarantee; not a diagnosis of this incident",
+    "currentEnvironmentPublishedSnapshotOrRecoveryEventsVerified": false
+  },
+  "historicalEvidencePreserved": {
+    "official-framework-validation.json": {
+      "sha256": "b057e631bb358a01fef8521e72148294169b458396ee01a551e0a2509adb6dfa",
+      "gitDiffEmpty": true
+    },
+    "current-player-validation.json": {
+      "sha256": "36ba4d3ca382d9d2a926224fcfd08872d98d77212c3078706cef32b1220431d6",
+      "gitDiffEmpty": true
+    },
+    "persistent-player-validation.json": {
+      "sha256": "6ddbd93affaa145c59d9916b9e0f6e42534f524b20c2547403d11e4721948520",
+      "gitDiffEmpty": true
+    },
+    "path-audit-20261016.json": {
+      "sha256": "28616a96ba33600f45c291902ca396900e74b858bd79e78c4525cb10ece7138a",
+      "gitDiffEmpty": true
+    },
+    "runtime-capture-validation.json": {
+      "sha256": "e99f63377a7a5e961e2e238364a2952bb266c68dbf2f0b43d754984acea23ef6",
+      "gitDiffEmpty": true
+    }
+  },
+  "historicalGifHashMatches": true,
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "Tools/check_environment.py",
+        "--require-ready"
+      ],
+      "exitCode": 2,
+      "result": "Expected prerequisite failure; Unity not launched"
+    },
+    {
+      "command": [
+        "python3",
+        "Tools/run_unity_checked.py",
+        "-batchmode",
+        "-quit"
+      ],
+      "exitCode": 2,
+      "result": "Expected prerequisite failure; Unity not launched"
+    },
+    {
+      "command": [
+        "python3",
+        "Tools/run_low_memory_build.py",
+        "--stage",
+        "player"
+      ],
+      "exitCode": 2,
+      "result": "Expected prerequisite failure; Unity not launched"
+    },
+    {
+      "command": [
+        "python3",
+        "Tools/run_unity_checked.py",
+        "-logFile",
+        "Docs/official-framework-validation.json"
+      ],
+      "exitCode": 1,
+      "result": "Existing evidence overwrite refused before Unity or file writes"
+    }
+  ],
+  "workingPathsUnchangedByFailedLaunch": true,
+  "syntaxCheck": "Python ast.parse passed for 3 changed entry scripts",
+  "notPerformed": [
+    "Installation or download",
+    "Terms acceptance or login",
+    "Credential inspection",
+    "LFS hydration or remote payload verification",
+    "Environment switch, republish or migration",
+    "Unity compilation, tests or Player build",
+    "New external artifact upload",
+    "Deletion"
+  ],
+  "remaining": [
+    "Platform recovery/publication history and missing files cause",
+    "Authorized artifact backup destination with retention and retrieval verification",
+    "Recover CLI/Editor and validate license through normal flow",
+    "Hydrate/verify LFS payloads and provision sufficient build space",
+    "Run actual Unity fork dependency/compile/EditMode/PlayMode and fresh build"
+  ]
+}

@@ -1,5 +1,7 @@
 # Framework 接入审查与整改
 
+恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
+
 当前依赖已改为 alone-jam fork 的固定修复提交，Unity 消费者回归待验；下文旧官方 pin 的测试和 Player 均为历史证据。历史实际 Unity 6000.6.5f1：FirstRep EditMode 3/3、PlayMode 5/5 通过。上游相关测试 22/23 通过，一项历史碰撞测试断言失败，详见下文。生产 Player 构建与画面验收单独记录，不能由无图形测试推断。
 
 ## 依赖来源

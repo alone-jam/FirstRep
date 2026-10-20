@@ -5,7 +5,7 @@ player="$project_dir/Deliverables/FirstRep-Linux-6000.6.5f1-b5c35ad/FirstRep.x86
 if [[ ! -x "$player" ]]; then
   player="$project_dir/Builds/Linux/FirstRep.x86_64"
   if [[ -x "$player" ]]; then
-    echo "Using the temporary current build; the persistent Player is unavailable." >&2
+    echo "Using local Builds output; the local Deliverables copy is unavailable. Neither path proves backup or retention." >&2
   fi
 fi
 if [[ ! -x "$player" ]]; then

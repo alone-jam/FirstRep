@@ -1,0 +1,15 @@
+{
+  "editorVersion": "6000.6.5f1",
+  "editorRevision": "3ff58d469c8a",
+  "editorExecutable": "/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Unity",
+  "editorPathMeaning": "Historical installation location and current default; no directory retention guarantee",
+  "editorOverrideVariable": "FIRSTREP_UNITY_EDITOR",
+  "cliVersion": null,
+  "cliVersionStatus": "Historical CLI binary/version not retained in tracked setup; record exact version and SHA256 after authorized recovery",
+  "target": "StandaloneLinux64",
+  "frameworkProvenance": "Docs/UpstreamVersions.json",
+  "configuredExternalArtifactBackup": null,
+  "verifiedPersistentDirectory": null,
+  "storageRules": "Docs/STORAGE-AND-RECOVERY.md",
+  "installDocumentation": "https://docs.unity.com/en-us/unity-cli/use-unity-cli"
+}

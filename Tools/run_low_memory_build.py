@@ -4,15 +4,19 @@
 Linux/cgroup environment diagnostic; logs process names/RSS and disk space, never credentials.
 Generate bundles from the current assets before using this explicit staged entry point.
 """
-import subprocess,time,json,pathlib,os,sys,argparse
+import subprocess,time,json,pathlib,os,sys,argparse,datetime
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--stage",choices=["bundles","player","scripts"],default="player")
-parser.add_argument("--log-prefix",default="firstrep-pinned-build-low-memory")
+parser.add_argument("--log-prefix",default="firstrep-"+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ'))
 options=parser.parse_args()
 if pathlib.Path(options.log_prefix).name!=options.log_prefix:
  parser.error("log prefix must be a filename, without directories")
 method="FirstRep.Fps.Editor.SliceWorkbench."+{"bundles":"BuildFrameworkResources","player":"BuildLinuxFromPreparedResources","scripts":"BuildLinuxScriptsOnly"}[options.stage]
 root=pathlib.Path(__file__).resolve().parents[1];report=root/('Reports/'+options.log_prefix+'-samples.jsonl')
+preflight=subprocess.run([sys.executable,str(root/'Tools/check_environment.py'),'--require-ready'],cwd=root)
+if preflight.returncode:sys.exit(preflight.returncode)
+if any((root/('Reports/'+options.log_prefix+suffix)).exists() for suffix in ['-samples.jsonl','.log','-launcher.log']):
+ sys.exit('Log prefix already exists; choose another prefix to preserve evidence')
 report.parent.mkdir(parents=True,exist_ok=True)
 args=['python3','Tools/run_unity_checked.py','-batchmode','-nographics','-quit','-job-worker-count','1','-diag-debug-shader-compiler','-refreshImportMode','InProcess','-desiredWorkerCount','1','-standbyWorkerCount','0','-projectPath',str(root),'-executeMethod',method,'-logFile',str(root/('Reports/'+options.log_prefix+'.log'))]
 env=os.environ.copy();env.update(FIRSTREP_BUILD_TEMP='/tmp/firstrep-intermediates/Temp-active',UPM_CACHE_ROOT='/workspace/tools/state/upm',XDG_CONFIG_HOME='/workspace/tools/state/config',XDG_CACHE_HOME='/workspace/tools/state/cache',XDG_DATA_HOME='/workspace/tools/state/data')
