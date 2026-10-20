@@ -9,6 +9,7 @@ using UnityEngine.TestTools;
 using EjoyFramework.Core;
 using EjoyFramework.Core.Input;
 using EjoyFramework.Core.Entity;
+using EjoyFramework.Core.Event;
 using EjoyFramework.Core.Procedure;
 using EjoyFramework.Core.Resource;
 using EjoyFramework.Core.UI;
@@ -44,6 +45,16 @@ public void ReleaseEntity(object asset,object instance)=>inner.ReleaseEntity(ass
 }
 [System.Serializable] sealed class EntityIsolationEvidence {public int entityCount,activeTargets,uniqueTargetHandles;public bool aliased;public int[] targetIds;}
 static T Field<T>(object obj,string name)=>(T)obj.GetType().GetField(name,BindingFlags.Instance|BindingFlags.NonPublic).GetValue(obj);
+sealed class HudObserver {
+public int Count;public PlayerHudChanged Last;
+public void Changed(in PlayerHudChanged state){Count++;Last=state;}
+}
+static void AssertHud(FpsHudForm hud,string ammo,int kills,bool reloading,bool marker){
+Assert.That(hud.ViewModel.Header,Does.Contain(ammo));Assert.That(hud.ViewModel.Header,Does.Contain("TARGETS "+kills));
+Assert.AreEqual(reloading,hud.ViewModel.Header.Contains("RELOADING"));Assert.AreEqual(marker?"×":"+",hud.ViewModel.Crosshair);
+Assert.AreEqual(hud.ViewModel.Header,hud.transform.Find("Header").GetComponent<Text>().text);
+Assert.AreEqual(hud.ViewModel.Crosshair,hud.transform.Find("Crosshair").GetComponent<Text>().text);
+}
 [UnityTest] public IEnumerator ConcurrentSamePrefabEntitiesHaveIndependentHandles(){
 var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");
 var content=Object.Instantiate(original);content.artReviewComplete=true;
@@ -106,12 +117,17 @@ boot.Exit();yield return Closed(boot.ExitStatus);Object.Destroy(boot.gameObject)
 int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;var boot=Fixture(out var content);
 for(int cycle=0;cycle<2;cycle++){
 if(cycle!=0)boot.Enter();yield return Ready(boot);
+var channel=Framework.GetModule<IEventManager>().GetChannel<PlayerHudChanged>();Assert.AreEqual(1,channel.HandlerCount,"HUD subscriptions accumulated across sessions");
+var hud=(FpsHudForm)boot.UI.GetUIForm(SliceContent.HudPath);var model=hud.ViewModel;var header=model.Header;
+AssertHud(hud,"30 / 180",0,false,false);
 Assert.AreEqual(baseline+content.levelScenes.Length,UnityEngine.SceneManagement.SceneManager.sceneCount,"Reentry duplicated real scene objects");
 foreach(var path in content.levelScenes)Assert.AreEqual(1,Enumerable.Range(0,UnityEngine.SceneManagement.SceneManager.sceneCount).Count(i=>UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).path==path));
 boot.Pause();yield return null;
+Assert.AreEqual(0,channel.HandlerCount,"Paused HUD retained its player event subscription");
 var menu=(FpsPauseForm)boot.UI.GetUIForm(SliceContent.PausePath);
 menu.transform.Find("Exit").GetComponent<Button>().onClick.Invoke();
 var status=boot.ExitStatus;Assert.IsTrue(status.Requested);yield return Closed(status);
+Assert.IsTrue(channel.IsShutdown);Assert.AreEqual(0,channel.HandlerCount);Assert.AreEqual(header,model.Header,"Closed session model was updated");
 Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);
 foreach(var path in content.levelScenes)Assert.IsFalse(UnityEngine.SceneManagement.SceneManager.GetSceneByPath(path).isLoaded);
 Assert.AreEqual(0,Object.FindObjectsByType<FpsPlayer>(FindObjectsSortMode.None).Length);
@@ -156,11 +172,14 @@ int deaths=0,source=-1;float applied=0;
 oldUnit.OnDamaged+=(unit,amount,attacker)=>{applied=amount;source=attacker;};
 oldUnit.OnDied+=(unit,attacker)=>{deaths++;source=attacker;};
 var player=((GameObject)boot.Entities.GetEntity(1).Handle).GetComponent<FpsPlayer>();
+var hud=(FpsHudForm)boot.UI.GetUIForm(SliceContent.HudPath);var channel=Framework.GetModule<IEventManager>().GetChannel<PlayerHudChanged>();
+Assert.AreEqual(1,channel.HandlerCount);
 target.Hit(-25,1);Assert.AreEqual(100,target.Health);
 target.Hit(25,1);Assert.AreEqual(75,target.Health);Assert.AreEqual(25,applied);Assert.AreEqual(1,source);
 target.Hit(1000,1);Assert.AreEqual(0,target.Health);Assert.AreEqual(75,applied);Assert.AreEqual(1,deaths);
 target.Hit(1000,1);Assert.AreEqual(1,deaths);Assert.AreEqual(1,Field<int>(player,"kills"));
 Assert.IsFalse(boot.Entities.HasEntity(oldId));
+AssertHud(hud,"30 / 180",1,false,true);
 int newId=oldId+1;
 boot.Entities.ShowEntity(newId,content.TargetAssetPath,"Targets",0,new ActorSpawn(boot,content.targetPositions[0],Quaternion.identity));
 float deadline=Time.realtimeSinceStartup+30;
@@ -170,10 +189,56 @@ Assert.AreNotSame(oldUnit,target.Unit);Assert.AreEqual(newId,target.Unit.Id);Ass
 // The detached model can no longer publish hits or hide the reused Unity entity.
 oldUnit.ConfigureHealth(100);oldUnit.TakeDamage(100,1);
 Assert.AreEqual(1,Field<int>(player,"kills"));Assert.IsTrue(boot.Entities.HasEntity(newId));
+AssertHud(hud,"30 / 180",1,false,true);Assert.AreEqual(1,channel.HandlerCount);
 yield return new WaitForSeconds(4.2f);
 Assert.IsFalse(boot.Entities.HasEntity(oldId),"A cancelled prior-life timer respawned its old ID");
 Assert.IsTrue(boot.Entities.HasEntity(newId));Assert.AreEqual(100,target.Health);
+AssertHud(hud,"30 / 180",1,false,false);
+target.Hit(100,player.Entity.Id);AssertHud(hud,"30 / 180",2,false,true);
 Object.Destroy(content);
+}
+[UnityTest] public IEnumerator HudEventsTrackAmmoReloadAndUnscaledMarkerWithoutPolling(){
+var boot=Fixture(out var content);yield return Ready(boot);
+var input=new ControlledInput();Framework.GetModule<IInputManager>().SetHelper(input);
+var player=((GameObject)boot.Entities.GetEntity(1).Handle).GetComponent<FpsPlayer>();
+var hud=(FpsHudForm)boot.UI.GetUIForm(SliceContent.HudPath);
+var channel=Framework.GetModule<IEventManager>().GetChannel<PlayerHudChanged>();var observer=new HudObserver();channel.Subscribe(observer.Changed);
+Assert.AreEqual(2,channel.HandlerCount);AssertHud(hud,"30 / 180",0,false,false);
+int properties=0;hud.ViewModel.PropertyChanged+=(model,name)=>properties++;
+yield return new WaitForSecondsRealtime(0.2f);Assert.AreEqual(0,observer.Count);Assert.AreEqual(0,properties,"Idle HUD notified without a state change");
+input.down="R";yield return null;input.down=null;yield return null;Assert.AreEqual(0,observer.Count,"Full-magazine reload was published");
+// Aim away from the target so ammo and hit-marker transitions can be counted separately.
+player.view.transform.localRotation=Quaternion.Euler(-85,0,0);
+player.transform.rotation=Quaternion.Euler(0,content.spawnYaw+180,0);
+input.held="Mouse0";yield return null;input.held=null;yield return null;
+Assert.AreEqual(1,observer.Count);Assert.AreEqual(1,properties);AssertHud(hud,"29 / 180",0,false,false);
+input.down="R";yield return null;input.down=null;yield return null;
+Assert.AreEqual(2,observer.Count);AssertHud(hud,"29 / 180",0,true,false);
+input.down="R";input.held="Mouse0";yield return null;input.down=null;
+yield return new WaitForSeconds(0.2f);input.held=null;Assert.AreEqual(2,observer.Count,"Rejected fire/reload sent duplicate notifications");
+for(int i=0;i<3;i++){
+var previous=hud.ViewModel;var text=previous.Header;
+boot.Pause();yield return null;Assert.AreEqual(1,channel.HandlerCount);
+yield return new WaitForSecondsRealtime(0.08f);Assert.AreEqual(text,previous.Header);
+boot.Resume();yield return null;hud=(FpsHudForm)boot.UI.GetUIForm(SliceContent.HudPath);
+Assert.AreNotSame(previous,hud.ViewModel);Assert.AreEqual(2,channel.HandlerCount);AssertHud(hud,"29 / 180",0,true,false);
+}
+yield return new WaitForSeconds(2.1f);Assert.AreEqual(3,observer.Count);AssertHud(hud,"30 / 179",0,false,false);
+var target=Object.FindFirstObjectByType<TargetPractice>();
+target.Hit(25,player.Entity.Id);Assert.AreEqual(4,observer.Count);AssertHud(hud,"30 / 179",0,false,true);
+target.Hit(25,player.Entity.Id);Assert.AreEqual(4,observer.Count,"Extending an active marker did not change HUD state");
+yield return new WaitForSecondsRealtime(0.18f);Assert.AreEqual(5,observer.Count);AssertHud(hud,"30 / 179",0,false,false);
+// Changes while the HUD is closed must be seeded on reopen, with no stale callback.
+var closed=hud.ViewModel;var closedHeader=closed.Header;var closedCrosshair=closed.Crosshair;
+boot.Pause();yield return null;Assert.AreEqual(1,channel.HandlerCount);
+target.Hit(100,player.Entity.Id);Assert.AreEqual(6,observer.Count);Assert.AreEqual(closedHeader,closed.Header);Assert.AreEqual(closedCrosshair,closed.Crosshair);
+yield return new WaitForSecondsRealtime(0.18f);Assert.AreEqual(7,observer.Count,"Marker expiry did not use unscaled time while paused");
+boot.Resume();yield return null;hud=(FpsHudForm)boot.UI.GetUIForm(SliceContent.HudPath);
+AssertHud(hud,"30 / 179",1,false,false);Assert.AreEqual(2,channel.HandlerCount);
+target.Hit(100,player.Entity.Id);Assert.AreEqual(7,observer.Count,"Inactive target published a duplicate kill");
+Assert.AreEqual(player.Entity.Id,observer.Last.EntityId);Assert.AreSame(player,observer.Last.Player);
+channel.Unsubscribe(observer.Changed);boot.Exit();yield return Closed(boot.ExitStatus);Assert.AreEqual(0,channel.HandlerCount);
+Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
 }
 [UnityTest] public IEnumerator ActorInstantiationFailureShowsFrameworkMenuAndAllowsExitAndReentry()=>FailedActorSession(false);
 [UnityTest] public IEnumerator ActorCreationFailureShowsFrameworkMenuAndAllowsExitAndReentry()=>FailedActorSession(true);

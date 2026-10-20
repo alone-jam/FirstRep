@@ -10,7 +10,6 @@ namespace FirstRep.Fps
             var player=(bootstrap.Entities.GetEntity(1).Handle as UnityEngine.GameObject).GetComponent<FpsPlayer>();
             return new FpsHudViewModel(player);
         }
-        public override void OnUpdate(float elapsed,float realElapsed) => ViewModel?.Refresh();
         protected override void OnViewModelUnbinding() => ViewModel?.Release();
     }
 }

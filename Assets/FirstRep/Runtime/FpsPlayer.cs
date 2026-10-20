@@ -9,6 +9,16 @@ using EjoyFramework.GamePlay.ThreeC;
 
 namespace FirstRep.Fps
 {
+    // A game-state snapshot transported by the Framework-owned event channel.
+    public readonly struct PlayerHudChanged
+    {
+        public readonly FpsPlayer Player;
+        public readonly int EntityId, Rounds, Reserve, Kills;
+        public readonly bool Reloading, HitMarker;
+        public PlayerHudChanged(FpsPlayer player,int entityId,int rounds,int reserve,int kills,bool reloading,bool hitMarker)
+        {Player=player;EntityId=entityId;Rounds=rounds;Reserve=reserve;Kills=kills;Reloading=reloading;HitMarker=hitMarker;}
+        public string Header => $"FIRSTREP • LEVEL 01    {Rounds:00} / {Reserve}    TARGETS {Kills}{(Reloading ? "    RELOADING" : "")}";
+    }
     [RequireComponent(typeof(CharacterController))]
     public sealed class FpsPlayer : EntityLogic
     {
@@ -21,22 +31,26 @@ namespace FirstRep.Fps
         private IInputManager input;
         private ITimerManager timers;
         private EventChannel<TargetHit> hits;
+        private EventChannel<PlayerHudChanged> hudChanges;
         private SliceBootstrap bootstrap;
         private CharacterControllerStepper stepper;
         private ThirdPersonMotor locomotion;
         private uint controlSequence;
         private WeaponMagazine magazine;
         private float pitch, hitUntil;
+        private bool hitMarker;
         private int reloadTimer, kills;
         public bool IsPaused => bootstrap && bootstrap.IsPaused;
-        public string HudText => $"FIRSTREP • LEVEL 01    {magazine.Rounds:00} / {magazine.Reserve}    TARGETS {kills}{(magazine.Reloading ? "    RELOADING" : "")}";
-        public bool HitMarker => Time.unscaledTime < hitUntil;
+        public PlayerHudChanged HudState => new PlayerHudChanged(this,Entity.Id,magazine.Rounds,magazine.Reserve,kills,magazine.Reloading,hitMarker);
+        public string HudText => HudState.Header;
+        public bool HitMarker => hitMarker;
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
             motor = GetComponent<CharacterController>(); stepper = new CharacterControllerStepper(motor); locomotion = new ThirdPersonMotor(speed,sprintSpeed,24,30,jumpHeight,20); PresentationSettings.Configure(view);
             input = Framework.GetModule<IInputManager>(); timers = Framework.GetModule<ITimerManager>();
             hits = Framework.GetModule<IEventManager>().GetChannel<TargetHit>();
+            hudChanges = Framework.GetModule<IEventManager>().GetChannel<PlayerHudChanged>();
             magazine = new WeaponMagazine(30, 180);
             input.SetBinding("MoveX", InputBinding.Axis("Horizontal")); input.SetBinding("MoveZ", InputBinding.Axis("Vertical"));
             input.SetBinding("LookX", InputBinding.Axis("Mouse X")); input.SetBinding("LookY", InputBinding.Axis("Mouse Y"));
@@ -48,12 +62,15 @@ namespace FirstRep.Fps
         protected override void OnShow(object userData)
         {
             base.OnShow(userData); var spawn=ActorSpawn.From(userData); bootstrap=spawn.Bootstrap;content=bootstrap.content;
-            transform.SetPositionAndRotation(spawn.Position,spawn.Rotation); magazine=new WeaponMagazine(30,180); pitch=0;kills=0;locomotion.Reset();
+            transform.SetPositionAndRotation(spawn.Position,spawn.Rotation); magazine=new WeaponMagazine(30,180); pitch=0;kills=0;hitUntil=0;hitMarker=false;locomotion.Reset();
             hits.Subscribe(OnHit);
+            PublishHud();
             Cursor.lockState=CursorLockMode.Locked;Cursor.visible=false;
         }
         protected override void OnUpdate(float elapseSeconds,float realElapseSeconds)
         {
+            // Keep the short marker on unscaled time, including paused frames.
+            if(hitMarker && Time.unscaledTime>=hitUntil){hitMarker=false;PublishHud();}
             if (input == null || IsPaused || elapseSeconds <= 0) return;
             magazine.Tick(elapseSeconds);
             if (input.GetButtonDown("Pause")) { Pause(); return; }
@@ -77,6 +94,7 @@ namespace FirstRep.Fps
             if (input.GetButtonDown("Reload")) Reload();
             if (input.GetButton("Fire") && magazine.TryFire())
             {
+                PublishHud();
                 Fire();
             }
         }
@@ -98,10 +116,17 @@ namespace FirstRep.Fps
         private void Reload()
         {
             if (!magazine.BeginReload()) return;
+            PublishHud();
             presentation.Reload();
-            reloadTimer = timers.AddTimer(1.8f, () => { reloadTimer = 0; magazine.CompleteReload(); });
+            reloadTimer = timers.AddTimer(1.8f, () => { reloadTimer = 0; magazine.CompleteReload(); PublishHud(); });
         }
-        private void OnHit(in TargetHit hit) { hitUntil = Time.unscaledTime + 0.12f; if (hit.Destroyed) ++kills; }
+        private void OnHit(in TargetHit hit)
+        {
+            bool changed=!hitMarker || hit.Destroyed;
+            hitUntil=Time.unscaledTime+0.12f;hitMarker=true;if(hit.Destroyed)++kills;
+            if(changed)PublishHud();
+        }
+        private void PublishHud() => hudChanges.FireNow(HudState);
         private void Respawn()
         {
             stepper.RestorePosition(SliceBootstrap.GroundPosition(content.spawnPosition)); transform.rotation=Quaternion.Euler(0,content.spawnYaw,0); locomotion.Reset(); pitch = 0;

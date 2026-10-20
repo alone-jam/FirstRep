@@ -39,3 +39,5 @@ Framework 实现依据：fork `Runtime/GamePlay/Combat/Abilities/AbilitySystem.c
 下一批候选：把 HUD 的逐帧 Refresh/字符串生成收敛到已有事件和绑定机制；核验异步实体显示失败是否进入关卡失败流程，优先复用现有 Framework 失败通知。这是本轮当时的剩余项；后续失败流程批次已完成 IEntityManager 失败通知与可退出界面，见 [目标与结果](FRAMEWORK-FAILURE-FLOW-20261020.md) 和 [最新证据](framework-failure-flow-validation-20261020.json)。HUD 事件刷新仍未实施。
 
 本轮结果与源码绑定见 [framework-adoption-increment-20261020.json](framework-adoption-increment-20261020.json)，脱敏副本及原件/副本 hash 见 [manifest](evidence/framework-adoption-20261020/manifest.json)。
+
+后续 HUD 事件增量现已完成，原文“仍未实施”描述当轮结束时的状态。最新实际调用链、累计使用矩阵和剩余业务边界见 [HUD 增量](FRAMEWORK-HUD-EVENTS-20261020.md)；消费者 EditMode 9/9、PlayMode 11/11，原历史结果不覆盖。

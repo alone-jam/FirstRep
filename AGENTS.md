@@ -17,7 +17,13 @@ Before installation, import, tests, builds, cleanup or delivery, read
 - Keep credentials, license files and keyrings out of Git, reports, ordinary
   backups and published environment files. Do not inspect their contents.
 - Do not install or accept new terms/login prompts without applicable user
-  authorization. FirstRep uses the pinned fork; fix there and submit upstream PRs
-  without waiting for upstream approval before local adoption.
+  authorization.
+- Fix Framework defects and missing general-purpose capabilities in
+  `alone-jam/EjoyFramework`, add regression coverage, push the fix and submit an
+  upstream PR. FirstRep uses the verified fork revision without waiting for
+  upstream approval. Do not duplicate general Framework infrastructure in this
+  project to work around a defect or missing capability; retain game-specific
+  rules and Unity adapters here. Pin the full tested commit SHA in the manifest,
+  lockfile, dependency guard and provenance, retaining PR/commit mappings.
 - Historical official-pin tests/Player/GIF do not validate a new fork revision.
   Missing Editor, LFS payloads, licensing or storage must be reported explicitly.

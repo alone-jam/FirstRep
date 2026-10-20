@@ -2,7 +2,7 @@
 
 恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
 
-当前依赖固定为 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。武器通过 AbilitySystem、靶子通过 UnitModel；最新批次接入 IEntityManager.ShowEntityFailure，将已报告的演员创建失败转入现有流程和 MVVM 失败菜单，用户可安全 Exit，正常暂停仍可 Resume。Unity 6000.6.5f1 EditMode **9/9**、PlayMode **10/10** 通过，包含真实 EntityManager 故障注入、退出/重进和后续特效失败隔离。见 [本批目标/边界](FRAMEWORK-FAILURE-FLOW-20261020.md)、[最新证据](framework-failure-flow-validation-20261020.json) 和 [脱敏副本](evidence/framework-failure-flow-20261020/manifest.json)。此前武器/单位增量见 [调用审计](FRAMEWORK-DEVELOPMENT-AUDIT-20261020.md) 与 [当轮证据](framework-adoption-increment-20261020.json)。
+当前依赖固定为 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。武器通过 AbilitySystem、靶子通过 UnitModel，演员创建失败通过 IEntityManager.ShowEntityFailure 进入现有流程和 MVVM 菜单。最新批次用 Framework EventChannel 发送 HUD 状态快照，移除逐帧 Refresh，关闭退订、重开读取初态；命中标记只在活动时检查到期。Unity 6000.6.5f1 EditMode **9/9**、PlayMode **11/11** 通过，包含 HUD 事件次数、弹药/换弹、暂停期间状态变化、靶子复用和退出/重进订阅检查。见 [本批调用链、累计矩阵与边界](FRAMEWORK-HUD-EVENTS-20261020.md)、[最新证据](framework-hud-events-validation-20261020.json) 和 [脱敏副本](evidence/framework-hud-events-20261020/manifest.json)。此前增量见 [失败流程](FRAMEWORK-FAILURE-FLOW-20261020.md) 与 [武器/单位审计](FRAMEWORK-DEVELOPMENT-AUDIT-20261020.md)。
 
 先前同一 fork 的原生物理查询 7/7、源码 `9a7c412` 的完整 Player/无图形启动保持为历史结果，本轮没有重复上游全套测试或大型构建。旧 Player 不覆盖本轮增量。画面、实际听感和性能未验收；Release 上传排障已按优先级暂停，原包保留。下文旧官方 pin 的结果均为历史。
 
@@ -12,7 +12,7 @@
 
 该提交基于上游 `3d00472607e4b7d180358a571e79aa7bee6ddfa4`，包含非凸静态重叠查询测试几何修正（[PR #19](https://github.com/one2world/EjoyFramework/pull/19)）和弹道重力、引信、碰撞半径、复制纠正修复（[PR #20](https://github.com/one2world/EjoyFramework/pull/20)）。两项 PR 尚未合并；本地采用不等待维护者批准。
 
-后续流程：在 fork 分支修复并添加回归，独立向上游提交 PR；把验证过的修复集成到 `firstrep-integration`，再同步更新 FirstRep 的 manifest、lock、依赖检查常量及来源记录。保留 PR 与提交映射，后续按需同步上游，避免重复应用已合并补丁。
+后续流程：开发中发现 Framework 缺陷或缺失的通用能力，均在 fork 分支修复/补齐并添加回归，推送后独立向上游提交 PR；不在 FirstRep 另造通用框架设施绕过问题。把验证过的修复集成到 `firstrep-integration`，FirstRep 直接采用已修复的 fork 完整提交 SHA，不等待上游批准或合并；同步更新 manifest、lock、依赖检查常量及来源记录。保留 PR 与提交映射，后续按需同步上游，避免重复应用已合并补丁。弹匣规则、瞄准和原资源适配等游戏业务仍留在 FirstRep。
 
 先前纯 .NET 验证见 [fork-adoption-validation.json](fork-adoption-validation.json)：真实 Framework Combat 回归 47/47 通过，不使用 Unity stub；同一集合对修复前代码有 14 项失败。随后 Editor 恢复后的无许可证退出 198 已保留在 [历史恢复证据](editor-recovery-validation-20261020.json)。用户完成官方登录并明确授权 Personal 激活后，本次真实 Unity 依赖及消费者、原生物理回归全部通过。原生 7 项包含非凸中心无表面重叠控制、表面重叠的未注册碰撞体拒绝及凸碰撞体包含起点的拒绝，补验了 PR #19 的几何修正。没有修改包缓存或跳过该测试。
 
@@ -31,7 +31,7 @@
 | 玩家/靶子 | `SliceBootstrap.OnLoaded` 直接 new GameObject、Instantiate；TargetPractice 自管 Renderer/Collider 显隐 | EntityComponent/IEntityManager + FpsPlayer/TargetPractice : EntityLogic，OnInit/OnShow/OnUpdate/OnHide/OnRecycle | 单靶子隐藏/池复用复活通过；三个相同预制体物理实例独立、隐藏其中一个与空闲池复用通过 |
 | 命中特效 | `FpsPlayer.Fire` 直接 Instantiate，延时 Destroy | ImpactEffect : EntityLogic，ShowEntity/HideEntity；ITimerManager 管 expiry | 并发同预制体特效的独立 Transform、隐藏与生命周期通过 |
 | 资源 | SliceContent 的直接 prefab/audio 引用被业务 Instantiate/PlayOneShot 消费 | ResourceComponent/IResourceManager + AssetBatch 预载并 Pin；Entity/UI/Sound 从路径加载 | 单靶子测试确认 CachedAssetCount 至少 6；序列化原引用保留为作者工具/迁移审查输入，非实例化后备路径 |
-| UI | `FpsPlayer.OnGUI` 同时承担 HUD、菜单和暂停状态 | FpsHudForm/FpsPauseForm : MvvmView<TViewModel>；BindableObject、TextBinder、ButtonBinder、RelayCommand 与已有 Bind/Unbind 管理文本/命令 | 真正绑定的 uGUI 文本与按钮通过；关闭后的旧模型不再写入 View，复用生成新模型，RELOADING 显示/清除通过 |
+| UI/HUD 事件 | `FpsPlayer.OnGUI` 同时承担 HUD、菜单和暂停状态；后续迁入 MVVM 后仍逐帧 Refresh | FpsHudForm/FpsPauseForm : MvvmView<TViewModel>；IEventManager.EventChannel<PlayerHudChanged> 快照驱动 BindableObject/TextBinder；ButtonBinder/RelayCommand 管理命令 | 初始/关闭期间状态快照、射击/换弹/击杀/标记到期均更新真实 uGUI；空闲无事件、拒绝动作无重复通知、三轮暂停恢复及两轮生产重进订阅清理通过 |
 | 音频 | `FpsPlayer.Start/Fire` 直接新建 AudioSource/PlayOneShot | SoundComponent/ISoundManager 与 Weapons 组加载播放 | 单次射击调用路径通过；环境无实际音频输出设备，听感未验 |
 | 移动 | `FpsPlayer.Update` 手写速度、重力、跳跃及 CharacterController.Move | ThreeC.ThirdPersonMotor 复用加减速/重力/跳跃；CharacterControllerStepper 处理 Unity 移动/位置恢复 | 单靶子实际原场景的移动与跳跃断言通过；FPS 仅决定输入缩放和相机朝向 |
 | 计时/事件/属性 | 原本已使用 ITimerManager、EventChannel<TargetHit>、AttributeSet | 保留并在 EntityLogic 生命周期解绑/回收 | 单靶子真实射击伤害、计时换弹和复活通过 |
