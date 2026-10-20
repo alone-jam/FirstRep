@@ -752,7 +752,15 @@
     "copies": 7,
     "originalsPreservedLocally": true,
     "rawOriginalsPublished": false,
-    "remoteDownloadVerification": "Pending push and download verification."
+    "remoteDownloadVerification": {
+      "verifiedAtUtc": "2026-10-20T12:23:02.347078+00:00",
+      "evidenceCommit": "ab1186c28cbd67ed368513b00fa898220d4a2d14",
+      "remoteHeadMatches": true,
+      "sanitizedCopiesDownloadedAndHashVerified": 7,
+      "manifestAndSummaryDownloadVerified": true,
+      "productionUiAndTestSourceFilesDownloadVerified": 5,
+      "originalPrivateLogsUploaded": false
+    }
   },
   "remainingHighValueItems": [
     "HUD event-driven refresh instead of per-frame formatting.",
