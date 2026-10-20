@@ -19,5 +19,8 @@
   "configuredExternalArtifactBackup": null,
   "verifiedPersistentDirectory": null,
   "storageRules": "Docs/STORAGE-AND-RECOVERY.md",
-  "installDocumentation": "https://docs.unity.com/en-us/unity-cli/use-unity-cli"
+  "installDocumentation": "https://docs.unity.com/en-us/unity-cli/use-unity-cli",
+  "editorBinarySha256": "0e7ecdefc2d74d4af3e2556e23b102ea067272cee86aa9eec31a78e07151391b",
+  "editorArchiveOfficialIntegrity": "md5-JGqusADR2G0YWktozxe6tQ==",
+  "editorOfficialDownloadUrl": "https://download.unity3d.com/download_unity/3ff58d469c8a/LinuxEditorInstaller/Unity-6000.6.5f1.tar.xz"
 }

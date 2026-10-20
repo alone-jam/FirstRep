@@ -1,0 +1,168 @@
+{
+  "checkedAtUtc": "2026-10-20T07:12:34.032464+00:00",
+  "host": "8d483965f866",
+  "sourceCommitBeforeThisEvidenceUpdate": "9175ac768e462ede37c4f9fa918fb32febcdfcbd",
+  "cleanup": {
+    "startedAtUtc": "2026-10-20T07:08:40.240523+00:00",
+    "authorizedScope": "Only verified duplicate object files under /workspace/FirstRep/.git/lfs/objects; user explicitly approved this scope",
+    "target": "/workspace/FirstRep/.git/lfs/objects",
+    "resolvedTarget": "/workspace/FirstRep/.git/lfs/objects",
+    "verifiedFiles": 1193,
+    "payloadBytes": 12985685428,
+    "workingAssetsAndMetaDiffEmptyBefore": true,
+    "freeBeforeBytes": 5148033024,
+    "filesDeleted": 1193,
+    "finishedAtUtc": "2026-10-20T07:08:40.376666+00:00",
+    "freeAfterBytes": 18136207360,
+    "workingAssetsAndMetaDiffEmptyAfter": true,
+    "cacheRootRetained": true,
+    "otherDirectoriesDeleted": false,
+    "releasedBytes": 12988174336
+  },
+  "lfsBeforeCleanup": {
+    "checkedAtUtc": "2026-10-20T07:08:17.552872+00:00",
+    "sourceCommit": "9175ac768e462ede37c4f9fa918fb32febcdfcbd",
+    "files": 1193,
+    "payloadBytes": 12985685428,
+    "workingPayloadsVerified": true,
+    "localCacheVerified": true,
+    "manifestSha256": "333793f2a49078bafeb936c7534c8451e1941bc393fffd6d30f44b997fcb5a07",
+    "failures": [],
+    "boundary": "Local integrity at this time; not a platform retention or independent artifact backup guarantee"
+  },
+  "lfsAfterCleanup": {
+    "checkedAtUtc": "2026-10-20T07:09:20.431929+00:00",
+    "sourceCommit": "9175ac768e462ede37c4f9fa918fb32febcdfcbd",
+    "files": 1193,
+    "payloadBytes": 12985685428,
+    "workingPayloadsVerified": true,
+    "localCacheVerified": null,
+    "manifestSha256": "333793f2a49078bafeb936c7534c8451e1941bc393fffd6d30f44b997fcb5a07",
+    "failures": [],
+    "boundary": "Local integrity at this time; not a platform retention or independent artifact backup guarantee"
+  },
+  "editorInstall": {
+    "startedAtUtc": "2026-10-20T07:09:02.173045+00:00",
+    "finishedAtUtc": "2026-10-20T07:10:24.202669+00:00",
+    "command": [
+      "python3",
+      "Tools/run_unity_cli.py",
+      "install",
+      "6000.6.5f1",
+      "--non-interactive",
+      "--format",
+      "ndjson"
+    ],
+    "exitCode": 0,
+    "diskReserveStop": false,
+    "workspaceFreeBytes": 8768040960,
+    "log": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/unity-install.ndjson",
+    "acceptedEulaFlagUsed": false,
+    "loginOrActivationRequested": false
+  },
+  "editorBinaryVerification": {
+    "path": "/workspace/tools/Unity/Hub/Editor/6000.6.5f1/Editor/Unity",
+    "versionOutput": "6000.6.5f1",
+    "bytes": 119666744,
+    "sha256": "0e7ecdefc2d74d4af3e2556e23b102ea067272cee86aa9eec31a78e07151391b",
+    "expectedRevisionStringInBinary": true
+  },
+  "expectedEditorRevision": "3ff58d469c8a",
+  "archiveIntegrity": {
+    "officialValue": "md5-JGqusADR2G0YWktozxe6tQ==",
+    "source": "https://services.api.unity.com/unity/editor/release/v1/releases?version=6000.6.5f1&platform=LINUX&architecture=X86_64",
+    "cliValidationObserved": true,
+    "basis": "Official CLI emitted Validating, then Install complete and success=true; process exited 0",
+    "independentArchiveRehashPerformed": false,
+    "binarySha256IsLocalFingerprintNotPublishedArchiveChecksum": true
+  },
+  "nativePrerequisites": {
+    "lddMissingDependencies": false,
+    "editorVersionCommandExitCode": 0,
+    "additionalSystemPackagesInstalled": false
+  },
+  "actualForkDependencyAttempt": {
+    "process": {
+      "startedAtUtc": "2026-10-20T07:11:01.163476+00:00",
+      "finishedAtUtc": "2026-10-20T07:11:02.433735+00:00",
+      "command": [
+        "python3",
+        "Tools/run_unity_checked.py",
+        "-batchmode",
+        "-nographics",
+        "-quit",
+        "-projectPath",
+        "/workspace/FirstRep",
+        "-executeMethod",
+        "FirstRep.Fps.Editor.FrameworkDependencyCheck.Run",
+        "-logFile",
+        "/workspace/FirstRep/Reports/recovery-20261020T070738Z/fork-dependency-editor.log"
+      ],
+      "exitCode": 198,
+      "timedOut": false,
+      "editorLog": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/fork-dependency-editor.log",
+      "launcherLog": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/fork-dependency-launcher.log",
+      "scope": "Actual current FirstRep fork dependency resolution entry; no activation or EULA acceptance requested"
+    },
+    "forkRevision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "passed": false,
+    "diagnostic": "No valid Unity Editor license found. Please activate your license.",
+    "validationMarkerPresent": false,
+    "blockedBeforeSuccessfulDependencyValidation": true,
+    "editModeRun": false,
+    "playModeRun": false,
+    "newPlayerBuilt": false
+  },
+  "sensitiveActions": {
+    "loginStarted": false,
+    "licenseActivationAttempted": false,
+    "newEulaAccepted": false,
+    "unknownCredentialsReused": false,
+    "environmentSwitchedOrRepublished": false
+  },
+  "currentWorkspaceFreeBytes": 8767909888,
+  "rawEvidence": {
+    "lfs-before-cache-cleanup.json": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/lfs-before-cache-cleanup.json",
+      "sha256": "60dc6df22450129745c9d5bd6b670d41d9c8d15a10babc3fe9693281113c0a94"
+    },
+    "cache-cleanup-receipt.json": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/cache-cleanup-receipt.json",
+      "sha256": "12a5f90284412a3a6814de5b141ef59a95cc95d749313c473e580feeeae299d4"
+    },
+    "lfs-after-cache-cleanup.json": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/lfs-after-cache-cleanup.json",
+      "sha256": "55e8e11b533766946456b913230bb6cc2d15d843139826684693cb5c2cecaf52"
+    },
+    "unity-install.ndjson": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/unity-install.ndjson",
+      "sha256": "a03b2401e4e057e6588404a3c60b5d01aac092689d7e492a5622d63b9cd13e26"
+    },
+    "unity-install-process.json": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/unity-install-process.json",
+      "sha256": "8ea98eeedbf9dda867bde73d1acefff857dd02de44c6aebe9d2a5bbdb2220c95"
+    },
+    "editor-binary-verification.json": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/editor-binary-verification.json",
+      "sha256": "9597608c8f7ea205e65524abc29fd889105f7e04e1497b488c762879773e5f8e"
+    },
+    "fork-dependency-editor.log": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/fork-dependency-editor.log",
+      "sha256": "7300f74eab262472bb3eab0a1550133673e2c835d5d9a44b648e42c53213d07c"
+    },
+    "fork-dependency-launcher.log": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/fork-dependency-launcher.log",
+      "sha256": "a87f67da2130083230b663ad1dd7742f788bdf5fb0fa44a0eeb4717338830c2d"
+    },
+    "fork-dependency-process.json": {
+      "localPath": "/workspace/FirstRep/Reports/recovery-20261020T070738Z/fork-dependency-process.json",
+      "sha256": "2cd8f048ae6d3a7cc081534415e74d87ee8df03587c91dbee2da32b018babe6b"
+    }
+  },
+  "preservation": {
+    "externalArtifactBackupConfigured": false,
+    "rawLogsUploaded": false,
+    "scope": "Current task working files only; reviewed summary committed to existing authorized repository; no platform directory retention guarantee"
+  },
+  "nextRequiredUserAction": "Complete official private auth login in this task context and activate an applicable existing Unity license. Personal activation would require explicit user acceptance of its terms; no automatic acceptance or license purchase. Do not paste passwords/tokens/license files in chat."
+}

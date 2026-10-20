@@ -12,7 +12,7 @@
 
 后续流程：在 fork 分支修复并添加回归，独立向上游提交 PR；把验证过的修复集成到 `firstrep-integration`，再同步更新 FirstRep 的 manifest、lock、依赖检查常量及来源记录。保留 PR 与提交映射，后续按需同步上游，避免重复应用已合并补丁。
 
-本次记录见 [fork-adoption-validation.json](fork-adoption-validation.json)。此次验证：真实 Framework 纯 .NET Combat 回归 47/47 通过，不使用 Unity stub；同一测试集合对修复前代码有 14 项失败。该结果不能证明 Unity 物理测试、UPM 实际解析、FirstRep EditMode/PlayMode 或新 Player 通过。当前环境缺少 Unity 6000.6.5f1 Editor，尚未运行这些检查；下文 3/3、5/5、22/23、构建与 GIF 结果仅属于旧官方 pin。框架升级后须重新生成 AssetBundles 并完整构建 Player，不能用旧 Player 或仅 BuildScriptsOnly 作为新依赖的验证。
+本次记录见 [fork-adoption-validation.json](fork-adoption-validation.json)。此次验证：真实 Framework 纯 .NET Combat 回归 47/47 通过，不使用 Unity stub；同一测试集合对修复前代码有 14 项失败。该结果不能证明 Unity 物理测试、UPM 实际解析、FirstRep EditMode/PlayMode 或新 Player 通过。Unity 6000.6.5f1/revision 3ff58d469c8a Editor 随后已恢复，但实际依赖验证启动因无有效许可证退出 198，未完成这些检查（见 [最新证据](editor-recovery-validation-20261020.json)）；下文 3/3、5/5、22/23、构建与 GIF 结果仅属于旧官方 pin。框架升级后须重新生成 AssetBundles 并完整构建 Player，不能用旧 Player 或仅 BuildScriptsOnly 作为新依赖的验证。
 
 
 ## 具体对应清单
