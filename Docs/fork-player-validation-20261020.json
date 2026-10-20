@@ -1,0 +1,276 @@
+{
+  "recordedAtUtc": "2026-10-20T09:29:39.967748+00:00",
+  "sourceBaseCommit": "9a7c412b22fd0d5b1143fc04c683c681fa47522d",
+  "sourceCodeUnchangedDuringBuild": true,
+  "subsequentDocumentationAndTestEvidenceCommit": "ad6054ba218e481d8900fdd5a6303c319739a613",
+  "frameworkRevision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+  "unity": {
+    "version": "6000.6.5f1",
+    "revision": "3ff58d469c8a"
+  },
+  "preBuildAuth": {
+    "exitCode": 0,
+    "loggedIn": true
+  },
+  "preBuildLicense": {
+    "exitCode": 0,
+    "active": true,
+    "signedIn": true
+  },
+  "stages": [
+    {
+      "stage": "bundles",
+      "command": [
+        "python3",
+        "Tools/run_low_memory_build.py",
+        "--stage",
+        "bundles",
+        "--log-prefix",
+        "fork-bundles-20261020T075930Z"
+      ],
+      "startedAtUtc": "2026-10-20T07:59:30.573115+00:00",
+      "freeBefore": {
+        "workspace": 4530470912,
+        "tmp": 9441005568
+      },
+      "exitCode": 0,
+      "finishedAtUtc": "2026-10-20T08:06:12.088839+00:00",
+      "freeAfter": {
+        "workspace": 4367785984,
+        "tmp": 9441005568
+      }
+    },
+    {
+      "stage": "player",
+      "command": [
+        "python3",
+        "Tools/run_low_memory_build.py",
+        "--stage",
+        "player",
+        "--log-prefix",
+        "fork-player-20261020T075930Z"
+      ],
+      "startedAtUtc": "2026-10-20T08:06:12.089213+00:00",
+      "freeBefore": {
+        "workspace": 4367785984,
+        "tmp": 9441005568
+      },
+      "exitCode": 0,
+      "finishedAtUtc": "2026-10-20T09:24:08.992853+00:00",
+      "freeAfter": {
+        "workspace": 1626726400,
+        "tmp": 7567192064
+      }
+    }
+  ],
+  "buildReport": {
+    "result": "Succeeded",
+    "sizeBytes": 2080389778,
+    "errors": 0,
+    "warnings": 85,
+    "duration": "01:15:22.0287900",
+    "editorExitCode": 0
+  },
+  "actualPlayerStartup": {
+    "exitCode": 0,
+    "missingDynamicLibraries": [],
+    "startedAtUtc": "2026-10-20T09:24:40.461573+00:00",
+    "finishedAtUtc": "2026-10-20T09:24:47.463119+00:00",
+    "command": [
+      "/workspace/FirstRep/Builds/Linux/FirstRep.x86_64",
+      "-batchmode",
+      "-nographics",
+      "-job-worker-count",
+      "1",
+      "-firstrep-smoke-test",
+      "/workspace/FirstRep/Reports/fork-player-smoke-20261020T092440Z/smoke.json",
+      "-logFile",
+      "/workspace/FirstRep/Reports/fork-player-smoke-20261020T092440Z/player.log"
+    ],
+    "result": {
+      "passed": true,
+      "unity": "6000.6.5f1",
+      "device": "Null Device",
+      "api": "Null",
+      "error": "",
+      "scenes": 4,
+      "targets": 3,
+      "nonBlackPixels": 0,
+      "totalPixels": 0,
+      "ground": true
+    },
+    "scope": "Actual newly built Player, headless startup only; no graphics, audio-device or performance acceptance.",
+    "exceptionOrCrashLines": 0
+  },
+  "generatedAssetRestoration": {
+    "path": "Assets/FirstRep/Framework/Pause.prefab",
+    "generatedSha256": "8316df0b9a7c77c077c448acef3eea312c22aeb282a31d2cf3c3528fe5759ca7",
+    "restoredSha256": "37632c5636a45158bacbdce91134756f254f07606cfe549947798ca5d541f53b",
+    "restoredSourceCommit": "9a7c412b22fd0d5b1143fc04c683c681fa47522d",
+    "scope": "BuildResources regenerates the Pause prefab. Generated file/diff preserved locally; source restored after the complete Player build and startup check."
+  },
+  "sourceWorktreeCleanAfterRestoration": true,
+  "storage": {
+    "newPlayerDataCache": "/tmp/firstrep-intermediates/PlayerDataCache-fork-20261020T075930Z",
+    "noExistingFilesDeleted": true,
+    "noEnvironmentSwitch": true,
+    "noExtraPlayerDirectoryCopy": true,
+    "workspaceFreeBytes": 1626644480,
+    "tmpFreeBytes": 5748957184,
+    "metrics": [
+      {
+        "stage": "bundles",
+        "samples": 200,
+        "peakCgroupBytes": 17179869184,
+        "peakAnonPlusShmemBytes": 7544422400,
+        "minimumWorkspaceFreeBytes": 4357046272,
+        "minimumTmpFreeBytes": 9294012416,
+        "note": "Cgroup current includes reclaimable file cache; these peaks are not minimum memory requirements."
+      },
+      {
+        "stage": "player",
+        "samples": 2332,
+        "peakCgroupBytes": 17179869184,
+        "peakAnonPlusShmemBytes": 10783752192,
+        "minimumWorkspaceFreeBytes": 1564241920,
+        "minimumTmpFreeBytes": 3539652608,
+        "note": "Cgroup current includes reclaimable file cache; these peaks are not minimum memory requirements."
+      }
+    ],
+    "observedOomKills": 0
+  },
+  "package": {
+    "archive": "/tmp/firstrep-release-20261020-093a175/FirstRep-Linux-6000.6.5f1-fork-093a175.tar.gz",
+    "bytes": 1818104222,
+    "sha256": "13d81e70b907d9165cba9a81d5716891828573b539820ec94c60ef09a9ca2ee3",
+    "runtimeAndNoticeFiles": 228,
+    "uncompressedBytes": 2043871175
+  },
+  "archiveVerification": {
+    "verifiedFiles": 230,
+    "allMemberSizesAndHashesMatch": true,
+    "noSymlinksOrTraversal": true
+  },
+  "checksumFile": {
+    "localPath": "/tmp/firstrep-release-20261020-093a175/SHA256SUMS",
+    "bytes": 112,
+    "sha256": "8e82445c384e0b65f2e16a82f5bebf7ecfe01ce1e4a1672b3b778aba5e7a8bd5",
+    "backup": "local only; not uploaded"
+  },
+  "packageScope": "230 files: Player runtime, applicable software copyright/license notices, release notes and checksum manifests. Excludes source directories, debug-only backups, private logs, credentials and Editor activation/license files.",
+  "release": {
+    "repository": "alone-jam/FirstRep",
+    "visibility": "public",
+    "userAuthorized": true,
+    "tag": "firstrep-linux-6000.6.5f1-fork-093a175-20261020",
+    "targetCommit": "9a7c412b22fd0d5b1143fc04c683c681fa47522d",
+    "draftId": 418223234,
+    "draft": true,
+    "prerelease": true,
+    "draftUrl": "https://github.com/alone-jam/FirstRep/releases/tag/untagged-e0dc3a9ed46f5f3ee897",
+    "assets": [],
+    "uploadAttempted": true,
+    "uploadSucceeded": false,
+    "failedAction": "Upload Player archive as Release attachment",
+    "failedEndpoint": "https://uploads.github.com/repos/alone-jam/FirstRep/releases/418223234/assets",
+    "httpStatus": 401,
+    "error": "Bad credentials",
+    "subsequentReadOnlyChecks": "Existing draft confirmed with zero assets; repository API still reports admin/maintain/push permissions.",
+    "published": false,
+    "remoteDownloadHashVerified": false,
+    "retention": "No fixed retention term agreed; no remote Player artifact exists yet.",
+    "nextRequirement": "Repair or reconnect GitHub authentication for uploads.github.com, then resume this draft, publish after successful upload, and verify public downloads. No alternate artifact destination used."
+  },
+  "evidence": [
+    {
+      "localPath": "Reports/fork-bundles-20261020T075930Z.log",
+      "bytes": 219614,
+      "sha256": "6f0badeaac6c922cf02a69f850264b12d489c80096eea60c473d36619e3c126a",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-bundles-20261020T075930Z-launcher.log",
+      "bytes": 2180,
+      "sha256": "4a6478766c2ae8e87d1f9e5003d517adf10c02477de9edc7be402c03055ca515",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-bundles-20261020T075930Z-samples.jsonl",
+      "bytes": 289209,
+      "sha256": "f4f7246bbe0644fd4ec50fcf2dc6fbf8bee47457c77629146521216edfe28215",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-20261020T075930Z.log",
+      "bytes": 1018399,
+      "sha256": "db7671d65da359f89e5cd9765d6d19d1f5ddb5c7cd8a12abf178964effd9adf8",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-20261020T075930Z-launcher.log",
+      "bytes": 2180,
+      "sha256": "dd0b1f2a88aa0f80c5d58e33de94f7798e2b8e4144d912c7bd19f6f2bcdb1178",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-20261020T075930Z-samples.jsonl",
+      "bytes": 3403616,
+      "sha256": "89c98a0889832771e8b81d8b0ab9cba90f1eb955fe3031cd7d34d74acbd20056",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-20261020T075930Z/processes.json",
+      "bytes": 1877,
+      "sha256": "ee0a3023b21cf9c15b289e1cb25b86cd06b90625ad592a09936cc3825fe940ad",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-20261020T075930Z/generated-asset-restoration.json",
+      "bytes": 467,
+      "sha256": "7a7a1aafd28f504109129c5551051a102767727426de6f39f3e3496e94ad69d8",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-20261020T075930Z/build-generated-Pause.prefab",
+      "bytes": 14871,
+      "sha256": "8316df0b9a7c77c077c448acef3eea312c22aeb282a31d2cf3c3528fe5759ca7",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-20261020T075930Z/build-generated-Pause.patch",
+      "bytes": 6398,
+      "sha256": "36c42de36e7d3c9ba3b116099f1ab2ea02f02a7b03c153b43de50b33de89f854",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/build-summary.txt",
+      "bytes": 76,
+      "sha256": "3d621ad087b753b3ec05c1850a5e87cbfacca31f4deefd5168db647145f34282",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-smoke-20261020T092440Z/smoke.json",
+      "bytes": 216,
+      "sha256": "bf424e6a2fe0c608f92934d41e0f2d20f24d49e78ab48500faff7e92fc58c705",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-smoke-20261020T092440Z/player.log",
+      "bytes": 19001,
+      "sha256": "b62cb384bea1237d8abbdb2c8de6d0afae8087717cc57353a4eea6f79df0862f",
+      "backup": "local only; not uploaded"
+    },
+    {
+      "localPath": "Reports/fork-player-smoke-20261020T092440Z/process.json",
+      "bytes": 1029,
+      "sha256": "e2e7b38224d0373b0489ec668869ea4e11834022c7861e94a5593c69cc06bddb",
+      "backup": "local only; not uploaded"
+    }
+  ],
+  "limitations": [
+    "Current Player build and headless startup passed; public artifact delivery remains incomplete because attachment upload returned 401.",
+    "Headless Null Device startup does not verify rendered graphics, audio-device playback or performance; known legacy material/color issues remain unresolved.",
+    "Original logs and Player/package are currently local only. Sanitized earlier test copies are separately saved in the authorized source repository."
+  ],
+  "historicalRecordsOverwritten": false
+}

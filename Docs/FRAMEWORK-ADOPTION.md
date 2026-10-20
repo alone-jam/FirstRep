@@ -2,7 +2,7 @@
 
 恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
 
-当前依赖为 alone-jam fork 固定提交 `093a175b60a196e2ad864a01ace49e90f58aacc3`。2026-10-20 实际 Unity 6000.6.5f1 已核验 UPM 来源为该 Git URL/SHA，FirstRep EditMode **3/3**、PlayMode **5/5**、框架原生物理查询回归 **7/7** 全部通过，退出码均为 0。见 [当前 fork 证据](current-fork-validation.json)。新 Player、画面与听感尚未复验；下文旧官方 pin 的结果保留为历史。
+当前依赖为 alone-jam fork 固定提交 `093a175b60a196e2ad864a01ace49e90f58aacc3`。2026-10-20 实际 Unity 6000.6.5f1 已核验 UPM 来源为该 Git URL/SHA，FirstRep EditMode **3/3**、PlayMode **5/5**、框架原生物理查询回归 **7/7** 全部通过，退出码均为 0。见 [当前 fork 证据](current-fork-validation.json)。当前 fork 的新 bundles 与完整 Linux Player 已构建成功（0 错误、85 警告），实际无图形启动退出 0，确认 4 场景、3 靶子与地面。Release 附件上传返回 401，草稿无附件，尚未交付；见 [新 Player 记录](fork-player-validation-20261020.json)。画面、听感和性能仍未验收；下文旧官方 pin 的结果保留为历史。
 
 ## 依赖来源
 

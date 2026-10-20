@@ -38,7 +38,7 @@
 ## 恢复顺序与验证入口
 
 1. **先定位原状态，不切换执行器。** 在同一任务核对环境配置、已发布基线、恢复记录及文件路径；如需平台支持，提供环境 ID、时间、主机和缺失路径，不提供凭据。本任务没有权限接口证明原发布状态，不能自行发布/重建新环境。
-2. **先完成存储配置核验。** 当前 `verifiedPersistentDirectory`、`configuredExternalArtifactBackup` 均为 null。待配置项是用户确认的产物目的地、权限/保留期和取回验证方式；若平台提供目录契约，需记录官方出处、适用环境与范围后再用。配置前可做安全源码工作，但不能将新大型唯一产物宣称已可靠保存。
+2. **先完成存储配置核验。** 当前 `verifiedPersistentDirectory`、`configuredExternalArtifactBackup` 均为 null。用户已确认 Player 压缩包与校验清单保存到同一公开仓库 alone-jam/FirstRep 的 GitHub Release，但本轮附件上传被 uploads.github.com 以 401 Bad credentials 拒绝，草稿 418223234 无附件，尚未发布或完成取回校验；固定保留期未约定。需先修复该上传主机的认证，才能继续使用已授权目的地；若平台提供目录契约，需记录官方出处、适用环境与范围后再用。配置前可做安全源码工作，但不能将新大型唯一产物宣称已可靠保存。
 3. **检查源码与资源。** `python3 Tools/check_environment.py --verify-remote` 只读输出状态，不安装、不下载、不登录、不读密钥。若需恢复 LFS，先核对既有 `origin`，在授权和空间允许时运行 `git lfs pull origin work`；之后逐项校验 payload 的 SHA256/OID。本次已完成下载与校验，使用了本地 `git lfs install --local --skip-repo` 恢复过滤器，未改全局配置或 hooks。`python3 Tools/verify_lfs_payloads.py --include-local-cache` 可只读复验两份内容；不带该开关则只验工作副本。13 GB 原始资产之外还需 Editor、Library 和打包空间，不能仅看当前剩余盘就宣称完整构建可行。
 4. **恢复工具。** 用户原先已明确要求安装 Unity CLI 及 Unity 6000.6.5f1；本次已从官方版本 manifest 恢复 CLI `1.0.0-beta.13`，按官方 SHA256 核验，入口为 `python3 Tools/run_unity_cli.py`。其状态存放在安装清单列明的 Unity 专用 XDG 目录；未修改 shell 配置、系统包或凭据。Editor 现已通过官方 CLI 安装成功，实测版本和二进制内 revision 一致；记录见 [最新恢复证据](editor-recovery-validation-20261020.json)。依据 [Unity CLI 官方安装说明](https://docs.unity.com/en-us/unity-cli/use-unity-cli) 恢复 CLI 后先读 `unity --help`、`unity install --help`、`unity install-path --help`，记录精确 CLI 版本/hash。确认安装路径后使用 `unity install 6000.6.5f1`；feed 找不到版本时按 [官方参考](https://docs.unity.com/en-us/unity-cli/unity-cli-reference) 核对 changeset，项目记录为 `3ff58d469c8a`，不改装 latest。模块先按该版本官方清单核验，只恢复现有 Linux 目标所需模块。不要自动接受条款、购买席位或提升系统权限。
 5. **认证与版本。** 用户通过正规私密流程确认当前账号/许可证适用及需要的新条款；遵守 [Unity Editor 条款](https://unity.com/legal/editor-terms-of-service/software)。可用 CLI 的 `auth status` 只在授权上下文中检查且不提交身份输出；恢复初次实测 loggedIn=false、license active=false（退出码分别为 3、4）；后续用户已完成官方登录并明确授权 Personal 激活，当前许可检查和真实 Editor 运行均成功，见 [当前 fork 验证](current-fork-validation.json)。不把未登录直接等同于安装命令必需登录。遇新条款/许可确认停下交用户处理。本机 Debian 13/glibc 2.41；现行 CLI 文档列举 Linux RHEL 9/Ubuntu 22.04+，不能由 glibc 满足就声称本发行版受支持，须实际兼容性检查。不要为此静默换机器。
@@ -71,3 +71,9 @@ python3 Tools/run_unity_checked.py -batchmode -nographics -projectPath "$PWD" \
 确认 UPM 实际来自 fork 固定 SHA、编译成功、XML 各项测试与退出码后，重建资源再完整构建：`python3 Tools/run_low_memory_build.py --stage bundles`，然后 `--stage player`；首次恢复/升级框架不能只跑 `--stage scripts`。该入口默认使用新的时间戳日志且拒绝覆盖已有前缀。仍须验证新的 Player、真实画面、退出与录屏，保留 NaN 清理及现有美术资源；headless 不证明画面/听感。
 
 成功/失败均记录原始证据 hash及备份状态。若不能恢复任何前提，停止对应导入/构建而继续不依赖它的源码工作；报告准确缺口，不删文件、不伪造通过、不扩展上传目的地。
+
+## 本轮 Player 构建与交付状态（2026-10-20）
+
+固定 fork 的 bundles 与完整 Player 已成功构建，Editor 退出 0，报告 0 错误、85 警告；新 Player 实际无图形启动退出 0，确认 4 场景、3 靶子及地面。仅新生成的 PlayerDataCache 放入 `/tmp/firstrep-intermediates`，没有删除既有文件或切换环境；原有 1 GiB 磁盘保护继续生效。构建生成的 Pause prefab 已保留副本和差异，并还原源码。
+
+压缩包 1,818,104,222 字节，SHA256 `13d81e70b907d9165cba9a81d5716891828573b539820ec94c60ef09a9ca2ee3`，包内 230 个文件大小/hash 全部核验通过。包仅含运行文件、软件版权/许可说明和校验清单；不包含私密日志、凭据或 Editor 激活文件。上传因 401 失败，原始 Player、唯一压缩包、校验清单和本轮私密日志仍仅本地保留，不能宣称完成备份或公开交付。没有换上传目的地、重试被拒绝的附件上传或发布空草稿。完整状态见 [fork-player-validation-20261020.json](fork-player-validation-20261020.json)。
