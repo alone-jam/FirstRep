@@ -1,4 +1,6 @@
-> 当前 fork `c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`。使用官方完整 Framework Prefab variant、ProcedureComponent 启动、标准 UI 分组和官方自动绑定/代码生成。启动主菜单点击 Start 进入；Esc 暂停后 Main menu 返回，或 Resume 继续；加载失败可 Retry 或返回主菜单；Exit 结束会话。消费者 EditMode 9/9、PlayMode 19/19，见 [当前接入与累计矩阵](FRAMEWORK-PREFAB-MENU-20261020.md)、[证据](framework-prefab-menu-validation-20261020.json)。旧 Player/录屏不验证新 pin 和菜单，新的构建/画面/听感/性能仍未验收；Release 暂停。
+> 当前 fork `c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`。使用官方完整 Framework Prefab variant、ProcedureComponent 启动、标准 UI 分组和官方自动绑定/代码生成。启动主菜单点击 Start 进入；Esc 暂停后 Main menu 返回，或 Resume 继续；加载失败可 Retry 或返回主菜单；Exit 结束会话。消费者 EditMode 9/9、PlayMode 20/20，见 [当前接入与累计矩阵](FRAMEWORK-PREFAB-MENU-20261020.md)、[证据](framework-prefab-menu-validation-20261020.json)。旧 Player/录屏不验证新 pin 和菜单，新的构建/画面/听感/性能仍未验收；Release 暂停。
+
+当前启动入口在执行二进制前核验同目录 `PLAYER-MANIFEST.json` 的源码/fork/Unity 和运行文件哈希；现存旧 Player 会被拒绝。新构建、图形/音频能力及具体验收条件见 [收尾审计](DEVELOPMENT-CLOSEOUT-20261020.md)。下文启动、显示工具和交付路径均为历史记录，不代表当前环境具备它们。
 
 ## 历史检查点记录
 

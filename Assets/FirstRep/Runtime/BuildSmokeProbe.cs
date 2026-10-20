@@ -28,10 +28,19 @@ void Update(){
 if(windowReport){ReportWindow();return;}
 if(scheduled)return;
 var player=FindFirstObjectByType<FpsPlayer>();
-if(!player){if(Time.realtimeSinceStartup>deadline)Finish("Player did not load in 180 seconds");return;}
+if(!player){TryEnterLevelFromMenu();var boot=FindFirstObjectByType<SliceBootstrap>();if(boot && !string.IsNullOrEmpty(boot.Failure))Finish("Level load failed: "+boot.Failure);else if(Time.realtimeSinceStartup>deadline)Finish("Player did not load in 180 seconds");return;}
 scheduled=true;view=player.view;
 if(SystemInfo.graphicsDeviceType!=UnityEngine.Rendering.GraphicsDeviceType.Null){target=new RenderTexture(640,360,24);target.Create();view.targetTexture=target;}
 Framework.GetModule<ITimerManager>().AddTimer(3,()=>Finish(null),true);
+}
+// Only the opt-in smoke run drives the real bound Start command. Normal gameplay
+// and window-report capture keep the menu under user control.
+public static bool TryEnterLevelFromMenu(){
+var procedure=EjoyFramework.Core.Unity.GameEntry.Procedure;
+if(!procedure || !procedure.IsInitialized || !(procedure.CurrentProcedure is MainMenuOriginalLevel))return false;
+var boot=FindFirstObjectByType<SliceBootstrap>();
+if(!boot || boot.ExitStatus.Requested || !(boot.UI.GetUIForm(boot.content.MainMenuAssetPath) is FpsMainMenuForm menu) || menu.ViewModel==null || !menu.ViewModel.StartCommand.CanExecute(null))return false;
+menu.ViewModel.StartCommand.Execute(null);return true;
 }
 void ReportWindow(){
 if(Time.realtimeSinceStartup<nextReport)return;nextReport=Time.realtimeSinceStartup+1;

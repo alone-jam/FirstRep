@@ -2,9 +2,11 @@
 
 恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
 
-当前固定 alone-jam fork `c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`，含 [Prefab/场景职责修复 PR #21](https://github.com/one2world/EjoyFramework/pull/21)。FirstRep 现采用官方完整 Prefab 的配置 variant、ProcedureComponent 启动、GameEntry、8 个标准 UI 分组，以及官方按钮自动绑定和流程/MVVM 生成工具；此前手工模块/根节点/事件系统/分组接线及手写访问器登记已移除。现有玩法具备启动菜单 → 进入 → 暂停或加载失败 → 返回菜单 → 再进入闭环，Retry/Exit 保留。真实 Unity 6000.6.5f1 EditMode **9/9**、PlayMode **19/19**；见 [本批复用清单、累计矩阵与边界](FRAMEWORK-PREFAB-MENU-20261020.md)、[证据](framework-prefab-menu-validation-20261020.json) 和 [脱敏清单](evidence/framework-prefab-menu-20261020/manifest.json)。
+当前固定 alone-jam fork `c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`，含 [Prefab/场景职责修复 PR #21](https://github.com/one2world/EjoyFramework/pull/21)。FirstRep 现采用官方完整 Prefab 的配置 variant、ProcedureComponent 启动、GameEntry、8 个标准 UI 分组，以及官方按钮自动绑定和流程/MVVM 生成工具；此前手工模块/根节点/事件系统/分组接线及手写访问器登记已移除。现有玩法具备启动菜单 → 进入 → 暂停或加载失败 → 返回菜单 → 再进入闭环，Retry/Exit 保留。真实 Unity 6000.6.5f1 EditMode **9/9**、PlayMode **20/20**；见 [本批复用清单、累计矩阵与边界](FRAMEWORK-PREFAB-MENU-20261020.md)、[证据](framework-prefab-menu-validation-20261020.json) 和 [脱敏清单](evidence/framework-prefab-menu-20261020/manifest.json)。
 
 此前 093a175 fork 的原生物理查询 7/7、源码 `9a7c412` 的完整 Player/无图形启动保持为历史结果，本轮没有重复上游全套测试或大型构建。旧 Player 不覆盖本轮增量。画面、实际听感和性能未验收；Release 上传排障已按优先级暂停，原包保留。下文旧官方 pin 的结果均为历史。
+
+本轮收尾核对完整 Prefab、缓存一致性、菜单资源和订阅生命周期，并修复旧 Player 启动入口及 smoke 菜单入口；详见 [收尾审计与后续验收条件](DEVELOPMENT-CLOSEOUT-20261020.md)。
 
 ## 依赖来源
 

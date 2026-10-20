@@ -157,6 +157,15 @@ var exit=boot.ExitStatus;((FpsMainMenuForm)boot.UI.GetUIForm(content.MainMenuAss
 yield return Closed(exit);Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);
 Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
 }
+[UnityTest] public IEnumerator DevelopmentSmokeUsesTheReadyMenuCommandOnce(){
+var boot=Fixture(out var content,true);yield return MainMenuReady(boot);
+var menu=(FpsMainMenuForm)boot.UI.GetUIForm(content.MainMenuAssetPath);var oldModel=menu.ViewModel;
+Assert.IsTrue(BuildSmokeProbe.TryEnterLevelFromMenu());Assert.IsFalse(BuildSmokeProbe.TryEnterLevelFromMenu(),"Smoke queued a second Start after leaving the menu");
+Assert.IsFalse(oldModel.StartCommand.CanExecute(null));yield return Ready(boot);
+Assert.AreEqual(2,boot.Entities.EntityCount);Assert.AreEqual(1,Framework.GetModule<IEventManager>().GetChannel<PlayerHudChanged>().HandlerCount);
+Assert.IsFalse(BuildSmokeProbe.TryEnterLevelFromMenu());boot.Exit();yield return Closed(boot.ExitStatus);
+Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
+}
 [UnityTest] public IEnumerator FailedLevelCanReturnToMainMenuThenEnterSuccessfully(){
 int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;var boot=Fixture(out var content,true);yield return MainMenuReady(boot);
 string targetPath=content.TargetAssetPath;content.TargetAssetPath="Assets/FirstRep/Framework/Missing-for-menu-return.prefab";ExpectMissingResourceFailure();
