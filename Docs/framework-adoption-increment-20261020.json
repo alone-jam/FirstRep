@@ -586,7 +586,16 @@
     "copies": 7,
     "originalsPreservedLocally": true,
     "rawOriginalsPublished": false,
-    "remoteDownloadVerification": "Pending until this evidence commit is pushed."
+    "remoteDownloadVerification": {
+      "verifiedAtUtc": "2026-10-20T12:00:03.509226+00:00",
+      "evidenceCommit": "64b5d4426877654b7f20a05ae179240ff3a70677",
+      "remoteHeadMatches": true,
+      "sanitizedCopiesDownloadedAndHashVerified": 7,
+      "manifestDownloadedAndHashVerified": true,
+      "summaryDownloadedAndHashVerified": true,
+      "productionCodeFilesDownloadedAndHashVerified": 3,
+      "scope": "Only the authorized source repository and explicitly sanitized evidence; original private diagnostics remain local."
+    }
   },
   "scopeLimits": [
     "Headless actual Unity consumer suites only. No new Player build, rendered graphics, audio-device playback, performance or full upstream framework suite run.",
