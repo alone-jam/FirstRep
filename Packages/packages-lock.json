@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.ejoy.framework": {
-      "version": "https://github.com/one2world/EjoyFramework.git#a5e1ec6f3472f741815108509ba303ce39b933c3",
+      "version": "https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
       "depth": 0,
       "source": "git",
       "dependencies": {
@@ -19,7 +19,7 @@
         "com.unity.modules.video": "1.0.0",
         "com.unity.modules.animation": "1.0.0"
       },
-      "hash": "a5e1ec6f3472f741815108509ba303ce39b933c3"
+      "hash": "093a175b60a196e2ad864a01ace49e90f58aacc3"
     },
     "com.unity.burst": {
       "version": "2.0.0",

@@ -1,10 +1,17 @@
 # Framework 接入审查与整改
 
-官方修复已消费。实际 Unity 6000.6.5f1：FirstRep EditMode 3/3、PlayMode 5/5 通过。上游相关测试 22/23 通过，一项历史碰撞测试断言失败，详见下文。生产 Player 构建与画面验收单独记录，不能由无图形测试推断。
+当前依赖已改为 alone-jam fork 的固定修复提交，Unity 消费者回归待验；下文旧官方 pin 的测试和 Player 均为历史证据。历史实际 Unity 6000.6.5f1：FirstRep EditMode 3/3、PlayMode 5/5 通过。上游相关测试 22/23 通过，一项历史碰撞测试断言失败，详见下文。生产 Player 构建与画面验收单独记录，不能由无图形测试推断。
 
 ## 依赖来源
 
-`Packages/manifest.json` 与 `packages-lock.json` 固定官方 Git SHA `a5e1ec6f3472f741815108509ba303ce39b933c3`，实际 UPM `source=git`、解析 hash 已核验。无嵌入 Framework，无包缓存补丁。许可保留在 `ThirdPartyNotices/EjoyFramework/LICENSE.md`。
+`Packages/manifest.json` 与 `packages-lock.json` 固定 `https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3`，对应 fork 的 `firstrep-integration` 分支。以完整 SHA 固定，不随分支移动自动升级。无嵌入 Framework，无包缓存补丁。许可保留在 `ThirdPartyNotices/EjoyFramework/LICENSE.md`。
+
+该提交基于上游 `3d00472607e4b7d180358a571e79aa7bee6ddfa4`，包含非凸静态重叠查询测试几何修正（[PR #19](https://github.com/one2world/EjoyFramework/pull/19)）和弹道重力、引信、碰撞半径、复制纠正修复（[PR #20](https://github.com/one2world/EjoyFramework/pull/20)）。两项 PR 尚未合并；本地采用不等待维护者批准。
+
+后续流程：在 fork 分支修复并添加回归，独立向上游提交 PR；把验证过的修复集成到 `firstrep-integration`，再同步更新 FirstRep 的 manifest、lock、依赖检查常量及来源记录。保留 PR 与提交映射，后续按需同步上游，避免重复应用已合并补丁。
+
+本次记录见 [fork-adoption-validation.json](fork-adoption-validation.json)。此次验证：真实 Framework 纯 .NET Combat 回归 47/47 通过，不使用 Unity stub；同一测试集合对修复前代码有 14 项失败。该结果不能证明 Unity 物理测试、UPM 实际解析、FirstRep EditMode/PlayMode 或新 Player 通过。当前环境缺少 Unity 6000.6.5f1 Editor，尚未运行这些检查；下文 3/3、5/5、22/23、构建与 GIF 结果仅属于旧官方 pin。框架升级后须重新生成 AssetBundles 并完整构建 Player，不能用旧 Player 或仅 BuildScriptsOnly 作为新依赖的验证。
+
 
 ## 具体对应清单
 
@@ -38,7 +45,7 @@
 
 结构化结果及每个 XML 的 SHA-256 见 [official-framework-validation.json](official-framework-validation.json)。完整原始 XML/日志保存在本地 Reports：`official-a5e1ec6-editmode.xml`、`official-a5e1ec6-playmode-preserved.xml`、`official-a5e1ec6-upstream-unity.xml`。无凭据、许可证、缓存或构建二进制进入源码。
 
-## 当前生产构建与画面验证（2026-10-16）
+## 历史官方 pin 的生产构建与画面验证（2026-10-16）
 
 在原环境 `/workspace/FirstRep` 只读核对路径后重新生成了 2 个 bundle、9 项资源和 manifest。同一官方 pin 的完整 Linux Player 已成功构建：Errors=0、Warnings=86、Time=01:23:35.0681140，Editor 正常退出 0。此前失败没有被当作成功，新结果见 [current-player-validation.json](current-player-validation.json)，当前 bundle 大小和哈希见 [production-validation.json](production-validation.json)。完整构建之后仅用 Unity 支持的 BuildScriptsOnly 更新脚本；`data.unity3d`、UnityPlayer、Ejoy 程序集和 bundle manifest 的哈希保持一致。
 
@@ -56,4 +63,4 @@
 
 早期完整构建在 HDRP Forward 阶段遇到 OOM，之后低并发重试通过该阶段却在 LZ4HC 打包时耗尽临时盘；这些是历史尝试，详见 [low-memory-build-validation.json](low-memory-build-validation.json)。不能将删除磁盘缓存等同于解决内存上限。新完整构建实际观察到最多两个 ShaderCompiler 进程；cgroup current 含可回收文件缓存，不能据峰值声称最低所需内存。
 
-`Tools/run_low_memory_build.py --stage bundles` 生成资源；`--stage player` 验证当前 bundle 平台、大小、MD5 和官方 pin 后完整构建；`--stage scripts` 仅用于已有完整 Player 且没有资源变更的脚本更新。完整构建仍执行项目 Validate，脚本入口不会冒称重新验证/打包全部美术资源。参数依据 [Unity 官方命令行文档](https://docs.unity3d.com/6000.0/Documentation/Manual/EditorCommandLineArguments.html)；脚本更新机制见 [BuildScriptsOnly](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/BuildOptions.BuildScriptsOnly.html)。
+`Tools/run_low_memory_build.py --stage bundles` 生成资源；`--stage player` 验证当前 bundle 平台、大小、MD5 和当前固定 pin 后完整构建；`--stage scripts` 仅用于已有完整 Player 且没有资源变更的脚本更新。完整构建仍执行项目 Validate，脚本入口不会冒称重新验证/打包全部美术资源。参数依据 [Unity 官方命令行文档](https://docs.unity3d.com/6000.0/Documentation/Manual/EditorCommandLineArguments.html)；脚本更新机制见 [BuildScriptsOnly](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/BuildOptions.BuildScriptsOnly.html)。

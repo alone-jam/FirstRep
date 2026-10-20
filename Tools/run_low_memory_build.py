@@ -7,7 +7,7 @@ Generate bundles from the current assets before using this explicit staged entry
 import subprocess,time,json,pathlib,os,sys,argparse
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--stage",choices=["bundles","player","scripts"],default="player")
-parser.add_argument("--log-prefix",default="official-a5e1ec6-build-low-memory")
+parser.add_argument("--log-prefix",default="firstrep-pinned-build-low-memory")
 options=parser.parse_args()
 if pathlib.Path(options.log_prefix).name!=options.log_prefix:
  parser.error("log prefix must be a filename, without directories")

@@ -1,0 +1,51 @@
+{
+  "frameworkUrl": "https://github.com/alone-jam/EjoyFramework.git",
+  "frameworkCommit": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+  "forkBranch": "firstrep-integration",
+  "upstreamBase": "3d00472607e4b7d180358a571e79aa7bee6ddfa4",
+  "upstreamPRs": [
+    19,
+    20
+  ],
+  "checks": {
+    "manifestLockGuardProvenanceConsistent": true,
+    "lockedPackageDependenciesMatchCommit": true,
+    "forkRemoteShaVerified": true,
+    "combatRegression": {
+      "project": "Tools~/Combat/EjoyFramework.Combat.Collision.Tests.csproj",
+      "configuration": "Release",
+      "target": "net8.0",
+      "productionTarget": "netstandard2.1",
+      "unityStubs": false,
+      "counters": {
+        "total": "47",
+        "executed": "47",
+        "passed": "47",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "b403e7d62b56cb598d960846c7cdba9f363cd5e4a209db0d767374d56bde485a",
+      "rawTrxLocalPath": "/workspace/framework-pr-evidence/firstrep-integration.trx"
+    }
+  },
+  "notVerified": [
+    "Actual Unity UPM resolution",
+    "Unity compilation",
+    "FirstRep EditMode and PlayMode",
+    "Unity static overlap tests",
+    "Fresh AssetBundles and Player",
+    "Graphics and audio"
+  ],
+  "blocker": "Unity 6000.6.5f1 Editor not present in current environment. Historical official-pin results do not validate this fork pin."
+}

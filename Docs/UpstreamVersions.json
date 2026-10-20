@@ -1,9 +1,15 @@
 {
   "EjoyFramework": {
-    "commit": "a5e1ec6f3472f741815108509ba303ce39b933c3",
+    "commit": "093a175b60a196e2ad864a01ace49e90f58aacc3",
     "license": "MIT",
-    "integration": "pinned upstream Git UPM dependency; no embedded framework or local package patch",
-    "url": "https://github.com/one2world/EjoyFramework.git#a5e1ec6f3472f741815108509ba303ce39b933c3"
+    "integration": "pinned alone-jam fork Git UPM dependency; fixes submitted upstream via PRs; no embedded framework or cache patches",
+    "url": "https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "branch": "firstrep-integration",
+    "upstreamBase": "3d00472607e4b7d180358a571e79aa7bee6ddfa4",
+    "upstreamPullRequests": [
+      "https://github.com/one2world/EjoyFramework/pull/19",
+      "https://github.com/one2world/EjoyFramework/pull/20"
+    ]
   },
   "FPSSample": {
     "commit": "c8375e7cf29cd0bcc3764b0650028a99aecb7475",
