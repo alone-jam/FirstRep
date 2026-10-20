@@ -1,0 +1,722 @@
+{
+  "recordedAtUtc": "2026-10-20T12:46:06.400409+00:00",
+  "codeCommit": "38ffbd3ba5d047b895882d87d7e53614c4455021",
+  "scopeAndAcceptance": "Docs/FRAMEWORK-LOAD-RETRY-20261020.md",
+  "cumulativeFrameworkMatrix": "Docs/FRAMEWORK-HUD-EVENTS-20261020.md#累计-framework-使用矩阵",
+  "testRunBaseCommit": "dba96d84e65db9e2d857c592d7cda353557d2101",
+  "frameworkRevision": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+  "frameworkSourceOrPinChanged": false,
+  "editor": {
+    "version": "6000.6.5f1",
+    "revision": "3ff58d469c8a"
+  },
+  "environment": {
+    "originalEnvironmentReused": true,
+    "authStatus": {
+      "exitCode": 3,
+      "loggedIn": false,
+      "active": null,
+      "signedIn": null
+    },
+    "licenseStatus": {
+      "exitCode": 0,
+      "loggedIn": null,
+      "active": true,
+      "signedIn": false
+    },
+    "signInRequiredForTheseTests": false,
+    "newLoginActivationOrInstallationPerformed": false,
+    "workspaceFreeBytes": 1627537408,
+    "oneGiBDiskReserveRetained": true,
+    "userDataDeleted": false,
+    "releaseWorkPaused": true
+  },
+  "changes": [
+    "Failed-load menu binds Retry through RelayCommand/ButtonBinder, with VisibilityBinder selecting Resume for normal pause or Retry for failed load. Existing Exit remains.",
+    "SliceBootstrap.Retry enters the existing ExitOriginalLevel and waits for the captured SliceExitStatus.Completed before calling the normal Enter path. SceneLease release, AssetBatch release, Framework shutdown and native service destruction remain production-owned.",
+    "A short Bootstrap-owned Unity coroutine spans Framework shutdown; it is not a second gameplay state machine or resource/scene loader. No Framework module is requested in the shutdown gap.",
+    "Stale menu commands and repeated retry calls cannot queue extra sessions. Explicit Exit, Bootstrap destruction or application quit prevents pending automatic reentry."
+  ],
+  "successfulRun": {
+    "directory": "Reports/load-retry-20261020T124141Z",
+    "startedAtUtc": "2026-10-20T12:41:41.985369+00:00",
+    "finishedAtUtc": "2026-10-20T12:44:05.577259+00:00",
+    "stages": [
+      {
+        "name": "prepare",
+        "startedAtUtc": "2026-10-20T12:41:42.250769+00:00",
+        "command": [
+          "python3",
+          "Tools/run_unity_checked.py",
+          "-batchmode",
+          "-nographics",
+          "-job-worker-count",
+          "1",
+          "-refreshImportMode",
+          "InProcess",
+          "-desiredWorkerCount",
+          "1",
+          "-standbyWorkerCount",
+          "0",
+          "-projectPath",
+          "/workspace/FirstRep",
+          "-quit",
+          "-executeMethod",
+          "FirstRep.Fps.Editor.FrameworkAssetSetup.VerifyAndPrepare",
+          "-logFile",
+          "/workspace/FirstRep/Reports/load-retry-20261020T124141Z/prepare.log"
+        ],
+        "workspaceFreeBeforeBytes": 1633083392,
+        "exitCode": 0,
+        "finishedAtUtc": "2026-10-20T12:42:02.004341+00:00",
+        "workspaceFreeAfterBytes": 1631240192
+      },
+      {
+        "name": "editmode",
+        "startedAtUtc": "2026-10-20T12:42:02.005100+00:00",
+        "command": [
+          "python3",
+          "Tools/run_unity_checked.py",
+          "-batchmode",
+          "-nographics",
+          "-job-worker-count",
+          "1",
+          "-refreshImportMode",
+          "InProcess",
+          "-desiredWorkerCount",
+          "1",
+          "-standbyWorkerCount",
+          "0",
+          "-projectPath",
+          "/workspace/FirstRep",
+          "-runTests",
+          "-testPlatform",
+          "EditMode",
+          "-assemblyNames",
+          "FirstRep.Fps.Tests",
+          "-testResults",
+          "/workspace/FirstRep/Reports/load-retry-20261020T124141Z/editmode.xml",
+          "-logFile",
+          "/workspace/FirstRep/Reports/load-retry-20261020T124141Z/editmode.log"
+        ],
+        "workspaceFreeBeforeBytes": 1631240192,
+        "exitCode": 0,
+        "finishedAtUtc": "2026-10-20T12:42:21.278248+00:00",
+        "workspaceFreeAfterBytes": 1633869824
+      },
+      {
+        "name": "playmode",
+        "startedAtUtc": "2026-10-20T12:42:21.278930+00:00",
+        "command": [
+          "python3",
+          "Tools/run_unity_checked.py",
+          "-batchmode",
+          "-nographics",
+          "-job-worker-count",
+          "1",
+          "-refreshImportMode",
+          "InProcess",
+          "-desiredWorkerCount",
+          "1",
+          "-standbyWorkerCount",
+          "0",
+          "-projectPath",
+          "/workspace/FirstRep",
+          "-runTests",
+          "-testPlatform",
+          "PlayMode",
+          "-assemblyNames",
+          "FirstRep.Fps.PlayTests",
+          "-testResults",
+          "/workspace/FirstRep/Reports/load-retry-20261020T124141Z/playmode.xml",
+          "-logFile",
+          "/workspace/FirstRep/Reports/load-retry-20261020T124141Z/playmode.log"
+        ],
+        "workspaceFreeBeforeBytes": 1633869824,
+        "exitCode": 0,
+        "finishedAtUtc": "2026-10-20T12:44:05.576625+00:00",
+        "workspaceFreeAfterBytes": 1627852800
+      }
+    ]
+  },
+  "testResults": [
+    {
+      "suite": "EditMode",
+      "path": "Reports/load-retry-20261020T124141Z/editmode.xml",
+      "bytes": 10070,
+      "sha256": "af77eca90e8344b37654bd43f5469247862441cbed38ee170935d2808884bb37",
+      "summary": {
+        "id": "2",
+        "testcasecount": "9",
+        "result": "Passed",
+        "total": "9",
+        "passed": "9",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 12:42:11Z",
+        "end-time": "2026-10-20 12:42:11Z",
+        "duration": "0.0718042"
+      },
+      "cases": [
+        {
+          "fullname": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.ExplicitFrameworkIdSurvivesUnityEntityIdMigration",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.EntityHelperCompatibilityTests.MissingExplicitIdFailsBeforeAttachingLogic",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.UpstreamPointerInputTests.GitPackageMouseBindingsReachActualInputSystemDevice",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.CancelledReloadCannotGrantAmmoOrKeepFireBlocked",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.EmptyMagazineAndPartialReloadConserveFiniteReserve",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.OwnersHaveIndependentAmmoCooldownAndReloadTags",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.RejectedCooldownDoesNotSpendAmmo",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.ReloadTagBlocksAnOtherwiseReadyShotWithoutSpendingAmmo",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.WeaponMagazineFrameworkTests.ZeroElapsedTimeDoesNotAdvanceCooldown",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "suite": "PlayMode",
+      "path": "Reports/load-retry-20261020T124141Z/playmode.xml",
+      "bytes": 1697496,
+      "sha256": "ad51157a97ba919db8c8bf7538fb14b3a20133c408d0bb920e932703c8017d53",
+      "summary": {
+        "id": "2",
+        "testcasecount": "15",
+        "result": "Passed",
+        "total": "15",
+        "passed": "15",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-10-20 12:42:32Z",
+        "end-time": "2026-10-20 12:43:54Z",
+        "duration": "82.5224988"
+      },
+      "cases": [
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ActorCreationFailureCanRetryThroughTheBoundMenuButton",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ActorCreationFailureShowsFrameworkMenuAndAllowsExitAndReentry",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ActorInstantiationFailureShowsFrameworkMenuAndAllowsExitAndReentry",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentImpactEffectsKeepIndependentTransformsAndLifetimes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ConcurrentSamePrefabEntitiesHaveIndependentHandles",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.DestroyingBootstrapCancelsAFailedLoadRetry",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.DestroyingBootstrapDuringNativeLoadsStillReleasesSceneLeases",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.EffectFailureAfterLoadDoesNotTriggerAnExpiredLoadListener",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ExplicitExitCancelsAFailedLoadRetry",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.HudEventsTrackAmmoReloadAndUnscaledMarkerWithoutPolling",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.MissingResourceCanFailRepeatedlyThenRetryWithoutRetainingTheOldSession",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.ProductionExitAndReentryUnloadActualAdditiveScenes",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.SingleTargetIntegrationExercisesFrameworkModulesAndGameplay",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.UnitDamageEventsAndPooledIdentityDoNotRetainAStaleRespawn",
+          "result": "Passed"
+        },
+        {
+          "fullname": "FirstRep.Fps.Tests.FpsPlayTests.WeaponCooldownFreezesWhilePausedAndResetsOnPooledReuse",
+          "result": "Passed"
+        }
+      ]
+    }
+  ],
+  "distinctConsumerCases": 24,
+  "newPlayModeCases": 4,
+  "newCoverage": [
+    "Three consecutive genuine missing-target-path failures, each with an actionable bound retry menu; repeated clicks/old command calls/API calls do not produce parallel sessions.",
+    "Old SceneLease objects reach terminal state, old batch handles invalidate, old IResourceManager cache and IEntityManager counts return to zero, and old HUD event channels shut down before the new session.",
+    "After the test configuration restores the original target path, the retry button reaches Play with fresh Failure state, normal time scale, expected native scenes/actors and exactly one HUD subscription.",
+    "The normal pause menu shows Resume and hides/disables Retry; direct Retry cannot restart normal Play.",
+    "A selected real DefaultEntityHelper.CreateEntity failure retries successfully through the bound menu into a fresh normal helper/session.",
+    "Explicit Exit and Bootstrap destruction cancel a pending retry while production cleanup still completes."
+  ],
+  "testBoundary": "Actual Unity, original scenes/assets and real Framework resource/UI/scene/entity/event managers. Missing-resource cases alter only a cloned SliceContent path; no asset file is deleted, substituted or mocked. Actor injection decorates DefaultEntityHelper at the selected failure site.",
+  "resourceLifecycleBoundary": "EditorSimulation exercises native scenes, real AssetBatch handle invalidation, Framework cache clearing and module shutdown. Its asset loader does not provide production AssetBundle IO/reference-count behavior; no claim of Player/bundle lifecycle acceptance is made.",
+  "testedSourceBinding": {
+    "files": [
+      {
+        "path": "Assets/FirstRep/Runtime/BuildSmokeProbe.cs",
+        "sha256": "fb04d6c8d59742539bf3a40e5fb0ce895ce5766c71dd5abd911c32a58255db26",
+        "bytes": 6765
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/BuildSmokeProbe.cs.meta",
+        "sha256": "48d060a2431a7d46fdae0b142462507e12f33c7af2b357d863cfee020fc8ba77",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FirstPersonPresentation.cs",
+        "sha256": "370dc2588aba5deb760b6aae76eba20e6995184ccef4db0f96838365bbc4185b",
+        "bytes": 1481
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FirstPersonPresentation.cs.meta",
+        "sha256": "02ec75562da5e1a377675f19379f5637f3527d09d5e86f67c534612858ff0a18",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FirstRep.Fps.asmdef",
+        "sha256": "3aedabb8fa23851cfb22a897e5d3f77c1dd2339b380c603e03a96f68278a7f60",
+        "bytes": 455
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FirstRep.Fps.asmdef.meta",
+        "sha256": "1408067323beda6512f3f506d192e2d77c9010582982e34376f5e7db5cf18380",
+        "bytes": 166
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsHudForm.cs",
+        "sha256": "9869eddb45953287718ebf6fae444d60fc3b15969cdc18d9253a46f1779b21da",
+        "bytes": 557
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsHudForm.cs.meta",
+        "sha256": "7d15e421a5dbdd47d17c8efc0f769ada3186dbbcdb690a828eee2518f675f06a",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsPauseForm.cs",
+        "sha256": "fb2d635fb7c08e4c11b9f29687a7f851f499a29917f329e3a17b4ac1b46370eb",
+        "bytes": 401
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsPauseForm.cs.meta",
+        "sha256": "69fdbdef040ee6a7fd58958a9efc82625e60a733f205d025620ec6e7103f78b0",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsPlayer.cs",
+        "sha256": "e7bb12c73010f3b1388ade657626120fa5d8524a0f09c8530dbc7365b7bf03d6",
+        "bytes": 8722
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsPlayer.cs.meta",
+        "sha256": "0d3d084014d726c6b607b85c8114dd6c397fb712173d8bde87369f6ebbc3a148",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsViewModels.cs",
+        "sha256": "f43539b3ce82435d6b01671ab59716037d0ea4044f5d86de2a4566d3ad05eb21",
+        "bytes": 4036
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/FpsViewModels.cs.meta",
+        "sha256": "a7fd335154185370dba2d616822bb3d3fcf7fd7c68cc4bfdf3b22476d6939e53",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/ImpactEffect.cs",
+        "sha256": "8844648f9a20ca8037af99be1fbe0d526be554d1f46f419e60de4f4498b74f39",
+        "bytes": 1012
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/ImpactEffect.cs.meta",
+        "sha256": "7d85e5092e96f1d0e6b20a9453f3c7f53b458c60d65d1e1b6aca9058e01fe729",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/LevelProcedures.cs",
+        "sha256": "d357544838c4981b767fa7f76ac463c28a04bfe997b3dcf25aee604dc5222602",
+        "bytes": 8589
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/LevelProcedures.cs.meta",
+        "sha256": "02d0697f5e35dae56bf90a12bc242afc041f89e99eebdd06d20f2a32bd255789",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/PresentationSettings.cs",
+        "sha256": "54f5491f5b74dd9384054a6cc72827555483b7ae480df61ff96802a8bd4246bd",
+        "bytes": 4171
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/PresentationSettings.cs.meta",
+        "sha256": "dbe8e13c4db20aede47a2bea1f1b90b217f7b964d148f892df4be76dfea220ab",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/SliceBootstrap.cs",
+        "sha256": "027e36fa106f0366a7d8ddc401315d2e88ab9fd67b76555ec6c090179dfc4445",
+        "bytes": 7026
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/SliceBootstrap.cs.meta",
+        "sha256": "814f8f2cf9f6c746b5d980da64e5d109ac59bbc10141da19626816b8cdd8ba73",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/SliceContent.cs",
+        "sha256": "a6e0a372906f6528b567d099bc8da8b2bdf0f1f3d1cea416daacfe88d058d620",
+        "bytes": 1547
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/SliceContent.cs.meta",
+        "sha256": "f7a526cb1ec4a0df80e34ad990951684636474d10231d448ca1545d8d1a64754",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/SliceSessionHost.cs",
+        "sha256": "a680a5db78b67b7b8230f9ac8b07b0ff169bbc22f33acd1f4a80d063021686b0",
+        "bytes": 3167
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/SliceSessionHost.cs.meta",
+        "sha256": "50422e7e3c59e06b7e3099affc38a18d7c2ac6841b3d84d1fd3d892c04606235",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/TargetPractice.cs",
+        "sha256": "05efa49305eb324d5d6e1cc3563781b6d4d59fb73284d009d9106ffacd6642e6",
+        "bytes": 2753
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/TargetPractice.cs.meta",
+        "sha256": "b82f8276df0156aaa74cc4df92a821a2c38c102cb6b7a7cebeef92fdcd8b6b92",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/WeaponMagazine.cs",
+        "sha256": "a2e3dc7b5bd5b3781d9b0253f786e41dee3a69b1d6c3ebfed5d6164d8e8df7e3",
+        "bytes": 2098
+      },
+      {
+        "path": "Assets/FirstRep/Runtime/WeaponMagazine.cs.meta",
+        "sha256": "2fa73b550b8a99f1883074108d3598d805a2d508d9021273645821a712d0b738",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/EntityHelperCompatibilityTests.cs",
+        "sha256": "854eeb65cbe1c1ba9777cbf8fc6b66fb7f1540b63f486b3cd43fdc64aa8d2387",
+        "bytes": 1336
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/EntityHelperCompatibilityTests.cs.meta",
+        "sha256": "ddc150eaf7f2bca6d0afb658ffafcfc9bdcf46e537e9367affb3e1b2621e797a",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/FirstRep.Fps.Tests.asmdef",
+        "sha256": "a065f5171f78c75351b91c218790a50189d1fc1c96781a094b2db671e8f10b27",
+        "bytes": 298
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/FirstRep.Fps.Tests.asmdef.meta",
+        "sha256": "835be161bd93b0307e0364aed3e0e77a2a41e1f4021a7465e438be62bcddb183",
+        "bytes": 166
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/UpstreamPointerInputTests.cs",
+        "sha256": "fc93743e985c14b1065a434dd1e5cd0a33f249264cea749230c1b3b9b9be0baf",
+        "bytes": 1252
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/UpstreamPointerInputTests.cs.meta",
+        "sha256": "9170b2ea3aa5a9e80dfd087e78398461f124369ae94cbe37cca41305008fc3bc",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/WeaponMagazineFrameworkTests.cs",
+        "sha256": "bca5bb87da4bfefe63146f236aa1758faa0736b3eecb35d1ff92d1f67035d70c",
+        "bytes": 3017
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor/WeaponMagazineFrameworkTests.cs.meta",
+        "sha256": "d9ffb7084155b82dded9e1cb5fc588f87332d26e3e4969ddc5c01c520e90057d",
+        "bytes": 240
+      },
+      {
+        "path": "Assets/FirstRep/Tests/Editor.meta",
+        "sha256": "c47a60e3f4c1838c4491b35ff18b908d040da723df76c8a035ff77cdf79a06d5",
+        "bytes": 172
+      },
+      {
+        "path": "Assets/FirstRep/Tests/PlayMode/FirstRep.Fps.PlayTests.asmdef",
+        "sha256": "20e08bb86e5ed36a1c56b2aeca69ef96a838c37011873de5eb8f42f69737d5d9",
+        "bytes": 254
+      },
+      {
+        "path": "Assets/FirstRep/Tests/PlayMode/FirstRep.Fps.PlayTests.asmdef.meta",
+        "sha256": "9b208c2d77c4bf9c5f31fb587c3fd0cc3b0f90d1f9b858a819c45bc87812be7e",
+        "bytes": 166
+      },
+      {
+        "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs",
+        "sha256": "e43df909793650a8bb421555b415f47df249cbf029e5207053f8883e4854cf46",
+        "bytes": 37994
+      },
+      {
+        "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs.meta",
+        "sha256": "21b0450f02b087a11aeb1330123e31474fe63ccdbced51ce42b32bf0e47375ec",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Tests/PlayMode.meta",
+        "sha256": "3048120603dadc30ae75f4ee3eb6b8cc90bcdf575b7632ce082e17158769e4bc",
+        "bytes": 172
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FinalizeWorkbench.cs",
+        "sha256": "7046a33f1d83642ae5fc013727e825e9e3550cce5677fb07f69988a2174d1310",
+        "bytes": 1935
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FinalizeWorkbench.cs.meta",
+        "sha256": "0cbf0d511318870bdcbc963259e6f9a2ae7b1bd6d70e5560ca8d1cbae13f0fad",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FirstRep.Fps.Editor.asmdef",
+        "sha256": "d40daab7f7d9cc9d58a27bdc35d4eaf42badeccb4578f449cb57bceb16b9b46e",
+        "bytes": 433
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FirstRep.Fps.Editor.asmdef.meta",
+        "sha256": "d6de685cc4524c128e47915204cde2d1c3576f0f4aa70a1180c606ac198169e8",
+        "bytes": 166
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FixVisualDependencies.cs",
+        "sha256": "dd89475d883fb9e53fe064606dbc1f10d00c1472fa116ae9adbd1c47b47fea33",
+        "bytes": 1651
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FixVisualDependencies.cs.meta",
+        "sha256": "5795eb077bc63ebd061e3f462b46ec6cd7120ed4876cb4bdcc62cafb33ae80e7",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FrameworkAssetSetup.cs",
+        "sha256": "a330f8772790986d305becedc0c87dd738f39ac5e6aed49e87e304d8bc4eb48b",
+        "bytes": 9096
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FrameworkAssetSetup.cs.meta",
+        "sha256": "91552a5cd24d0dbbadaf1221a6a5de1fe8f281acbf23c7bced1c8c138fb71872",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FrameworkDependencyCheck.cs",
+        "sha256": "e8852b8a6eac7d7601059905f4b2fb1218bf1675078dcba947d2af1a95e46efe",
+        "bytes": 1501
+      },
+      {
+        "path": "Assets/FirstRep/Editor/FrameworkDependencyCheck.cs.meta",
+        "sha256": "ae83da9f8ca8b938953c70fd553a8afc457f6650e3a277dc1ac8c81ef31b1599",
+        "bytes": 60
+      },
+      {
+        "path": "Assets/FirstRep/Editor/ImporterSettingsAudit.cs",
+        "sha256": "289236b935e468b783007f82c4c486d54aa7d304a937888207a5079219ab58a1",
+        "bytes": 1522
+      },
+      {
+        "path": "Assets/FirstRep/Editor/ImporterSettingsAudit.cs.meta",
+        "sha256": "d2cb6f4b1b7ee9b9907682555b5f29d21f9d30488191fc1ad5328d5ae4639139",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/MigrationWorkbench.cs",
+        "sha256": "7c3310b87fcb77c5582d05a63225534021de3fbee62a95fe39768acce05cd1aa",
+        "bytes": 10556
+      },
+      {
+        "path": "Assets/FirstRep/Editor/MigrationWorkbench.cs.meta",
+        "sha256": "3c39164e23d4a377dc5f11fae4d23f3eab3a55041385844b89cf795314c22d16",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/OriginalArtManifest.json.meta",
+        "sha256": "16065c89247e28722ad1252d4c0c9646abe63fbc9ed9d83f8d6b8c54043ad041",
+        "bytes": 158
+      },
+      {
+        "path": "Assets/FirstRep/Editor/OriginalArtValidator.cs",
+        "sha256": "d39a620f52e86afbe66c7f8eea5a59b738c775ba5abbae2b0db52d88e510cc3b",
+        "bytes": 4073
+      },
+      {
+        "path": "Assets/FirstRep/Editor/OriginalArtValidator.cs.meta",
+        "sha256": "218b3c67082e7df857fbdaf08e83e1e8b2953d2bef4dd6d83416927f56d03119",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Editor/OriginalGeometryImporter.cs",
+        "sha256": "4ebd3d3b4f4ead4d3e79ab8f1414c25a5c1d46923ce69a679ee3c6e4323aa523",
+        "bytes": 1315
+      },
+      {
+        "path": "Assets/FirstRep/Editor/OriginalGeometryImporter.cs.meta",
+        "sha256": "11c8e1de33cf44c52a8094745f0a79d37c72bd0959b69637722f4c5d20490ac0",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/PayloadImportAudit.cs",
+        "sha256": "3e793c2797c3a403f442af6a8d6d8e737085a43bd2ee249459f915030b497eab",
+        "bytes": 2798
+      },
+      {
+        "path": "Assets/FirstRep/Editor/PayloadImportAudit.cs.meta",
+        "sha256": "776a26038e92bb6288610bc9bafba7e9df3cf46082deaa81ac3960d7970d63f8",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/RenderStateAudit.cs",
+        "sha256": "f44548a1818be56b9487e39569271e894ccbc7e5ad25636f429eea490ffb6226",
+        "bytes": 2384
+      },
+      {
+        "path": "Assets/FirstRep/Editor/RenderStateAudit.cs.meta",
+        "sha256": "172e6b0be22a26930737dfb6b0f483cfa2b75d3704a3798b8d7c26c2eb56565d",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/RestoreDiffusionProfiles.cs",
+        "sha256": "b6134c4a9e0d6a2c89e16a27e8371d5b3f9b1f1cf7a0cbe6ef43eb55a427af72",
+        "bytes": 4247
+      },
+      {
+        "path": "Assets/FirstRep/Editor/RestoreDiffusionProfiles.cs.meta",
+        "sha256": "2d951f195e91035d837b4e8fe6d5728837c986c78df0772de5eeb56b9934899e",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/SliceWorkbench.cs",
+        "sha256": "725e3751f681ca3756175c76647b5c0353c5d80cf34a7755cf2cba91945e0d71",
+        "bytes": 12478
+      },
+      {
+        "path": "Assets/FirstRep/Editor/SliceWorkbench.cs.meta",
+        "sha256": "ae49da8571d9ec472698eb7428a7ab22261d9fb5bba1d4adec29c35e14bbdbd5",
+        "bytes": 243
+      },
+      {
+        "path": "Assets/FirstRep/Editor/StaticMaterialVariantStripper.cs",
+        "sha256": "41552ac62365bd6adc14673b93a3039593cdd8c4cf2a28e5197cdd86e3a03480",
+        "bytes": 5736
+      },
+      {
+        "path": "Assets/FirstRep/Editor/StaticMaterialVariantStripper.cs.meta",
+        "sha256": "c9a2c001f2083f74dbfb36610230838248306d91fcebd5acf39b85209a3180e8",
+        "bytes": 59
+      },
+      {
+        "path": "Assets/FirstRep/Editor/VisualCheck.cs",
+        "sha256": "b8e07fe9e9c3f568f07eb8aec349ac2b0e86b5a063149b8584883dabb1be3c35",
+        "bytes": 7677
+      },
+      {
+        "path": "Assets/FirstRep/Editor/VisualCheck.cs.meta",
+        "sha256": "8c7e4cc6d9f3c05c51c2df612ad82ab8d636581a4d2e1c78a7a7589667c4c1fb",
+        "bytes": 59
+      }
+    ],
+    "allCommittedCsAsmdefAndMetaBytesMatchTestSnapshot": true,
+    "uiAsset": {
+      "asset": "Assets/FirstRep/Framework/Pause.prefab",
+      "testedSha256": "35f7761d84f8ddbab930885bca30c6e43b61a535afe815046d8671ce596ab298",
+      "committedSha256": "5194a22378fe19f988bb68897f0503c23b1605e4b2cc5cdb088f74f660b99313",
+      "formattingOnlyAfterTests": true,
+      "comparison": "Only trailing spaces/tabs at line ends removed. All YAML tokens, object IDs, field values and GUID references are unchanged.",
+      "testedCopy": "Reports/load-retry-20261020T124141Z/tested-Pause.prefab"
+    }
+  },
+  "dependencyResolution": {
+    "name": "com.ejoy.framework",
+    "source": "Git",
+    "packageId": "com.ejoy.framework@https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "resolvedPath": "/workspace/FirstRep/Library/PackageCache/com.ejoy.framework@093a175b60a1",
+    "passed": true
+  },
+  "dependencyEvidence": {
+    "path": "Reports/dependency-20261020T1241514617330Z/framework-dependency-resolution.json",
+    "sha256": "5e09650b7d47a0cc0089adccc33b2ac3240dc15d847aad68854d643248806784"
+  },
+  "publicSanitizedEvidence": {
+    "manifest": "Docs/evidence/framework-load-retry-20261020/manifest.json",
+    "copies": 5,
+    "originalsPreservedLocally": true,
+    "rawOriginalsPublished": false,
+    "remoteDownloadVerification": "Pending push and download verification."
+  },
+  "remainingCoreGaps": [
+    "A main menu or level selection/return flow. Current Exit ends the session and Retry reloads the same level.",
+    "Resource initialization failure or failure-menu resource absence product flow, and user recovery from scene release failure.",
+    "The current active gameplay remains a single-player target-practice slice: movement/aim/fire/reload/respawning targets; no full opponent/mission/outcome loop is claimed.",
+    "Separately establish the desired Framework contract for EntityLogic.OnInit/OnShow exceptions before any fork fix/upstream PR.",
+    "Future current-source Player rebuild plus rendered HDRP/material, real input, audio-device and performance acceptance."
+  ],
+  "limits": [
+    "No new Player/AssetBundle build; the prior archive does not cover these changes.",
+    "No graphical, physical mouse, audio-device or performance acceptance, and no full upstream suite rerun.",
+    "The retry waits for successful cleanup; it does not force through failed scene release or synthesize a fallback UI when the real failure menu cannot load.",
+    "Raw logs and snapshots remain local; the public copies are marked sanitized and record original/copy hashes. No retention guarantee or independent external backup is claimed."
+  ],
+  "newFrameworkFixPrRequired": false,
+  "upstreamPrDescriptionsOrMergesChanged": false,
+  "historicalEvidenceOverwritten": false
+}
