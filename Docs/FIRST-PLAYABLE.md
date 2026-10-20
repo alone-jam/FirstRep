@@ -2,6 +2,8 @@
 
 当前启动入口在执行二进制前核验同目录 `PLAYER-MANIFEST.json` 的源码/fork/Unity 和运行文件哈希；现存旧 Player 会被拒绝。新构建、图形/音频能力及具体验收条件见 [收尾审计](DEVELOPMENT-CLOSEOUT-20261020.md)。下文启动、显示工具和交付路径均为历史记录，不代表当前环境具备它们。
 
+后续集成构建：当前源码 bundles 已通过（6 包/14 项），完整 Player 因预计暂存空间不足而未启动，smoke 未运行。见 [构建结果与空间预算](CURRENT-BUNDLES-BUILD-20261020.md)。
+
 ## 历史检查点记录
 
 # FirstRep：首版运行说明（构建已交付，画面仍有差异）

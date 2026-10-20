@@ -8,6 +8,8 @@
 
 本轮收尾核对完整 Prefab、缓存一致性、菜单资源和订阅生命周期，并修复旧 Player 启动入口及 smoke 菜单入口；详见 [收尾审计与后续验收条件](DEVELOPMENT-CLOSEOUT-20261020.md)。
 
+后续当前源码 bundles 构建和生产资源校验已通过；Player 在启动前因预计空间不足暂停，未执行 smoke，见 [本次集成构建状态](CURRENT-BUNDLES-BUILD-20261020.md)。不将此前 Player 或 headless 消费者测试当作当前可执行程序验收。
+
 ## 依赖来源
 
 manifest、lock、依赖守卫和来源记录固定 `https://github.com/alone-jam/EjoyFramework.git#c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`，对应 firstrep-integration。未嵌入 Framework、未改包缓存；官方包提供的根 Prefab 以配置 variant 引用，GUID/来源可追溯。
