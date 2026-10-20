@@ -701,7 +701,14 @@
     "copies": 5,
     "originalsPreservedLocally": true,
     "rawOriginalsPublished": false,
-    "remoteDownloadVerification": "Pending push and download verification."
+    "remoteDownloadVerification": {
+      "verifiedAtUtc": "2026-10-20T12:46:48.785276+00:00",
+      "verifiedCommit": "048fe93db00ae519653e41ef3af0fb732213d221",
+      "files": 18,
+      "allBytesAndSha256Match": true,
+      "record": "Docs/load-retry-remote-verification-20261020.json",
+      "boundary": "Verification covers the named committed files and sanitized copies; raw original logs remain local. This summary is updated after verification and published in the follow-up commit."
+    }
   },
   "remainingCoreGaps": [
     "A main menu or level selection/return flow. Current Exit ends the session and Retry reloads the same level.",

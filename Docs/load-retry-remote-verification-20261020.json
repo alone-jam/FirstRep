@@ -1,0 +1,136 @@
+{
+  "verifiedAtUtc": "2026-10-20T12:46:48.785276+00:00",
+  "repository": "alone-jam/FirstRep",
+  "branch": "work",
+  "verifiedCommit": "048fe93db00ae519653e41ef3af0fb732213d221",
+  "remoteCommitMatchesLocal": true,
+  "method": "Public raw GitHub download at full commit SHA; byte equality, size and SHA256 checked against local committed files.",
+  "files": [
+    {
+      "path": "Assets/FirstRep/Editor/FrameworkAssetSetup.cs",
+      "bytes": 9096,
+      "sha256": "a330f8772790986d305becedc0c87dd738f39ac5e6aed49e87e304d8bc4eb48b",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Framework/Pause.prefab",
+      "bytes": 25694,
+      "sha256": "5194a22378fe19f988bb68897f0503c23b1605e4b2cc5cdb088f74f660b99313",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsViewModels.cs",
+      "bytes": 4036,
+      "sha256": "f43539b3ce82435d6b01671ab59716037d0ea4044f5d86de2a4566d3ad05eb21",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceBootstrap.cs",
+      "bytes": 7026,
+      "sha256": "027e36fa106f0366a7d8ddc401315d2e88ab9fd67b76555ec6c090179dfc4445",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs",
+      "bytes": 37994,
+      "sha256": "e43df909793650a8bb421555b415f47df249cbf029e5207053f8883e4854cf46",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FIRST-PLAYABLE.md",
+      "bytes": 6798,
+      "sha256": "b1d0cb419c782ff9d910f240775fc3ead5340051cf82542c1e066efcf345d034",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-ADOPTION.md",
+      "bytes": 16387,
+      "sha256": "d7472dc294a196d053667508d2dd90411a38c140122d468257df39348fb537de",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-HUD-EVENTS-20261020.md",
+      "bytes": 9337,
+      "sha256": "2a034bc6aa79e0b2eca87b3484dd5a5b866bdb63a18d8dcb42d2f8d778994fd9",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-LOAD-RETRY-20261020.md",
+      "bytes": 7228,
+      "sha256": "f5afea303093112e2ba2bd332aaeb9ed4a9e4b9c27c8b6511c5fd4cf8e68e4c0",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "README.md",
+      "bytes": 6206,
+      "sha256": "abef5e2c53a64f17c13908787205b7a99668b5d6a3555221cd70d1bac461915b",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/framework-load-retry-validation-20261020.json",
+      "bytes": 29382,
+      "sha256": "b94abc1c3e35fdcba7a9183916135e935ae06282e01a68f974003a614f561403",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-load-retry-20261020/manifest.json",
+      "bytes": 3631,
+      "sha256": "278d93dbf98839bad61f313ef83274be2189038f486ad7c86be8be5576034916",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-load-retry-20261020/README.md",
+      "bytes": 929,
+      "sha256": "f2a3a00651218aca893cc372f3ade1b758840de65032ef6161a6b2e6bb839f22",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-load-retry-20261020/prepare.log.gz",
+      "bytes": 10746,
+      "sha256": "6151ebd4ff7a4a8f666560b1b1f6bf28b2017c88633d7a1274a5b01d2f8a3bdb",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-load-retry-20261020/editmode.log.gz",
+      "bytes": 8629,
+      "sha256": "9f2ea7683ceaeaa18ffc1ad80c5ac6b14f0e0b9a0a6026e75f0eb721532a47e1",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-load-retry-20261020/editmode.xml.gz",
+      "bytes": 1456,
+      "sha256": "064945e40b32c511e946071e51c19e805156dbedfad9ce4379d17c233ee309ae",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-load-retry-20261020/playmode.log.gz",
+      "bytes": 69094,
+      "sha256": "e3c17876a53f819b1e9c3a253ff1cd181265d5325935ceeacc01373b4eee1b64",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-load-retry-20261020/playmode.xml.gz",
+      "bytes": 17492,
+      "sha256": "6b0960a3af0a45735de6fe89752d06024102ca8574cf486729ade9d5e66dc47d",
+      "httpStatus": 200,
+      "downloadVerified": true
+    }
+  ]
+}
