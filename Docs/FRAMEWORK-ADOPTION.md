@@ -14,7 +14,7 @@
 
 先前纯 .NET 验证见 [fork-adoption-validation.json](fork-adoption-validation.json)：真实 Framework Combat 回归 47/47 通过，不使用 Unity stub；同一集合对修复前代码有 14 项失败。随后 Editor 恢复后的无许可证退出 198 已保留在 [历史恢复证据](editor-recovery-validation-20261020.json)。用户完成官方登录并明确授权 Personal 激活后，本次真实 Unity 依赖及消费者、原生物理回归全部通过。原生 7 项包含非凸中心无表面重叠控制、表面重叠的未注册碰撞体拒绝及凸碰撞体包含起点的拒绝，补验了 PR #19 的几何修正。没有修改包缓存或跳过该测试。
 
-首次许可恢复后的运行因默认 UPM 缓存 `/home/agent/.cache/Unity/upm/db` 不可写退出 1；启动器现按清单设置可写 `UPM_CACHE_ROOT` 及 Unity 专用 XDG 默认值，并保留调用方覆盖。成功运行和失败尝试的命令、退出码、XML 各项状态和原始证据 hash 均在 [current-fork-validation.json](current-fork-validation.json)。PlayMode 自动清空 HDRP 全局设置的运行时引用列表，已另存生成文件和差异，再还原为测试前的原始版本；Assets 无 Git 差异。原始日志/XML 仅本地暂存，外部备份未配置。框架升级后仍须重新生成 AssetBundles 并完整构建 Player，不能用旧 Player 或仅 BuildScriptsOnly 验证新依赖。
+首次许可恢复后的运行因默认 UPM 缓存 `/home/agent/.cache/Unity/upm/db` 不可写退出 1；启动器现按清单设置可写 `UPM_CACHE_ROOT` 及 Unity 专用 XDG 默认值，并保留调用方覆盖。成功运行和失败尝试的命令、退出码、XML 各项状态和原始证据 hash 均在 [current-fork-validation.json](current-fork-validation.json)。PlayMode 自动清空 HDRP 全局设置的运行时引用列表，已另存生成文件和差异，再还原为测试前的原始版本；Assets 无 Git 差异。原始日志/XML 仅本地暂存；经用户明确授权的八份脱敏副本及原件/副本哈希见 [公开证据清单](evidence/fork-093a175-unity-20261020/manifest.json)，副本明确标记脱敏范围，不能冒充原件。原件外部备份未配置。框架升级后仍须重新生成 AssetBundles 并完整构建 Player，不能用旧 Player 或仅 BuildScriptsOnly 验证新依赖。
 
 
 ## 具体对应清单

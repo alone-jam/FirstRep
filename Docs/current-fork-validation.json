@@ -512,5 +512,11 @@
     "Raw logs/XML and generated asset evidence are local staging only; their hashes and this reviewed summary are tracked in the existing source repository. No external artifact backup or directory retention guarantee is confirmed.",
     "Only seven focused StaticPhysicsHistoricalQuery tests were run from the upstream Unity suite, not the complete framework suite."
   ],
-  "historicalRecordsOverwritten": false
+  "historicalRecordsOverwritten": false,
+  "publicSanitizedEvidence": {
+    "manifest": "Docs/evidence/fork-093a175-unity-20261020/manifest.json",
+    "copiesAreSanitized": true,
+    "originalsPreservedLocally": true,
+    "rawOriginalsPublished": false
+  }
 }
