@@ -1,0 +1,72 @@
+{
+  "recordedAtUtc": "2026-10-20T12:34:40.037883+00:00",
+  "codeCommit": "0d2e933a8c8a03a94a071dc448361a662bfc0d9e",
+  "frameworkCommit": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+  "unityVersion": "6000.6.5f1",
+  "copiesAreSanitized": true,
+  "originalsPreservedLocally": true,
+  "redactionScope": [
+    "Entire licensing/authentication/credential/account/token and machine/session/client/connection identifier diagnostic lines removed, with explicit per-line markers.",
+    "Entire Player connection discovery lines removed.",
+    "Email addresses, IPv4/MAC addresses, UUID-shaped IDs, host name, home/runtime-user and workspace/tool/temp paths replaced. Pattern-based replacement may also remove nonprivate GUIDs or version-shaped strings.",
+    "XML test names, outcomes, totals and timings preserved; redaction marker inserted after XML declaration.",
+    "Only these five Unity logs/XML were read; no credential store or activation/license file was inspected or included."
+  ],
+  "files": [
+    {
+      "originalLocalPath": "Reports/hud-events-20261020T123055Z/prepare.log",
+      "originalBytes": 71895,
+      "originalSha256": "b38d230f11161d1e50fcb598caaeb3a3c3283b44f8a40b5c2355602bfaecdf76",
+      "sanitizedFile": "prepare.log.gz",
+      "sanitizedBytes": 69804,
+      "sanitizedSha256": "8f1c08b61520b504fcf6a8b21f00f826e9cd4f27b099cdc992937397e10b990e",
+      "gzipBytes": 10660,
+      "gzipSha256": "41d95be4f402ce3fe4b2462e10b7524a84cc821f6cd725bb132e405e3c917230",
+      "redactedWholeLines": 31
+    },
+    {
+      "originalLocalPath": "Reports/hud-events-20261020T123055Z/editmode.log",
+      "originalBytes": 44561,
+      "originalSha256": "4fe23a839bcc9b0ccd5a20fa12439f9105233bfda23a2e5455fce5481a52f990",
+      "sanitizedFile": "editmode.log.gz",
+      "sanitizedBytes": 40706,
+      "sanitizedSha256": "bc339c412d91ad029b3849e05c4533ee504ee762e96338f3fec7f103dfeeb840",
+      "gzipBytes": 8609,
+      "gzipSha256": "00e18cd283834b8bbfbd1d8fab54724d79a305ac8a819103411fd5ec5b76aedb",
+      "redactedWholeLines": 32
+    },
+    {
+      "originalLocalPath": "Reports/hud-events-20261020T123055Z/editmode.xml",
+      "originalBytes": 10068,
+      "originalSha256": "82b5bc7b0e979fe1cb97687d6fe63917fbdac70ee06a6cf8b015818672452852",
+      "sanitizedFile": "editmode.xml.gz",
+      "sanitizedBytes": 10139,
+      "sanitizedSha256": "ab09c542cf85b095be939b336406bcc42d15edb7d0447cb125f46c80730ff14f",
+      "gzipBytes": 1458,
+      "gzipSha256": "55ff868303d4530621dfb5aa2a72dfd46d878c3ba7fbf504cb2c0a0441c59087",
+      "redactedWholeLines": 0
+    },
+    {
+      "originalLocalPath": "Reports/hud-events-20261020T123055Z/playmode.log",
+      "originalBytes": 1611993,
+      "originalSha256": "789d23e4314ecef15f4a9d9eedfd21bbf7ffdd12ebe500fb89f002e9d6e0562e",
+      "sanitizedFile": "playmode.log.gz",
+      "sanitizedBytes": 1607202,
+      "sanitizedSha256": "9f3ac0ac8afab1bf45ebc4877f3880237532151c316bdf52b917482bed5a4a19",
+      "gzipBytes": 47497,
+      "gzipSha256": "a43c3d12faca991694319d739b2177ab7ec8e0ccff89be4ef8fb65b83c65cce3",
+      "redactedWholeLines": 34
+    },
+    {
+      "originalLocalPath": "Reports/hud-events-20261020T123055Z/playmode.xml",
+      "originalBytes": 1081117,
+      "originalSha256": "08d9f7dfa572ecbfff276fca6280c1e95ea1cf54a41eae7c1da5cd963ec970c5",
+      "sanitizedFile": "playmode.xml.gz",
+      "sanitizedBytes": 1081188,
+      "sanitizedSha256": "6b5f1e61227b1632b2bffbcbb7770323e5df44a8e4fc20b72a17a401a1c00167",
+      "gzipBytes": 11364,
+      "gzipSha256": "18d139fb4179f02a5d17671ea20a29e2af2779ac899ef4d85b7da8580bdb1dad",
+      "redactedWholeLines": 0
+    }
+  ]
+}
