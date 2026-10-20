@@ -1,0 +1,488 @@
+{
+  "verifiedAtUtc": "2026-10-20T13:27:21.121432+00:00",
+  "repository": "alone-jam/FirstRep",
+  "branch": "work",
+  "verifiedCommit": "7fe9cbad50521e85d6deedb9a01f9670c691c37f",
+  "remoteCommitMatchesLocal": true,
+  "method": "Public raw GitHub download at full commit SHA, byte equality/size/SHA256 against all changed committed files.",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 2397,
+      "sha256": "cf2837db90fe878f2eea3ca3c63609bb8118755b3670a144bfb41f8953ce311e",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Editor/FrameworkAssetSetup.cs",
+      "bytes": 12741,
+      "sha256": "d0e8b8e473a89eb6834dcd6a15d1ffcc11f5aea3f442755874d9b0bca559d51e",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Editor/FrameworkDependencyCheck.cs",
+      "bytes": 1501,
+      "sha256": "bc79f0074dc60e12ff49875060d3ed78b04a7b7de594d7705118d3d6bfa149cd",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Framework/FirstRepSession.prefab",
+      "bytes": 9643,
+      "sha256": "1bbe8573d6905a014f471c9dd5cf95789bb7fc35857d16ace6d47516ad1a0f2e",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Framework/FirstRepSession.prefab.meta",
+      "bytes": 151,
+      "sha256": "7204bb4e56eb7383d4dd2563b8260311abb16c060fb2e81befe17d041f5f0c91",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Framework/Hud.prefab",
+      "bytes": 10278,
+      "sha256": "0bb48b0e9ef11594e09a7e3a76d1dca5bda4c37484741a2d7688dee1cbbc7b73",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Framework/MainMenu.prefab",
+      "bytes": 20767,
+      "sha256": "2166bedc8b33cf86edec6ebbb707d5c8ad2d93605cf2afb371f896a03d81d689",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Framework/MainMenu.prefab.meta",
+      "bytes": 151,
+      "sha256": "6033342c6cc4418aa88b8f17d25a407fb1971a51657b2769d8e3ff4c8864ad45",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Framework/Pause.prefab",
+      "bytes": 33077,
+      "sha256": "c5777990261682cd18104b24068401d946b198c35fa2ec811fe38bd81a2225fe",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsHudForm.cs",
+      "bytes": 520,
+      "sha256": "6dc0b8438083ce0ab0e14dad43270d28a6fa0a4f3801db4a3c90c28b5fdb8de7",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsMainMenuForm.cs",
+      "bytes": 1162,
+      "sha256": "4d3e25d9faddfc33a04fff9a279cf19fc967792c84b24136fdde7b9a4d19e166",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsMainMenuForm.cs.meta",
+      "bytes": 59,
+      "sha256": "efc6ae38f181330a010225912a36e613423fb8fc452c436dca507ba7db2559ab",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsPauseForm.cs",
+      "bytes": 376,
+      "sha256": "38391938da2ee9251aaff966af628f2c5aa77acba481b3046d943212cd5d83e7",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/FpsViewModels.cs",
+      "bytes": 2850,
+      "sha256": "208cb4c0337755496b98c1e579582efe89e61a1626fd62af7eb8b1f04371411b",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/Generated.meta",
+      "bytes": 169,
+      "sha256": "feca0aa048481c537a8fc06029404684d4ae99afee1790b07d0da5569d803534",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/Generated/HelperFactoryRegistrations.g.cs",
+      "bytes": 1757,
+      "sha256": "c25de134858498d61cddc029701928c45540b70c66aff73b170f74d04a29b2b0",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/Generated/HelperFactoryRegistrations.g.cs.meta",
+      "bytes": 59,
+      "sha256": "6ce510a5413e706eb488a4382bd2e60181f15651568019009fc2e03c549b9b34",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/Generated/MvvmAccessorRegistrations.g.cs",
+      "bytes": 4384,
+      "sha256": "e57e2280cf5f2c7000c286fb5609b63aed9740c0fc88c961da3ee6af6aa6653f",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/Generated/MvvmAccessorRegistrations.g.cs.meta",
+      "bytes": 59,
+      "sha256": "cefba1efee2beab2ffd7e1ac5ed2388fceaf39fa72fa27f5fdd3bc0d5fae208d",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/LevelProcedures.cs",
+      "bytes": 10844,
+      "sha256": "396db249cd48471ccb6c58a5b11c3e2a9a0c959aafa9be20ac223a3ce883d896",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceBootstrap.cs",
+      "bytes": 6907,
+      "sha256": "aa569b6f7e4fedadc0c05df6a8ff77865c5f3741486905a2fcb12c64697e985b",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceContent.cs",
+      "bytes": 1775,
+      "sha256": "18877d0694001ee66b463b228cbd1b97503e97329db08cb5f0ee5863794aa9b9",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Runtime/SliceSessionHost.cs",
+      "bytes": 3221,
+      "sha256": "daa490b77b17ad905122bd31df0d7273d7c0e56dd67c307f5a9090a82cda0d11",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/SliceContent.asset",
+      "bytes": 1528,
+      "sha256": "613f5439619eb8806992127035c9f7d04ab1bc28f7f02548a5f906812fde389c",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Assets/FirstRep/Tests/PlayMode/FpsPlayTests.cs",
+      "bytes": 45460,
+      "sha256": "b5dcb87631f01c14edc17c0c93c7d545922c9c73e9dbd6056dce0d6858ed0fcb",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FIRST-PLAYABLE.md",
+      "bytes": 6498,
+      "sha256": "44fe9de4a0d810a28bb00bbc3204189420f1c90a9c8e061612694cb39f4c24ad",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-ADOPTION.md",
+      "bytes": 16272,
+      "sha256": "6cbb0e48ac710fba71e0354c1c5da36525b3843b9039d5a6a4269cf30314a846",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/FRAMEWORK-PREFAB-MENU-20261020.md",
+      "bytes": 10496,
+      "sha256": "b35a692fb20a5d11576723d6cf2f25528d092b406c9c37e8ed9c733bcfb648c9",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/UpstreamVersions.json",
+      "bytes": 1248,
+      "sha256": "ac10bcb3f708ab24808e986d50c76bf6a3444356fb45a34c46a41f7f9f3c4352",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/README.md",
+      "bytes": 945,
+      "sha256": "b19ea458f1a4ddb17db64b3487a49fa2b3da1219ef94185990bb61befcb554ad",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-convention-editmode.log.gz",
+      "bytes": 8634,
+      "sha256": "6b8473cfd0eb7821a992171a1bcd38acb9f54e07b52d8ba386f9cf7ae7a60cd5",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-convention-editmode.xml.gz",
+      "bytes": 1456,
+      "sha256": "1a822af16152af9d7e7977661a3fb7319067bdd84078c7e3c1af15f3bdf663a6",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-convention-playmode.log.gz",
+      "bytes": 56325,
+      "sha256": "382aa66d43849ddfc00ebc82bf94a82fd656662df8b8344e0bf3339031ffbeea",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-convention-playmode.xml.gz",
+      "bytes": 16935,
+      "sha256": "622153ed0dac6e0fe9f43398d318050566dd8eae49e2ecd0274b84054023ff82",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-convention-prepare.log.gz",
+      "bytes": 14421,
+      "sha256": "3ee299a0fcd0c67a4dbdb897733be7942a3888fecdb4205c9647ac346fb58fa1",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-final-editmode.log.gz",
+      "bytes": 10796,
+      "sha256": "85145f62c6c9318672b5486b4a73dcc99205d918c872c79d4cf8414a073e5ace",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-final-editmode.xml.gz",
+      "bytes": 1451,
+      "sha256": "befa14b2745885c812195c176e46440c5547fbd5b008d378210f354abc3a3912",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-final-playmode.log.gz",
+      "bytes": 82973,
+      "sha256": "5503cb537dcbeb07ce1c374de3a81fe627503cf54fae65b68b0cc579fdcbf00b",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-final-playmode.xml.gz",
+      "bytes": 21453,
+      "sha256": "d48b8a5af50eba175d1ccba48880a509b937e8794c8bedbd4f9a5acbc6003331",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-final-prepare.log.gz",
+      "bytes": 12090,
+      "sha256": "af0576e9da438d79bc1e2f05ae5341648fcc16614ebf7ee5cdee097ad9941967",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-stale-generated-prepare.log.gz",
+      "bytes": 10112,
+      "sha256": "7e5cccf91fb3c5b4ba9c8942a195ec8ae2e27d89b2aa082e4d30af589f6c6ba5",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-startup-editmode.log.gz",
+      "bytes": 11079,
+      "sha256": "e01b5561d1a350594707d1341b5dcbc606f1c9ff78897140dbb00f8b83f934bc",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-startup-editmode.xml.gz",
+      "bytes": 1457,
+      "sha256": "0cf31b99d9c35d344f7a5404647d1696e25a1e654c85a6b3049c997d508135f3",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-startup-playmode.log.gz",
+      "bytes": 30950,
+      "sha256": "f9da6bdc49fdca243ef545193341d317b9c2b910bb92a6b50fd31c3e157cb7b2",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-startup-playmode.xml.gz",
+      "bytes": 7497,
+      "sha256": "8c817044dfc1ce3ec7e2178d82637754d6ae65f713febe667a8324086891512c",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/consumer-startup-prepare.log.gz",
+      "bytes": 14970,
+      "sha256": "4c09b5d61c2b935445ac37ab10bdba7018b6e57835ff36c0530a3319a340aa8d",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/manifest.json",
+      "bytes": 15669,
+      "sha256": "dd2601362489e1e2280fb246184ddb0db70890c56fa9ce6ae128b06e5f1e8d40",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-compile-editmode.log.gz",
+      "bytes": 9063,
+      "sha256": "9d015e23f50c6d315de6390bbab6f8cf5b81e39ff9bda890c52c42cd2a7954d8",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-final-seven-editmode.log.gz",
+      "bytes": 11404,
+      "sha256": "b2b8e574993d3cff53fbbcdaa22d61ab4530e63a8db0e392f8606c68bbd9a0ef",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-final-seven-editmode.xml.gz",
+      "bytes": 1287,
+      "sha256": "cda7ecba0f0cc509112116b05537a5d298e3796943d822e3c788eb5e3e0724ab",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-green-harness-editmode.log.gz",
+      "bytes": 11566,
+      "sha256": "7220ba8e33866332ce9294b90e8b1d0bafbb39e58d6d0ff77c380435455a0767",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-green-harness-editmode.xml.gz",
+      "bytes": 1872,
+      "sha256": "7f34a02c0b8295e6228b721a67906f32ae23cde8d3c5cc34da8d369630673ab7",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-green-six-editmode.log.gz",
+      "bytes": 11600,
+      "sha256": "1bfc1d4acbfb463f2eb37196e954c66e7c9de2cb3b0bdaf858cfd145aec9d2d8",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-green-six-editmode.xml.gz",
+      "bytes": 1217,
+      "sha256": "cab02b26203c7964e0d3655c847391a3d84b5b98b983c6387895093016d9c34e",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-red-harness-editmode.log.gz",
+      "bytes": 8323,
+      "sha256": "27ecd5bf0db3a3da58c5878e82a4ad9d054e4605395e6627ff70f41076431f60",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-red-harness-editmode.xml.gz",
+      "bytes": 2086,
+      "sha256": "9dc4e21b427b52f338cbc9c2250459709a11452f244a319896ad0e0dfa6abc63",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-red-six-editmode.log.gz",
+      "bytes": 11369,
+      "sha256": "b82d16470cdbf437ff6977521bda36a4721c2f2e9cb0d34bd9b2af040c9859f8",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/evidence/framework-prefab-menu-20261020/probe-red-six-editmode.xml.gz",
+      "bytes": 2183,
+      "sha256": "a55f970b3ceca29d944d581df256e35953dc8604ca941da7f4e805577db508a5",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Docs/framework-prefab-menu-validation-20261020.json",
+      "bytes": 57633,
+      "sha256": "28b2d2314f1b510df669623a6b6f730a51cd9687aca0c3a4e28cd8aa5a6f0b7b",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Packages/manifest.json",
+      "bytes": 1352,
+      "sha256": "61b6cd641dbef6a526aa5f7ec3f8e0e277a52435772b39d6d466bf2a3bd74beb",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "Packages/packages-lock.json",
+      "bytes": 9416,
+      "sha256": "d4a95d6553d2964b604a127c898f3c84d23f61e735d97d8c7cf140ed825892d4",
+      "httpStatus": 200,
+      "downloadVerified": true
+    },
+    {
+      "path": "README.md",
+      "bytes": 5758,
+      "sha256": "e1edf222b653fbea5ba049d1ee9b1af027bf6a3dac844b38a7428c0e83f0ea9b",
+      "httpStatus": 200,
+      "downloadVerified": true
+    }
+  ],
+  "framework": {
+    "revision": "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
+    "remoteIntegrationBranchMatches": true,
+    "files": [
+      {
+        "path": "Runtime/Prefabs/EjoyFramework.prefab",
+        "bytes": 67495,
+        "sha256": "8d7ea344685a1ef0cd9d861446f84866b0473fcd7e179c1b22bb652066a22789",
+        "downloadVerified": true
+      },
+      {
+        "path": "Runtime/Core.Unity/Resource/EditorSimulationLoader.cs",
+        "bytes": 9448,
+        "sha256": "2d111aa1845f7b49bbd6ea24ebe09a27605c231354fc5421104c5b10629f4d6b",
+        "downloadVerified": true
+      },
+      {
+        "path": "Runtime/Core/Procedure/IProcedureManager.cs",
+        "bytes": 1807,
+        "sha256": "f6d1073cba029fc3d9ed90d934e67cdf416da98d058b3917064ec85414e01d3b",
+        "downloadVerified": true
+      },
+      {
+        "path": "Runtime/Core/Procedure/ProcedureManager.cs",
+        "bytes": 3770,
+        "sha256": "55d447059eccc0a491ec0f9c026673f20a4b1e5eafea32a4544ac26331ff7af2",
+        "downloadVerified": true
+      },
+      {
+        "path": "Runtime/Core.Unity/Procedure/ProcedureComponent.cs",
+        "bytes": 3898,
+        "sha256": "8bfbd51ff9e98e101c8564196143d0268949cf7aa935d186f2701a1992f67642",
+        "downloadVerified": true
+      },
+      {
+        "path": "Tests/Editor/Core.Tests/DropInPrefabWorkflowTests.cs",
+        "bytes": 3915,
+        "sha256": "ff10e39b0653162088050f0958397e8342fbea1c9f7cb47d09e560112ff6d7ce",
+        "downloadVerified": true
+      }
+    ],
+    "upstreamPr": "https://github.com/one2world/EjoyFramework/pull/21",
+    "merged": false
+  }
+}

@@ -1352,7 +1352,15 @@
     "copies": 27,
     "originalsPreservedLocally": true,
     "rawOriginalsPublished": false,
-    "remoteDownloadVerification": "Pending push and download verification."
+    "remoteDownloadVerification": {
+      "verifiedAtUtc": "2026-10-20T13:27:21.121432+00:00",
+      "verifiedCommit": "7fe9cbad50521e85d6deedb9a01f9670c691c37f",
+      "consumerFiles": 62,
+      "frameworkFiles": 6,
+      "allBytesAndSha256Match": true,
+      "record": "Docs/prefab-menu-remote-verification-20261020.json",
+      "boundary": "Covers committed source and marked sanitized copies. Raw originals remain local. This summary is updated after verification and published in the follow-up commit."
+    }
   },
   "remainingGaps": [
     "Menu and failure-menu resources both unavailable, complete resource initialization failure, and a user-facing recovery path when scene release fails.",
