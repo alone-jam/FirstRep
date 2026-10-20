@@ -16,6 +16,9 @@ namespace FirstRep.Fps
     public sealed class SliceBootstrap : MonoBehaviour
     {
         public SliceContent content;
+        public bool startInMenu=true;
+        public bool EntryOpensMenu { get; private set; }
+        public bool FailureInMenu { get; private set; }
         public BaseComponent Base { get; private set; }
         public ResourceComponent Resources { get; private set; }
         public EntityComponent Entities { get; private set; }
@@ -32,43 +35,26 @@ namespace FirstRep.Fps
         private Coroutine retryRoutine;
         public bool CanRetry => isActiveAndEnabled && !applicationQuitting && !string.IsNullOrEmpty(Failure) && ExitStatus!=null && !ExitStatus.Requested;
         void Awake() => Enter();
-        public void Enter()
+        public void Enter()=>Enter(startInMenu);
+        void Enter(bool menu)
         {
             if(ExitStatus!=null && !ExitStatus.Completed)throw new InvalidOperationException("Previous session has not finished its scene exit");
             CancelRetry();
             if (!content || !content.IsReady) throw new InvalidOperationException("Reviewed original content is missing; no replacement art is supplied.");
-            var services=new GameObject("FirstRep framework session");
-            Base = services.AddComponent<BaseComponent>();
-            Lifetime=services.AddComponent<SliceSessionHost>();Lifetime.Initialize();ExitStatus=Lifetime.ExitStatus;
-            Failure=null;nextEffectId=10000;
-            services.AddComponent<InputComponent>(); // Default upstream Input System backend, now Mouse0/1 capable.
-            Resources = services.AddComponent<ResourceComponent>();
-            Entities = services.AddComponent<EntityComponent>();
-            Entities.AddEntityGroup("Players", 60, 1, 60, 0);
-            Entities.AddEntityGroup("Targets", 60, content.targetPositions.Length, 60, 0);
-            Entities.AddEntityGroup("Effects", 60, 32, 60, 0);
-            Sounds = services.AddComponent<SoundComponent>(); Sounds.AddSoundGroup("Weapons");
-            UI = Framework.GetModule<IUIManager>();
-            UI.SetUIFormHelper(services.AddComponent<DefaultUIFormHelper>());
-            var group = new GameObject("FirstRep UI group").AddComponent<UIGroupCanvasHelper>();
-            group.transform.SetParent(services.transform, false);
-            group.Configure("FirstRep", 0, new Vector2(1280,720), .5f);
-            UI.AddUIGroup("FirstRep", 0, group);
-            Scenes = Framework.GetModule<ISceneManager>();
-            Scenes.SetHelper(new DefaultSceneHelper(Framework.GetModule<ICoroutineManager>(), null));
+            if(!content.frameworkPrefab)throw new InvalidOperationException("Configured official Framework prefab is missing; prepare the Framework variant first.");
+            EntryOpensMenu=menu;FailureInMenu=false;Failure=null;nextEffectId=10000;
+            var services=Instantiate(content.frameworkPrefab);
+            Base=GameEntry.RequireComponent<BaseComponent>();Resources=GameEntry.RequireComponent<ResourceComponent>();
+            Entities=GameEntry.RequireComponent<EntityComponent>();Sounds=GameEntry.RequireComponent<SoundComponent>();
+            UI=Framework.GetModule<IUIManager>();Scenes=Framework.GetModule<ISceneManager>();
+            Lifetime=services.GetComponent<SliceSessionHost>();Lifetime.Bootstrap=this;Lifetime.Initialize();ExitStatus=Lifetime.ExitStatus;
+            Entities.AddEntityGroup("Players",60,1,60,0);Entities.AddEntityGroup("Targets",60,content.targetPositions.Length,60,0);Entities.AddEntityGroup("Effects",60,32,60,0);
+            Sounds.AddSoundGroup("Weapons");
             Lifetime.Base=Base;Lifetime.Entities=Entities;Lifetime.Sounds=Sounds;Lifetime.UI=UI;Lifetime.SceneManager=Scenes;
-            if(!UnityEngine.EventSystems.EventSystem.current)
-            {
-                var events=new GameObject("FirstRep UI events",typeof(UnityEngine.EventSystems.EventSystem),typeof(UnityEngine.InputSystem.UI.InputSystemUIInputModule));
-                events.transform.SetParent(services.transform,false);
-            }
-            var procedures = Framework.GetModule<IProcedureManager>();
-            procedures.Initialize(Framework.GetModule<IFsmManager>(), new LoadOriginalLevel(this), new PlayOriginalLevel(this), new PauseOriginalLevel(this), new FailedOriginalLevel(this),new ExitOriginalLevel(this));
-            procedures.StartProcedure<LoadOriginalLevel>();
         }
         public void Pause() => ((PlayOriginalLevel)Framework.GetModule<IProcedureManager>().GetProcedure<PlayOriginalLevel>()).Pause();
         public void Resume() => ((PauseOriginalLevel)Framework.GetModule<IProcedureManager>().GetProcedure<PauseOriginalLevel>()).Resume();
-        public void Fail(string reason) { Failure = reason; Debug.LogError("FirstRep framework integration failed: " + reason); }
+        public void Fail(string reason,bool inMenu=false) { FailureInMenu=inMenu;Failure = reason; Debug.LogError("FirstRep framework integration failed: " + reason); }
         public void ShowImpact(Vector3 position, Quaternion rotation)
         {
             int id = nextEffectId++; // Explicit game entity-ID range, never a Unity object-ID cast.
@@ -83,22 +69,30 @@ namespace FirstRep.Fps
         {
             CancelRetry();
             if(ExitStatus==null || ExitStatus.Requested || ExitStatus.Completed)return;
-            var current=Framework.GetModule<IProcedureManager>().CurrentProcedure as OriginalLevelProcedure;
+            var current=GameEntry.Procedure && GameEntry.Procedure.IsInitialized ? GameEntry.Procedure.CurrentProcedure as OriginalLevelProcedure : null;
             if(current!=null)current.Exit();else Lifetime.BeginExit();
         }
         public void Retry()
         {
             if(!CanRetry)return;
-            var previous=ExitStatus;Exit();
-            retryRoutine=StartCoroutine(EnterAfterExit(previous));
+            Restart(FailureInMenu);
         }
-        IEnumerator EnterAfterExit(SliceExitStatus previous)
+        public void StartLevel()=>((MainMenuOriginalLevel)GameEntry.Procedure.GetProcedure<MainMenuOriginalLevel>()).StartLevel();
+        public bool CanReturnToMenu => isActiveAndEnabled && ExitStatus!=null && !ExitStatus.Requested && !FailureInMenu &&
+            GameEntry.Procedure && GameEntry.Procedure.IsInitialized && (GameEntry.Procedure.CurrentProcedure is PlayOriginalLevel || GameEntry.Procedure.CurrentProcedure is PauseOriginalLevel || GameEntry.Procedure.CurrentProcedure is FailedOriginalLevel);
+        public void ReturnToMenu(){if(CanReturnToMenu)Restart(true);}
+        void Restart(bool menu)
+        {
+            var previous=ExitStatus;Exit();
+            retryRoutine=StartCoroutine(EnterAfterExit(previous,menu));
+        }
+        IEnumerator EnterAfterExit(SliceExitStatus previous,bool menu)
         {
             // This owner survives Framework shutdown; no new module is requested
             // until SceneLease release and native service destruction both finish.
             while(!previous.Completed)yield return null;
             retryRoutine=null;
-            if(isActiveAndEnabled && !applicationQuitting)Enter();
+            if(isActiveAndEnabled && !applicationQuitting)Enter(menu);
         }
         void CancelRetry()
         {

@@ -1,15 +1,26 @@
 {
   "EjoyFramework": {
-    "commit": "093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "commit": "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
     "license": "MIT",
     "integration": "pinned alone-jam fork Git UPM dependency; fixes submitted upstream via PRs; no embedded framework or cache patches",
-    "url": "https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "url": "https://github.com/alone-jam/EjoyFramework.git#c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
     "branch": "firstrep-integration",
     "upstreamBase": "3d00472607e4b7d180358a571e79aa7bee6ddfa4",
     "upstreamPullRequests": [
       "https://github.com/one2world/EjoyFramework/pull/19",
-      "https://github.com/one2world/EjoyFramework/pull/20"
-    ]
+      "https://github.com/one2world/EjoyFramework/pull/20",
+      "https://github.com/one2world/EjoyFramework/pull/21"
+    ],
+    "prefabWorkflowFix": {
+      "branch": "fix/dropin-prefab-scene-ownership",
+      "head": "cb2aa4194a0c4d15faab4dfc33228355484e53e3",
+      "integrationCommits": [
+        "a3b9ab1",
+        "3e189c6",
+        "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c"
+      ],
+      "tests": "DropInPrefabWorkflowTests: 7 focused Unity cases"
+    }
   },
   "FPSSample": {
     "commit": "c8375e7cf29cd0bcc3764b0650028a99aecb7475",

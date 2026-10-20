@@ -1,4 +1,4 @@
-> 当前固定 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。AbilitySystem 负责弹药/射速/换弹门槛，UnitModel 负责靶子伤害/死亡，EventChannel 驱动 HUD。加载失败菜单现在提供 Retry/Exit：Retry 等待生产场景、资源和旧 Framework 会话完整退出后，再正常进入同一关卡；持续缺失会再次显示失败，修复配置后可成功重试。正常暂停显示 Resume/Exit，Retry 隐藏。消费者 EditMode 9/9、PlayMode 15/15 通过，见 [最新证据](framework-load-retry-validation-20261020.json)、[本批范围/剩余缺口](FRAMEWORK-LOAD-RETRY-20261020.md) 和 [累计使用矩阵](FRAMEWORK-HUD-EVENTS-20261020.md#累计-framework-使用矩阵)。菜单资源自身缺失/初始化失败的恢复入口与主菜单未完成。旧 Player/录屏不验证本次代码，当前画面/听感/性能未验收。Release 排障暂停，已有包保留。
+> 当前 fork `c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`。使用官方完整 Framework Prefab variant、ProcedureComponent 启动、标准 UI 分组和官方自动绑定/代码生成。启动主菜单点击 Start 进入；Esc 暂停后 Main menu 返回，或 Resume 继续；加载失败可 Retry 或返回主菜单；Exit 结束会话。消费者 EditMode 9/9、PlayMode 19/19，见 [当前接入与累计矩阵](FRAMEWORK-PREFAB-MENU-20261020.md)、[证据](framework-prefab-menu-validation-20261020.json)。旧 Player/录屏不验证新 pin 和菜单，新的构建/画面/听感/性能仍未验收；Release 暂停。
 
 ## 历史检查点记录
 

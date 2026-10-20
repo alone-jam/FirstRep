@@ -32,33 +32,19 @@ namespace FirstRep.Fps
         public string Status => bootstrap && !string.IsNullOrEmpty(bootstrap.Failure) ? "LEVEL LOAD FAILED\n"+bootstrap.Failure : "PAUSED";
         public bool ShowResume => bootstrap && string.IsNullOrEmpty(bootstrap.Failure);
         public bool CanRetry => bootstrap && bootstrap.CanRetry;
-        public RelayCommand Resume { get; }
-        public RelayCommand Retry { get; }
-        public RelayCommand Exit { get; }
+        public RelayCommand ResumeCommand { get; }
+        public bool ShowMainMenu => bootstrap && bootstrap.CanReturnToMenu;
+        public RelayCommand MainMenuCommand { get; }
+        public RelayCommand RetryCommand { get; }
+        public RelayCommand ExitCommand { get; }
         public FpsPauseViewModel(SliceBootstrap bootstrap)
         {
             this.bootstrap=bootstrap;
-            Resume=new RelayCommand(()=>this.bootstrap.Resume(),()=>this.bootstrap && this.bootstrap.IsPaused && string.IsNullOrEmpty(this.bootstrap.Failure) && !this.bootstrap.ExitStatus.Requested);
-            Retry=new RelayCommand(()=>this.bootstrap.Retry(),()=>CanRetry);
-            Exit=new RelayCommand(()=>this.bootstrap.Exit(),()=>this.bootstrap && !this.bootstrap.ExitStatus.Requested);
+            ResumeCommand=new RelayCommand(()=>this.bootstrap.Resume(),()=>this.bootstrap && this.bootstrap.IsPaused && string.IsNullOrEmpty(this.bootstrap.Failure) && !this.bootstrap.ExitStatus.Requested);
+            MainMenuCommand=new RelayCommand(()=>this.bootstrap.ReturnToMenu(),()=>ShowMainMenu);
+            RetryCommand=new RelayCommand(()=>this.bootstrap.Retry(),()=>CanRetry);
+            ExitCommand=new RelayCommand(()=>this.bootstrap.Exit(),()=>this.bootstrap && !this.bootstrap.ExitStatus.Requested);
         }
-        public void Release(){bootstrap=null;Resume.RaiseCanExecuteChanged();Retry.RaiseCanExecuteChanged();Exit.RaiseCanExecuteChanged();}
-    }
-    static class FpsUiBindings
-    {
-        // Use the framework's typed accessor registry for Player/AOT as well as Editor.
-        // Binding/subscription/unbinding and command execution remain framework-owned.
-        public static void Register()
-        {
-            PropertyAccessor.Register(typeof(FpsHudViewModel),nameof(FpsHudViewModel.Header),o=>((FpsHudViewModel)o).Header,null);
-            PropertyAccessor.Register(typeof(FpsHudViewModel),nameof(FpsHudViewModel.Crosshair),o=>((FpsHudViewModel)o).Crosshair,null);
-            PropertyAccessor.Register(typeof(FpsHudViewModel),nameof(FpsHudViewModel.Instructions),o=>((FpsHudViewModel)o).Instructions,null);
-            PropertyAccessor.Register(typeof(FpsPauseViewModel),nameof(FpsPauseViewModel.Status),o=>((FpsPauseViewModel)o).Status,null);
-            PropertyAccessor.Register(typeof(FpsPauseViewModel),nameof(FpsPauseViewModel.ShowResume),o=>((FpsPauseViewModel)o).ShowResume,null);
-            PropertyAccessor.Register(typeof(FpsPauseViewModel),nameof(FpsPauseViewModel.CanRetry),o=>((FpsPauseViewModel)o).CanRetry,null);
-            PropertyAccessor.Register(typeof(FpsPauseViewModel),nameof(FpsPauseViewModel.Resume),o=>((FpsPauseViewModel)o).Resume,null);
-            PropertyAccessor.Register(typeof(FpsPauseViewModel),nameof(FpsPauseViewModel.Retry),o=>((FpsPauseViewModel)o).Retry,null);
-            PropertyAccessor.Register(typeof(FpsPauseViewModel),nameof(FpsPauseViewModel.Exit),o=>((FpsPauseViewModel)o).Exit,null);
-        }
+        public void Release(){bootstrap=null;ResumeCommand.RaiseCanExecuteChanged();RetryCommand.RaiseCanExecuteChanged();MainMenuCommand.RaiseCanExecuteChanged();ExitCommand.RaiseCanExecuteChanged();}
     }
 }

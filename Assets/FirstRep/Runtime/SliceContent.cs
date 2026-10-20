@@ -8,6 +8,9 @@ namespace FirstRep.Fps
     {
         [Tooltip("Set only after reviewing source-vs-migrated visuals in Unity 6000.6.5f1.")]
         public bool artReviewComplete;
+        public GameObject frameworkPrefab;
+        public string MainMenuAssetPath="Assets/FirstRep/Framework/MainMenu.prefab";
+        public const string FrameworkPrefabPath="Assets/FirstRep/Framework/FirstRepSession.prefab";
         public string[] levelScenes;
         public Vector3 spawnPosition;
         public float spawnYaw;

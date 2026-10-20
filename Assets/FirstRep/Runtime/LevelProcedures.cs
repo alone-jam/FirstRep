@@ -14,22 +14,66 @@ namespace FirstRep.Fps
 {
     public abstract class OriginalLevelProcedure : ProcedureBase
     {
+        protected SliceBootstrap boot { get; private set; }
+        protected override void OnInit(IFsm<IProcedureManager> fsm){base.OnInit(fsm);boot=GameEntry.Base.GetComponent<SliceSessionHost>().Bootstrap;}
         protected IFsm<IProcedureManager> Owner { get; private set; }
         protected override void OnEnter(IFsm<IProcedureManager> fsm){Owner=fsm;}
         protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown){Owner=null;}
         public void Exit(){if(Owner!=null)ChangeState<ExitOriginalLevel>(Owner);}
     }
+    public sealed class LaunchFirstRep : OriginalLevelProcedure
+    {
+        bool active,ready;string error;
+        protected override void OnEnter(IFsm<IProcedureManager> fsm)
+        {
+            base.OnEnter(fsm);active=true;ready=false;error=null;
+            boot.Resources.InitializeAsync(()=>{if(active)ready=true;},reason=>{if(active)error=reason;});
+        }
+        protected override void OnUpdate(IFsm<IProcedureManager> fsm,float elapsed,float real)
+        {
+            if(error!=null){boot.Fail(error,boot.EntryOpensMenu);ChangeState<FailedOriginalLevel>(fsm);}
+            else if(ready){if(boot.EntryOpensMenu)ChangeState<MainMenuOriginalLevel>(fsm);else ChangeState<LoadOriginalLevel>(fsm);}
+        }
+        protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown){active=false;base.OnLeave(fsm,shutdown);}
+    }
+    public sealed class MainMenuOriginalLevel : OriginalLevelProcedure
+    {
+        int form;bool requested,context,retainBatch;IInputManager input;
+        protected override void OnEnter(IFsm<IProcedureManager> fsm)
+        {
+            base.OnEnter(fsm);form=0;requested=false;retainBatch=false;context=true;boot.Base.ResumeGame();
+            input=Framework.GetModule<IInputManager>();input.PushContext(InputContext.Menu);
+            Cursor.lockState=CursorLockMode.None;Cursor.visible=true;
+            boot.ContentBatch=Framework.GetModule<IResourceManager>().CreateAssetBatch();
+            boot.ContentBatch.Add(boot.content.MainMenuAssetPath).Add(SliceContent.PausePath).Start();
+        }
+        protected override void OnUpdate(IFsm<IProcedureManager> fsm,float elapsed,float real)
+        {
+            if(!boot.ContentBatch.IsDone || requested)return;
+            if(!boot.ContentBatch.TryGetAsset<GameObject>(boot.content.MainMenuAssetPath,out _))
+            {retainBatch=true;boot.Fail("Main menu resource unavailable: "+boot.content.MainMenuAssetPath,true);ChangeState<FailedOriginalLevel>(fsm);return;}
+            requested=true;form=boot.UI.OpenUIForm(boot.content.MainMenuAssetPath,"Window",0,false,boot);
+        }
+        public void StartLevel(){if(Owner!=null && requested)ChangeState<LoadOriginalLevel>(Owner);}
+        protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown)
+        {
+            if(form!=0)boot.UI.CloseUIForm(form);form=0;
+            if(context)input.PopContext();context=false;
+            // Batch release after closing the form; UI owns its own load reference.
+            if(!retainBatch){boot.ContentBatch?.Release();boot.ContentBatch=null;}
+            base.OnLeave(fsm,shutdown);
+        }
+    }
     public sealed class LoadOriginalLevel : OriginalLevelProcedure
     {
-        readonly SliceBootstrap boot;bool entered;
+        bool entered;
         bool initialized, requested, actorsRequested; string failure;
         IEntityManager entities;
-        public LoadOriginalLevel(SliceBootstrap boot) => this.boot=boot;
         protected override void OnEnter(IFsm<IProcedureManager> fsm)
         {
             base.OnEnter(fsm);entered=true;initialized=requested=actorsRequested=false;failure=null;
             entities=Framework.GetModule<IEntityManager>();entities.ShowEntityFailure+=OnActorFailure;
-            boot.Resources.InitializeAsync(()=>{if(entered)initialized=true;},reason=>{if(entered)failure=reason;});
+            initialized=boot.Resources.IsInitialized;
         }
         protected override void OnUpdate(IFsm<IProcedureManager> fsm,float elapsed,float real)
         {
@@ -93,25 +137,23 @@ namespace FirstRep.Fps
     }
     public sealed class PlayOriginalLevel : OriginalLevelProcedure
     {
-        readonly SliceBootstrap boot;IFsm<IProcedureManager> owner;int hud;
-        public PlayOriginalLevel(SliceBootstrap boot)=>this.boot=boot;
+        IFsm<IProcedureManager> owner;int hud;
         protected override void OnEnter(IFsm<IProcedureManager> fsm)
         {
             base.OnEnter(fsm);owner=fsm;boot.Base.ResumeGame();Cursor.lockState=CursorLockMode.Locked;Cursor.visible=false;
-            hud=boot.UI.OpenUIForm(SliceContent.HudPath,"FirstRep",0,false,boot);
+            hud=boot.UI.OpenUIForm(SliceContent.HudPath,"HUD",0,false,boot);
         }
         public void Pause(){if(owner!=null)ChangeState<PauseOriginalLevel>(owner);}
         protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown){boot.UI.CloseUIForm(hud);hud=0;owner=null;base.OnLeave(fsm,shutdown);}
     }
     public sealed class PauseOriginalLevel : OriginalLevelProcedure
     {
-        readonly SliceBootstrap boot;IFsm<IProcedureManager> owner;int menu;
-        public PauseOriginalLevel(SliceBootstrap boot)=>this.boot=boot;
+        IFsm<IProcedureManager> owner;int menu;
         protected override void OnEnter(IFsm<IProcedureManager> fsm)
         {
             base.OnEnter(fsm);owner=fsm;boot.Base.PauseGame();Framework.GetModule<IInputManager>().PushContext(InputContext.Menu);
             Cursor.lockState=CursorLockMode.None;Cursor.visible=true;
-            menu=boot.UI.OpenUIForm(SliceContent.PausePath,"FirstRep",10,true,boot);
+            menu=boot.UI.OpenUIForm(SliceContent.PausePath,"Window",10,true,boot);
         }
         public void Resume(){if(owner!=null)ChangeState<PlayOriginalLevel>(owner);}
         protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown)
@@ -121,14 +163,12 @@ namespace FirstRep.Fps
     }
     public sealed class ExitOriginalLevel : OriginalLevelProcedure
     {
-        readonly SliceBootstrap boot;
-        public ExitOriginalLevel(SliceBootstrap boot)=>this.boot=boot;
+
         protected override void OnEnter(IFsm<IProcedureManager> fsm){base.OnEnter(fsm);boot.Lifetime.BeginExit();}
     }
     public sealed class FailedOriginalLevel : OriginalLevelProcedure
     {
-        readonly SliceBootstrap boot;int menu;bool menuContext;IInputManager input;
-        public FailedOriginalLevel(SliceBootstrap boot)=>this.boot=boot;
+        int menu;bool menuContext;IInputManager input;
         protected override void OnEnter(IFsm<IProcedureManager> fsm)
         {
             base.OnEnter(fsm);menu=0;menuContext=false;boot.Base.PauseGame();
@@ -139,7 +179,7 @@ namespace FirstRep.Fps
             // itself failed, retain Failure/Exit without inventing a fallback UI.
             if(!Framework.GetModule<IResourceManager>().TryGetCachedAsset<UnityEngine.GameObject>(SliceContent.PausePath,out _))return;
             input=Framework.GetModule<IInputManager>();input.PushContext(InputContext.Menu);menuContext=true;
-            menu=boot.UI.OpenUIForm(SliceContent.PausePath,"FirstRep",10,true,boot);
+            menu=boot.UI.OpenUIForm(SliceContent.PausePath,"Window",10,true,boot);
         }
         protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown)
         {

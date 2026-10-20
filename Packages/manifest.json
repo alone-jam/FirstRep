@@ -7,7 +7,7 @@
     "com.unity.nuget.newtonsoft-json": "3.2.2",
     "com.unity.test-framework": "1.6.0",
     "com.unity.ugui": "2.0.0",
-    "com.ejoy.framework": "https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3",
+    "com.ejoy.framework": "https://github.com/alone-jam/EjoyFramework.git#c36cc4fff162994ec7f05f47a2f30cc0ec4e414c",
     "com.unity.render-pipelines.high-definition": "17.6.0",
     "com.unity.visualeffectgraph": "17.6.0",
     "com.unity.modules.animation": "1.0.0",

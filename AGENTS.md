@@ -25,5 +25,11 @@ Before installation, import, tests, builds, cleanup or delivery, read
   project to work around a defect or missing capability; retain game-specific
   rules and Unity adapters here. Pin the full tested commit SHA in the manifest,
   lockfile, dependency guard and provenance, retaining PR/commit mappings.
+- Prefer the Framework's shipped Prefabs, documented authoring tools and complete
+  startup/UI/resource/procedure workflows, not just its low-level APIs. Audit
+  those before creating objects, wiring services or generating infrastructure.
+  Use serialized game configuration/Prefab variants and game-specific UI/art;
+  fix reusable Prefab or workflow defects in the fork and submit upstream PRs
+  rather than bypassing them with project-side replacements.
 - Historical official-pin tests/Player/GIF do not validate a new fork revision.
   Missing Editor, LFS payloads, licensing or storage must be reported explicitly.

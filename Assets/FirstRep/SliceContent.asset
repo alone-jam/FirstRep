@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SliceContent
   m_EditorClassIdentifier: FirstRep.Fps::FirstRep.Fps.SliceContent
   artReviewComplete: 1
+  frameworkPrefab: {fileID: 8139292780293839525, guid: 45b46fe0f440ae32b8d9948afda64714, type: 3}
+  MainMenuAssetPath: Assets/FirstRep/Framework/MainMenu.prefab
   levelScenes:
   - Assets/FirstRep/Scenes/Level_01_Background_Recovered.unity
   - Assets/FirstRep/Scenes/Level_01_Gameplay_Recovered.unity

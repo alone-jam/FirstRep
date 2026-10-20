@@ -2,17 +2,19 @@
 
 恢复执行前先读 [存储与恢复规则](STORAGE-AND-RECOVERY.md)。下文安装、Reports 和 Player 路径是历史现场；当前缺失状态及官方保留范围以该规则和只读审计为准。本地副本校验不是跨恢复持久性保证。
 
-当前依赖固定为 alone-jam fork `093a175b60a196e2ad864a01ace49e90f58aacc3`。武器使用 AbilitySystem，靶子使用 UnitModel，HUD 由 EventChannel 快照驱动；演员或预载失败进入既有 Procedure/MVVM 菜单。最新批次增加可点击 Retry，通过 RelayCommand/ButtonBinder/VisibilityBinder 区分失败菜单与正常暂停，等待原 SceneLease/AssetBatch/Framework 会话完全退出后，再走正常 Enter。Unity 6000.6.5f1 EditMode **9/9**、PlayMode **15/15** 通过，新增重复资源缺失后恢复、演员失败重试及取消待重试覆盖。见 [本批范围与结果](FRAMEWORK-LOAD-RETRY-20261020.md)、[最新证据](framework-load-retry-validation-20261020.json)、[脱敏清单](evidence/framework-load-retry-20261020/manifest.json) 和 [累计使用矩阵](FRAMEWORK-HUD-EVENTS-20261020.md#累计-framework-使用矩阵)。此前各批次记录保持历史结果。
+当前固定 alone-jam fork `c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`，含 [Prefab/场景职责修复 PR #21](https://github.com/one2world/EjoyFramework/pull/21)。FirstRep 现采用官方完整 Prefab 的配置 variant、ProcedureComponent 启动、GameEntry、8 个标准 UI 分组，以及官方按钮自动绑定和流程/MVVM 生成工具；此前手工模块/根节点/事件系统/分组接线及手写访问器登记已移除。现有玩法具备启动菜单 → 进入 → 暂停或加载失败 → 返回菜单 → 再进入闭环，Retry/Exit 保留。真实 Unity 6000.6.5f1 EditMode **9/9**、PlayMode **19/19**；见 [本批复用清单、累计矩阵与边界](FRAMEWORK-PREFAB-MENU-20261020.md)、[证据](framework-prefab-menu-validation-20261020.json) 和 [脱敏清单](evidence/framework-prefab-menu-20261020/manifest.json)。
 
-先前同一 fork 的原生物理查询 7/7、源码 `9a7c412` 的完整 Player/无图形启动保持为历史结果，本轮没有重复上游全套测试或大型构建。旧 Player 不覆盖本轮增量。画面、实际听感和性能未验收；Release 上传排障已按优先级暂停，原包保留。下文旧官方 pin 的结果均为历史。
+此前 093a175 fork 的原生物理查询 7/7、源码 `9a7c412` 的完整 Player/无图形启动保持为历史结果，本轮没有重复上游全套测试或大型构建。旧 Player 不覆盖本轮增量。画面、实际听感和性能未验收；Release 上传排障已按优先级暂停，原包保留。下文旧官方 pin 的结果均为历史。
 
 ## 依赖来源
 
-`Packages/manifest.json` 与 `packages-lock.json` 固定 `https://github.com/alone-jam/EjoyFramework.git#093a175b60a196e2ad864a01ace49e90f58aacc3`，对应 fork 的 `firstrep-integration` 分支。以完整 SHA 固定，不随分支移动自动升级。无嵌入 Framework，无包缓存补丁。许可保留在 `ThirdPartyNotices/EjoyFramework/LICENSE.md`。
+manifest、lock、依赖守卫和来源记录固定 `https://github.com/alone-jam/EjoyFramework.git#c36cc4fff162994ec7f05f47a2f30cc0ec4e414c`，对应 firstrep-integration。未嵌入 Framework、未改包缓存；官方包提供的根 Prefab 以配置 variant 引用，GUID/来源可追溯。
 
-该提交基于上游 `3d00472607e4b7d180358a571e79aa7bee6ddfa4`，包含非凸静态重叠查询测试几何修正（[PR #19](https://github.com/one2world/EjoyFramework/pull/19)）和弹道重力、引信、碰撞半径、复制纠正修复（[PR #20](https://github.com/one2world/EjoyFramework/pull/20)）。两项 PR 尚未合并；本地采用不等待维护者批准。
+组合提交保留 PR [#19](https://github.com/one2world/EjoyFramework/pull/19)、[#20](https://github.com/one2world/EjoyFramework/pull/20) 的原修复，并集成 [#21](https://github.com/one2world/EjoyFramework/pull/21)：Prefab 的旧 helper 引用/零缩放、EditorSimulation 与默认场景 helper 的重复原生场景职责，以及异步启动可查询的 IsInitialized。修复分支独立基于上游基础提交，不夹带 #19/#20；没有合并 PR。
 
-后续流程：开发中发现 Framework 缺陷或缺失的通用能力，均在 fork 分支修复/补齐并添加回归，推送后独立向上游提交 PR；不在 FirstRep 另造通用框架设施绕过问题。把验证过的修复集成到 `firstrep-integration`，FirstRep 直接采用已修复的 fork 完整提交 SHA，不等待上游批准或合并；同步更新 manifest、lock、依赖检查常量及来源记录。保留 PR 与提交映射，后续按需同步上游，避免重复应用已合并补丁。弹匣规则、瞄准和原资源适配等游戏业务仍留在 FirstRep。
+用户流程规则：先核对 Framework 的 Prefab、作者工具及完整使用路径，再决定业务配置；缺陷和缺失通用能力在 fork 修复、补回归、推送并提交上游 PR。FirstRep 直接采用验证后的完整 fork SHA，同步四处来源记录，不等待维护者批准。FPS 专用资源、文案、弹匣和瞄准规则留在游戏侧，不另造通用框架设施。
+
+下文旧 pin 的物理/.NET 和 Player 结果保持历史，不能当新 pin 全套上游或新 Player 的结果。
 
 先前纯 .NET 验证见 [fork-adoption-validation.json](fork-adoption-validation.json)：真实 Framework Combat 回归 47/47 通过，不使用 Unity stub；同一集合对修复前代码有 14 项失败。随后 Editor 恢复后的无许可证退出 198 已保留在 [历史恢复证据](editor-recovery-validation-20261020.json)。用户完成官方登录并明确授权 Personal 激活后，本次真实 Unity 依赖及消费者、原生物理回归全部通过。原生 7 项包含非凸中心无表面重叠控制、表面重叠的未注册碰撞体拒绝及凸碰撞体包含起点的拒绝，补验了 PR #19 的几何修正。没有修改包缓存或跳过该测试。
 

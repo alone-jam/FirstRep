@@ -5,7 +5,7 @@ namespace FirstRep.Fps
     {
         protected override FpsHudViewModel CreateViewModel(object data)
         {
-            FpsUiBindings.Register();
+
             var bootstrap=(SliceBootstrap)data;
             var player=(bootstrap.Entities.GetEntity(1).Handle as UnityEngine.GameObject).GetComponent<FpsPlayer>();
             return new FpsHudViewModel(player);

@@ -6,7 +6,7 @@ namespace FirstRep.Fps.Editor
 {
     public static class FrameworkDependencyCheck
     {
-        public const string Revision = "093a175b60a196e2ad864a01ace49e90f58aacc3";
+        public const string Revision = "c36cc4fff162994ec7f05f47a2f30cc0ec4e414c";
         public const string GitUrl = "https://github.com/alone-jam/EjoyFramework.git";
         [Serializable] sealed class Result { public string name, source, packageId, resolvedPath; public bool passed; }
         public static void Run()

@@ -21,6 +21,7 @@ namespace FirstRep.Fps
     // The persistent BaseComponent stays alive until every upstream SceneLease settles.
     public sealed class SliceSessionHost : MonoBehaviour
     {
+        public SliceBootstrap Bootstrap { get; set; }
         readonly List<SceneLease> leases=new List<SceneLease>();
         public SliceExitStatus ExitStatus { get; private set; }
         public IReadOnlyList<SceneLease> Scenes => leases;

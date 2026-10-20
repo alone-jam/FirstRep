@@ -5,7 +5,7 @@ namespace FirstRep.Fps
     {
         protected override FpsPauseViewModel CreateViewModel(object data)
         {
-            FpsUiBindings.Register();return new FpsPauseViewModel((SliceBootstrap)data);
+            return new FpsPauseViewModel((SliceBootstrap)data);
         }
         protected override void OnViewModelUnbinding() => ViewModel?.Release();
     }
