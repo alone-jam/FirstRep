@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using EjoyFramework.Core;
+using EjoyFramework.Core.Unity;
 using EjoyFramework.Core.Fsm;
 using EjoyFramework.Core.Input;
 using EjoyFramework.Core.Procedure;
@@ -22,10 +23,12 @@ namespace FirstRep.Fps
     {
         readonly SliceBootstrap boot;bool entered;
         bool initialized, requested, actorsRequested; string failure;
+        IEntityManager entities;
         public LoadOriginalLevel(SliceBootstrap boot) => this.boot=boot;
         protected override void OnEnter(IFsm<IProcedureManager> fsm)
         {
             base.OnEnter(fsm);entered=true;initialized=requested=actorsRequested=false;failure=null;
+            entities=Framework.GetModule<IEntityManager>();entities.ShowEntityFailure+=OnActorFailure;
             boot.Resources.InitializeAsync(()=>{if(entered)initialized=true;},reason=>{if(entered)failure=reason;});
         }
         protected override void OnUpdate(IFsm<IProcedureManager> fsm,float elapsed,float real)
@@ -50,12 +53,17 @@ namespace FirstRep.Fps
             if(!actorsRequested)
             {
                 actorsRequested=true;
-                boot.Entities.ShowEntity(1,SliceContent.PlayerEntityPath,"Players",0,new ActorSpawn(boot,SliceBootstrap.GroundPosition(boot.content.spawnPosition),Quaternion.Euler(0,boot.content.spawnYaw,0)));
-                for(int i=0;i<boot.content.targetPositions.Length;i++)
+                try
                 {
-                    var position=SliceBootstrap.GroundPosition(boot.content.targetPositions[i]);var facing=boot.content.spawnPosition-position;facing.y=0;
-                    boot.Entities.ShowEntity(100+i,boot.content.TargetAssetPath,"Targets",0,new ActorSpawn(boot,position,Quaternion.LookRotation(facing)));
+                    boot.Entities.ShowEntity(1,SliceContent.PlayerEntityPath,"Players",0,new ActorSpawn(boot,SliceBootstrap.GroundPosition(boot.content.spawnPosition),Quaternion.Euler(0,boot.content.spawnYaw,0)));
+                    for(int i=0;i<boot.content.targetPositions.Length && failure==null;i++)
+                    {
+                        var position=SliceBootstrap.GroundPosition(boot.content.targetPositions[i]);var facing=boot.content.spawnPosition-position;facing.y=0;
+                        boot.Entities.ShowEntity(100+i,boot.content.TargetAssetPath,"Targets",0,new ActorSpawn(boot,position,Quaternion.LookRotation(facing)));
+                    }
                 }
+                catch(FrameworkException error){failure="Actor request rejected: "+error.Message;}
+                if(failure!=null)return;
             }
             if(boot.Entities.EntityCount==1+boot.content.targetPositions.Length)
             {
@@ -69,8 +77,19 @@ namespace FirstRep.Fps
                 ChangeState<PlayOriginalLevel>(fsm);
             }
         }
-        protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown){entered=false;base.OnLeave(fsm,shutdown);}
-
+        void OnActorFailure(object sender,ShowEntityFailureEventArgs error)
+        {
+            if(!entered || failure!=null || (error.EntityGroupName!="Players" && error.EntityGroupName!="Targets"))return;
+            if(!(error.UserData is EntityData data) || !(data.UserData is ActorSpawn request) || !ReferenceEquals(request.Bootstrap,boot))return;
+            // Framework returns the event args to ReferencePool after this callback.
+            failure=$"Entity '{error.EntityAssetName}' ({error.EntityId}) failed: {error.ErrorMessage}";
+        }
+        protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown)
+        {
+            entered=false;
+            if(entities!=null)entities.ShowEntityFailure-=OnActorFailure;
+            entities=null;base.OnLeave(fsm,shutdown);
+        }
     }
     public sealed class PlayOriginalLevel : OriginalLevelProcedure
     {
@@ -108,7 +127,25 @@ namespace FirstRep.Fps
     }
     public sealed class FailedOriginalLevel : OriginalLevelProcedure
     {
-        readonly SliceBootstrap boot; public FailedOriginalLevel(SliceBootstrap boot)=>this.boot=boot;
-        protected override void OnEnter(IFsm<IProcedureManager> fsm){base.OnEnter(fsm);boot.Base.PauseGame();}
+        readonly SliceBootstrap boot;int menu;bool menuContext;IInputManager input;
+        public FailedOriginalLevel(SliceBootstrap boot)=>this.boot=boot;
+        protected override void OnEnter(IFsm<IProcedureManager> fsm)
+        {
+            base.OnEnter(fsm);menu=0;menuContext=false;boot.Base.PauseGame();
+            boot.Entities.HideAllLoadingEntities();boot.Entities.HideAllLoadedEntities();boot.Sounds.StopAllLoadedSounds();
+            if(boot.ContentBatch!=null && !boot.ContentBatch.IsDone)boot.ContentBatch.Cancel();
+            Cursor.lockState=CursorLockMode.None;Cursor.visible=true;
+            // Only use the resource/UI module path. If initialization or the menu
+            // itself failed, retain Failure/Exit without inventing a fallback UI.
+            if(!Framework.GetModule<IResourceManager>().TryGetCachedAsset<UnityEngine.GameObject>(SliceContent.PausePath,out _))return;
+            input=Framework.GetModule<IInputManager>();input.PushContext(InputContext.Menu);menuContext=true;
+            menu=boot.UI.OpenUIForm(SliceContent.PausePath,"FirstRep",10,true,boot);
+        }
+        protected override void OnLeave(IFsm<IProcedureManager> fsm,bool shutdown)
+        {
+            if(menu!=0)boot.UI.CloseUIForm(menu);menu=0;
+            if(menuContext)input.PopContext();menuContext=false;input=null;
+            base.OnLeave(fsm,shutdown);
+        }
     }
 }

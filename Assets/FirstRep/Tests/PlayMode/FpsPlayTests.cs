@@ -27,6 +27,21 @@ public bool GetKeyDown(string name)=>name==down;
 public bool GetKeyUp(string name)=>false;
 public float GetAxisRaw(string name)=>name=="Horizontal"?move:0;
 }
+// Fault injection decorates the real helper; all other entity operations stay real.
+sealed class FailingEntityHelper : IEntityHelper {
+readonly DefaultEntityHelper inner=new DefaultEntityHelper(null);
+readonly System.Type failedLogic;readonly bool failCreate;
+public int Failures { get; private set; }
+public FailingEntityHelper(System.Type failedLogic,bool failCreate=false){this.failedLogic=failedLogic;this.failCreate=failCreate;}
+void RejectIfSelected(object value){if(value is GameObject go && go.GetComponent(failedLogic)!=null){Failures++;throw new FrameworkException("Injected entity display failure");}}
+public object InstantiateEntity(object asset){if(!failCreate)RejectIfSelected(asset);return inner.InstantiateEntity(asset);}
+public IEntity CreateEntity(object instance,IEntityGroup group,object data){if(failCreate)RejectIfSelected(instance);return inner.CreateEntity(instance,group,data);}
+public void HideEntity(IEntity entity,bool shutdown,object data)=>inner.HideEntity(entity,shutdown,data);
+public void UpdateEntity(IEntity entity,float elapsed,float real)=>inner.UpdateEntity(entity,elapsed,real);
+public void AttachEntity(IEntity child,IEntity parent,object data)=>inner.AttachEntity(child,parent,data);
+public void DetachEntity(IEntity child,IEntity parent,object data)=>inner.DetachEntity(child,parent,data);
+public void ReleaseEntity(object asset,object instance)=>inner.ReleaseEntity(asset,instance);
+}
 [System.Serializable] sealed class EntityIsolationEvidence {public int entityCount,activeTargets,uniqueTargetHandles;public bool aliased;public int[] targetIds;}
 static T Field<T>(object obj,string name)=>(T)obj.GetType().GetField(name,BindingFlags.Instance|BindingFlags.NonPublic).GetValue(obj);
 [UnityTest] public IEnumerator ConcurrentSamePrefabEntitiesHaveIndependentHandles(){
@@ -160,6 +175,44 @@ Assert.IsFalse(boot.Entities.HasEntity(oldId),"A cancelled prior-life timer resp
 Assert.IsTrue(boot.Entities.HasEntity(newId));Assert.AreEqual(100,target.Health);
 Object.Destroy(content);
 }
+[UnityTest] public IEnumerator ActorInstantiationFailureShowsFrameworkMenuAndAllowsExitAndReentry()=>FailedActorSession(false);
+[UnityTest] public IEnumerator ActorCreationFailureShowsFrameworkMenuAndAllowsExitAndReentry()=>FailedActorSession(true);
+static IEnumerator FailedActorSession(bool failCreate){
+int baseline=UnityEngine.SceneManagement.SceneManager.sceneCount;
+var boot=Fixture(out var content);var entities=Framework.GetModule<IEntityManager>();
+var helper=new FailingEntityHelper(typeof(TargetPractice),failCreate);entities.SetEntityHelper(helper);
+int reportedFailures=0;entities.ShowEntityFailure+=(sender,error)=>reportedFailures++;
+LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("ShowEntity failed:.*Injected entity display failure"));
+LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("FirstRep framework integration failed:.*Injected entity display failure"));
+float deadline=Time.realtimeSinceStartup+120;
+while(!(Framework.GetModule<IProcedureManager>().CurrentProcedure is FailedOriginalLevel) && Time.realtimeSinceStartup<deadline)yield return null;
+Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<FailedOriginalLevel>(),"Entity failure left the real load procedure waiting forever");
+Assert.AreEqual(1,helper.Failures);Assert.AreEqual(1,reportedFailures);StringAssert.Contains("Injected entity display failure",boot.Failure);
+Assert.AreEqual(0,entities.EntityCount);Assert.IsTrue(boot.IsPaused);
+deadline=Time.realtimeSinceStartup+30;
+while(boot.UI.GetUIForm(SliceContent.PausePath)==null && Time.realtimeSinceStartup<deadline)yield return null;
+var menu=(FpsPauseForm)boot.UI.GetUIForm(SliceContent.PausePath);Assert.IsNotNull(menu,"Failure did not use the preloaded framework UI form");
+StringAssert.Contains("LEVEL LOAD FAILED",menu.transform.Find("Status").GetComponent<Text>().text);
+StringAssert.Contains("Injected entity display failure",menu.transform.Find("Status").GetComponent<Text>().text);
+Assert.IsFalse(menu.transform.Find("Resume").GetComponent<Button>().interactable);Assert.IsFalse(menu.ViewModel.Resume.CanExecute(null));
+menu.transform.Find("Resume").GetComponent<Button>().onClick.Invoke();Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<FailedOriginalLevel>());
+var model=menu.ViewModel;var exit=boot.ExitStatus;Assert.IsTrue(menu.transform.Find("Exit").GetComponent<Button>().interactable);
+menu.transform.Find("Exit").GetComponent<Button>().onClick.Invoke();yield return Closed(exit);
+Assert.AreEqual(baseline,UnityEngine.SceneManagement.SceneManager.sceneCount);Assert.IsFalse(model.Exit.CanExecute(null));
+boot.Enter();yield return Ready(boot);Assert.IsNull(boot.Failure);Assert.AreEqual(2,boot.Entities.EntityCount);
+boot.Exit();yield return Closed(boot.ExitStatus);Object.Destroy(boot.gameObject);Object.Destroy(content);yield return null;
+}
+[UnityTest] public IEnumerator EffectFailureAfterLoadDoesNotTriggerAnExpiredLoadListener(){
+var boot=Fixture(out var content);yield return Ready(boot);
+var helper=new FailingEntityHelper(typeof(ImpactEffect));Framework.GetModule<IEntityManager>().SetEntityHelper(helper);
+LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("ShowEntity failed:.*Injected entity display failure"));
+boot.ShowImpact(content.spawnPosition+Vector3.up,Quaternion.identity);
+float deadline=Time.realtimeSinceStartup+30;
+while(helper.Failures==0 && Time.realtimeSinceStartup<deadline)yield return null;
+for(int i=0;i<5;i++)yield return null;
+Assert.AreEqual(1,helper.Failures);Assert.IsNull(boot.Failure);Assert.That(Framework.GetModule<IProcedureManager>().CurrentProcedure,Is.TypeOf<PlayOriginalLevel>());
+Object.Destroy(content);
+}
 [UnityTest] public IEnumerator SingleTargetIntegrationExercisesFrameworkModulesAndGameplay(){
 
 var original=AssetDatabase.LoadAssetAtPath<SliceContent>("Assets/FirstRep/SliceContent.asset");Assert.NotNull(original);
@@ -193,6 +246,7 @@ Assert.AreEqual(0,Time.timeScale);
 Assert.IsTrue(Framework.GetModule<IUIManager>().HasUIForm(SliceContent.PausePath));
 oldModel.Header="CLOSED_MODEL_MUTATION";Assert.AreEqual(oldText,oldLabel.text,"Closed HUD stayed subscribed to its old model");
 var pause=(FpsPauseForm)bootstrap.UI.GetUIForm(SliceContent.PausePath);var oldPauseModel=pause.ViewModel;
+Assert.AreEqual("PAUSED",pause.transform.Find("Status").GetComponent<Text>().text);Assert.IsTrue(pause.transform.Find("Resume").GetComponent<Button>().interactable);
 pause.transform.Find("Resume").GetComponent<Button>().onClick.Invoke();yield return null;
 Assert.IsFalse(oldPauseModel.Resume.CanExecute(null),"Closed pause model retained a live bootstrap command");
 var reopenedHud=(FpsHudForm)bootstrap.UI.GetUIForm(SliceContent.HudPath);

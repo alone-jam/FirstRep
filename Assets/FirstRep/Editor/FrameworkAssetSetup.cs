@@ -63,6 +63,7 @@ namespace FirstRep.Fps.Editor
                 }
                 else if(typeof(T)==typeof(FpsPauseForm))
                 {
+                    TextField(form.transform,"Status","Status",new Vector2(.5f,.5f),new Vector2(0,110),new Vector2(950,130),TextAnchor.MiddleCenter);
                     MenuButton(form.transform,"Resume",new Vector2(0,25));
                     MenuButton(form.transform,"Exit",new Vector2(0,-35));
                 }
